@@ -8,7 +8,7 @@
 ) }}
 {{/if}}
 
-#${prefix|default("#")} left(string|number) = ${defaultLeft|default("'auto'")}
+#${prefix|default("#")} left(string|number) = 'auto,left,center,right'
 
 Distance between ${componentName} component and the left side of the container.
 
@@ -16,7 +16,7 @@ Distance between ${componentName} component and the left side of the container.
 
 If the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.
 
-#${prefix|default("#")} top(string|number) = ${defaultTop|default("'auto'")}
+#${prefix|default("#")} top(string|number) = 'auto,top,bottom,middle'
 
 Distance between ${componentName} component and the top side of the container.
 

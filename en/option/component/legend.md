@@ -11,7 +11,7 @@ In ECharts 3, a single echarts instance may contain multiple legend components, 
 If there have to be too many legend items, [vertically scrollable legend](${galleryEditorPath}pie-legend&edit=1&reset=1) or [horizontally scrollable legend](${galleryEditorPath}radar2&edit=1&reset=1) are options to paginate them. Check [legend.type](~legend.type) please.
 
 
-## type(string)
+## type(string) = 'plain,scroll'
 
 Type of legend. Optional values:
 
@@ -43,7 +43,7 @@ When `'scroll'` used, these options below can be used for detailed configuration
 
 {{use: partial-rect-layout-width-height(componentName="legend")}}
 
-## orient(string) = 'horizontal'
+## orient(string) = 'horizontal,vertical'
 
 The layout orientation of legend.
 
@@ -51,7 +51,7 @@ Options:
 + 'horizontal'
 + 'vertical'
 
-## align(string) = 'auto'
+## align(string) = 'auto,left,right'
 
 Legend mrker and text aligning. By default, it automatically calculates from component location and orient. When [left](~legend.left) value of this component is 'right', and the vertical layout ([orient](~legend.orient) is 'vertical'), it would be aligned to 'right'.
 
@@ -94,7 +94,7 @@ formatter: function (name) {
 }
 ```
 
-## selectedMode(string|boolean) = true
+## selectedMode(string|boolean) = 'single,multiple'
 
 Selected mode of legend, which controls whether series can be toggled displaying by clicking legends. It is enabled by default, and you may set it to be `false` to disabled it.
 
@@ -208,7 +208,7 @@ The gap between page buttons and legend items.
 See [vertically scrollable legend](${galleryEditorPath}pie-legend&edit=1&reset=1) or [horizontally scrollable legend](${galleryEditorPath}radar2&edit=1&reset=1).
 
 
-## pageButtonPosition(string) = 'end'
+## pageButtonPosition(string) = 'end,start'
 
 It works when [legend.type](~legend.type) is `'scroll'`.
 
@@ -270,7 +270,7 @@ For the each item of the array,
 See [vertically scrollable legend](${galleryEditorPath}pie-legend&edit=1&reset=1) or [horizontally scrollable legend](${galleryEditorPath}radar2&edit=1&reset=1).
 
 
-## pageIconColor(string) = '#2f4554'
+## pageIconColor(Color) = '#2f4554'
 
 It works when [legend.type](~legend.type) is `'scroll'`.
 
@@ -279,7 +279,7 @@ The color of page buttons.
 See [vertically scrollable legend](${galleryEditorPath}pie-legend&edit=1&reset=1) or [horizontally scrollable legend](${galleryEditorPath}radar2&edit=1&reset=1).
 
 
-## pageIconInactiveColor(string) = '#aaa'
+## pageIconInactiveColor(Color) = '#aaa'
 
 It works when [legend.type](~legend.type) is `'scroll'`.
 
@@ -369,7 +369,7 @@ The text label style of the selector button, which is displayed by default.
     formatter1d=false
 )}}
 
-## selectorPosition(string) = 'auto'
+## selectorPosition(string) = 'auto,end,start'
 
 The position of the selector button, which can be placed at the end or start of the legend component, the corresponding values are `'end'` and `'start'`. By default, when the legend is laid out horizontally, the selector is placed at the end of it, and when the legend is laid out vertically, the selector is placed at the start of it.
 

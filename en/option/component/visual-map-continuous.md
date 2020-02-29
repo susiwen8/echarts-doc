@@ -13,7 +13,7 @@ You can set [visualMap.calculable](~visualMap.calculable) to show or hide the ha
 <br>
 
 
-## type(string) = continuous
+## type(string) = 'continuous'
 
 Used to determine that it is a continuous visualMap component.
 
@@ -124,7 +124,7 @@ The width of the main bar of visualMap component.
 The height of the main bar of visualMap component.
 
 
-## align(string) = 'auto'
+## align(string) = 'auto,left,right,top,bottom'
 
 Specify the position of handles and labels, against the main bar. The possible values are:
 

@@ -184,7 +184,7 @@ The line style of this data item.
 {{ target: lines-label }}
 #${prefix} show(boolean) = ${defaultShowLabel|default(false)}
 Whether to show label.
-#${prefix} position(string) = 'end'
+#${prefix} position(string) = 'end,start,middle'
 the position of label, options:
 + `'start'`
 + `'middle'`

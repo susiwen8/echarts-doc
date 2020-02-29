@@ -57,7 +57,7 @@ Distance between the indicator's name and axis.
 
 Segments of indicator axis.
 
-## shape(string) = 'polygon'
+## shape(string) = 'polygon,circle'
 
 Radar render type, in which `'polygon'` and `'circle'` are supported.
 
@@ -120,6 +120,6 @@ The maximum value of indicator. It is an optional configuration, but we recommen
 
 The minimum value of indicator. It it an optional configuration, with default value of 0.
 
-## color(string)
+## color(Color)
 
 Specfy a color the the indicator.

@@ -102,7 +102,7 @@ tooltip settings in this series data.
 Whether to show the tooltip component, including tooltip floating layer and [axisPointer](~tooltip.axisPointer).
 
 
-#${prefix} trigger(string) = 'item'
+#${prefix} trigger(string) = 'item,axis,none'
 
 Type of triggering.
 
@@ -134,7 +134,7 @@ Configuration item for axisPointer.
 {{ use: partial-axisPointer-introduction(galleryViewPath=${galleryViewPath}) }}
 
 
-##${prefix} type(string) = 'line'
+##${prefix} type(string) = 'line,shadow,none'
 
 Indicator type.
 
@@ -148,7 +148,7 @@ Options:
 + `'cross'` crosshair indicator, which is actually the shortcut of enable two axisPointers of two orthometric axes.
 
 
-##${prefix} axis(string) = 'auto'
+##${prefix} axis(string) = 'auto,x,y,radius,angle'
 
 The coordinate axis, which could be `'x'`, `'y'`, `'radius'`, or `'angle'`. By default, each coordinate system will automatically chose the axes whose will display its axisPointer (category axis or time axis is used by default).
 
@@ -177,7 +177,7 @@ It is valid when [axisPointer.type](~tooltip.axisPointer.type) is `'cross'`.
 
 {{target: partial-tooltip-common}}
 
-#${prefix} position(string|Array)
+#${prefix} position(string|Array|Function) = 'inside,top,left,right,bottom'
 
 {{use: partial-tooltip-scope-tip(scope=${scope})}}
 

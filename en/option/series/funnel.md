@@ -30,7 +30,7 @@ The mapped width from maximum data value [max](~series-funnel.max).
 
 It can be absolute pixel and also the percentage of [layout width](~series-funnel.width).
 
-## sort(string|Function) = 'descending'
+## sort(string|Function) = 'descending,ascending,none'
 Data sorting, which can be whether `'ascending'`, `'descending'`, `'none'`(in data order) or a function, which is the same as `Array.prototype.sort(function (a, b) { ... })`;
 
 ## gap(number) = 0
@@ -38,7 +38,7 @@ Gap between each trapezoid.
 
 {{ use: partial-legend-hover-link }}
 
-## funnelAlign(string) = 'center'
+## funnelAlign(string) = 'center,left,right'
 Horizontal align. Defaults to align center. Can be 'left', 'right', 'center'.
 
 ## label(Object)
@@ -177,7 +177,7 @@ The label configuration of a single data item.
 {{ target: partial-funnel-label }}
 #${prefix} show(boolean) = false
 {{ if: ${position} }}
-#${prefix} position(string) = 'outside'
+#${prefix} position(string) = 'outside,left,right,insideRight,inside,insideLeft,leftTop,leftBottom,rightTop,rightBottom,inner,center'
 Label position.
 
 **Options: **

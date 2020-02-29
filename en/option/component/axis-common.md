@@ -40,7 +40,7 @@ Specifies whether X or Y axis lies on the other's origin position, where value i
 When mutiple axes exists, this option can be used to specify which axis can be "onZero" to.
 {{ /if }}
 
-##${prefix} symbol(string|Array) = 'none'
+##${prefix} symbol(string|Array) = 'none,arrow'
 Symbol of the two ends of the axis. It could be a string, representing the same symbol for two ends; or an array with two string elements, representing the two ends separately. It's set to be `'none'` by default, meaning no arrow for either end. If it is set to be `'arrow'`, there shall be two arrows. If there should only one arrow at the end, it should set to be `['none', 'arrow']`.
 
 ##${prefix} symbolSize(Array) = [10, 15]
@@ -306,7 +306,7 @@ SplitArea color could also be set in color array, which the split lines would ta
 
 {{target: axis-common}}
 
-#${prefix} type(string) = ${axisTypeDefault|default('value')}
+#${prefix} type(string) = ${axisTypeDefault|default('value,category,time,log')}
 
 Type of axis
 
@@ -328,7 +328,7 @@ Option:
 
 Name of axis.
 
-#${prefix} nameLocation(string) = 'end'
+#${prefix} nameLocation(string) = 'end,start,middle,center'
 
 Location of axis name.
 
@@ -372,7 +372,7 @@ For non-category axis, including time, numerical value, and log axes, `boundaryG
 boundaryGap: ['20%', '20%']
 ```
 
-#${prefix} min(number|string|Function) = null
+#${prefix} min(number|string|Function) = 'dataMin'
 
 The minimun value of axis.
 
@@ -389,7 +389,7 @@ min: function (value) {
 }
 ```
 
-#${prefix} max(number|string|Function) = null
+#${prefix} max(number|string|Function) = 'dataMax'
 
 The maximum value of axis.
 

@@ -25,8 +25,7 @@ The main title text, supporting for `\n` for newlines.
 
 The hyper link of main title text.
 
-## target(string) = 'blank'
-
+## target(string) = 'self,blank'
 Open the hyper link of main title in specified tab.
 
 **options: **
@@ -77,14 +76,12 @@ The hyper link of subtitle text.
     noBox=true
 ) }}
 
-## textAlign(string) = 'auto'
-
+## textAlign(string) = 'auto,left,right,center'
 The horizontal align of the component (including "text" and "subtext").
 
 Optional values: `'auto'`, `'left'`, `'right'`, `'center'`.
 
-## textVerticalAlign(string) = 'auto'
-
+## textVerticalAlign(string) = 'auto,top,bottom,middle'
 The vertical align of the component (including "text" and "subtext").
 
 Optional values: `'auto'`, `'top'`, `'bottom'`, `'middle'`.

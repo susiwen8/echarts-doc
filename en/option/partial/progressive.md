@@ -11,7 +11,7 @@ When data amount is from thousand to more than 10 million, it will take too long
 If current data amount is over the threshold, "progressive rendering" is enabled.
 
 {{ if: ${supportProgressiveChunkMode} }}
-#${prefix} progressiveChunkMode(string) = ${defaultProgressiveChunkMode|default('sequential')}
+#${prefix} progressiveChunkMode(string) = 'sequential,mod'
 Chunk approach, optional values:
 + `'sequential'`: slice data by data index.
 + `'mod'`: slice data by mod, which make the data items of each chunk coming from all over the data, bringing better visual effect while progressive rendering.

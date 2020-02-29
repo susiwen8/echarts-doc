@@ -32,7 +32,7 @@ When `geoIndex` specified, [series-map.map](~series-map.map) other style configu
 For example:
 ~[600x400](${galleryViewPath}geo-map-scatter&reset=1&edit=1)
 
-## mapValueCalculation(string) = 'sum'
+## mapValueCalculation(string) = 'sum,average,min,max'
 Value of multiple series with the same [map type](~series-map.map) can use this option to get a statistical value.
 
 Supported statistical methods:

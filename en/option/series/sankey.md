@@ -50,7 +50,7 @@ The gap between any two regtangles in each column of the Sankey diagram.
 
 The iterations of layout, which is used to iteratively optimize the position of the nodes and edges in the Sankey diagram to reduce the overlapping between nodes and edges. The default value is `32`. If you want the order of the nodes in the chart to be the same with the order in the original [data](~series-sankey.data), you can set the value to be `0`.
 
-## orient(string) = 'horizontal'
+## orient(string) = 'horizontal,vertical'
 
 The layout direction of the nodes in the Sankey diagram, which can be horizontal from left to right or vertical from top to bottom. The corresponding parameter values ​​are `horizontal` or `vertical`.
 
@@ -58,7 +58,7 @@ The layout direction of the nodes in the Sankey diagram, which can be horizontal
 
 The drag-and-drop interaction of the node, which is enabled by default. After opening, the user can drag any node in the Sankey diagram to any position. To turn this interaction off, simply set the value to `false`.
 
-## focusNodeAdjacency(boolean|string) = false
+## focusNodeAdjacency(boolean|string) = 'allEdges,outEdges,inEdges'
 
 Support when mouse hovering over a node or an edge, the adjacent nodes and edges are also highlighted. Default off, can be manually opened.
 

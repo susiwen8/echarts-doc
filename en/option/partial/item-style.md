@@ -26,7 +26,7 @@ ${name} border color, whose format is similar to that of `color`.
 
 ${name} border width. No border when it is set to be 0.
 
-#${prefix} borderType(string) = 'solid'
+#${prefix} borderType(string) = 'solid,dashed,dotted,solid'
 
 Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.
 

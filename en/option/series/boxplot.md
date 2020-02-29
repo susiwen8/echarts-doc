@@ -35,7 +35,7 @@ Multiple `series` can be displayed in the same coordinate system. Please refer t
 Whether to enable the animation when hovering on box.
 
 
-## layout(string) = null
+## layout(string) = 'horizontal,vertical'
 
 Layout methods, whose optional values are:
 

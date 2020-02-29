@@ -69,7 +69,7 @@ data: [{{if: ${hasType} }}
 ###${prefix} name(string) = ''
 Mark point name.
 {{ if: ${hasType} }}
-###${prefix} type(string)
+###${prefix} type(string) = 'min,max,average'
 Special label types, are used to label maximum value, minimum value and so on.
 
 **Options are:**
@@ -82,7 +82,7 @@ Special label types, are used to label maximum value, minimum value and so on.
 Available when using [type](~series-${seriesType}.markPoint.data.type) it is used to assign maximum value and minimum value in dimensions, it could be `0` (xAxis, radiusAxis), `1` (yAxis, angleAxis), and use the first value axis dimension by default.
 
 
-###${prefix} valueDim(string)
+###${prefix} valueDim(string) = 'x,y,angle,open,close'
 Works only when [type](~series-${seriesType}.markPoint.data.type) is assigned. It is used to state the dimension used to calculate maximum value or minimum value. It may be the direct name of a dimension, like `x`, or `angle` for line charts, or `open`, or `close` for candlestick charts.
 
 ###${prefix} coord(Array)

@@ -18,7 +18,7 @@ Input parameters are `seriesIndex`, `dataIndex`, `data`, `value`, and etc. of da
 
 ${name} line width.
 
-#${prefix} type(string) = ${defaultType|default('solid')}
+#${prefix} type(string) = 'solid,dashed,dotted'
 
 ${name} line type.
 

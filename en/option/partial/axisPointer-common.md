@@ -85,7 +85,7 @@ In value axis and time axis, if [snap](~xAxis.axisPointer.snap) is set as true, 
 
 axisPointer will not be displayed by default. But if [tooltip.trigger](~tooltip.trigger) is set as `'axis'` or [tooltip.axisPointer.type](~tooltip.axisPointer.type) is set as  `'cross'`, axisPointer will be displayed automatically. Each coordinate system will automatically chose the axes whose will display its axisPointer. [tooltip.axisPointer.axis](~tooltip.axisPointer.axis) can be used to change the choice.
 
-#${prefix} type(string) = 'line'
+#${prefix} type(string) = 'line,shadow,none'
 
 Indicator type.
 
@@ -140,7 +140,7 @@ The size of the handle, which can be set as a single value or an array (`[width,
 
 Distance from handle center to axis.
 
-##${prefix} color(string) = '#333'
+##${prefix} color(Color) = '#333'
 
 The color of the handle.
 

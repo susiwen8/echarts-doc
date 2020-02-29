@@ -110,7 +110,7 @@ Whether to show the `timeline` component. It would not show with a setting of `f
 This attribute has only one valid value as `slider` by now. You don't have to change it.
 
 
-## axisType(string) = 'time'
+## axisType(string) = 'time,value,category'
 
 Type of axis, whose values may be:
 
@@ -152,7 +152,7 @@ Indicates play speed (gap time between two state), whose unit is millisecond.
 Whether the view updates in real time during dragging the control dot.
 
 
-## controlPosition(string) = 'left'
+## controlPosition(string) = 'left,right'
 
 Position of the play button, whose valid values are `'left'` and `'right'`.
 
@@ -167,7 +167,7 @@ Position of the play button, whose valid values are `'left'` and `'right'`.
 {{ use: partial-padding(componentName='timeline')}}
 
 
-## orient(string) = 'horizontal'
+## orient(string) = 'horizontal,vertical'
 
 Orientation of the component, whose valid values are:
 
@@ -208,7 +208,7 @@ Whether to show the axis. It can be set to be `false` to hide the axis line to m
 Label axis, `emphasis` is the highlighted style of text. For instance, text style in `emphasis` would be used when mouse hovers or legend connects.
 
 
-### position(string|number) = 'auto'
+### position(string|number) = 'auto,left,right,top,bottom'
 
 Configurations:
 
@@ -351,7 +351,7 @@ Size of *control button*, in pixels (px).
 Interval between *control button*, in pixels (px).
 
 
-### position(string) = 'left'
+### position(string) = 'horizontal,left,right,vertical,top,bottom'
 
 the location of *control button*.
 

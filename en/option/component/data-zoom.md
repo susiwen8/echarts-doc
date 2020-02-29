@@ -287,7 +287,7 @@ For example:
 In time axis it can be set as `3600 * 24 * 1000 * 5` to represent "5 day".
 In category axis it can be set as `5` to represent 5 categories.
 
-## orient(string) = null
+## orient(string) = 'horizontal,vertical'
 
 Specify whether the layout of `dataZoom` component is horizontal or vertical. What's more, it indicates whether the horizontal axis or vertical axis is controlled by default in catesian coordinate system.
 

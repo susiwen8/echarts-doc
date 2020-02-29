@@ -48,7 +48,7 @@ We use red to represent increasing and blue decreasing by default. If you want t
 Whether to enable animitation when hovering on box.
 
 
-## layout(string) = null
+## layout(string) = 'horizontal,vertical'
 
 Layout method, whose values may be:
 

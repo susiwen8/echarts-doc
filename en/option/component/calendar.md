@@ -107,7 +107,7 @@ Note: `cellSize` is 20 by default. If `height` is set,
   `cellSize[1]` will be forced to `auto`;
 
 
-## orient(string) = 'horizontal'
+## orient(string) = 'horizontal,vertical'
 
 The layout orientation of calendar.
 
@@ -196,14 +196,14 @@ calendar: [{
 ### margin(number) = 0
 The margin between the day label and the axis line.
 
-### position(string) = 'start'
+### position(string) = 'start,end'
 Position of week, at the beginning or end of the range.
 
 Options:
 + 'start'
 + 'end'
 
-### nameMap(string|Array) = 'en'
+### nameMap(string|Array) = 'en,cn'
 Week text content, defaults to 'en';
 It supports Chinese, English, and custom;
 index 0 always means Sunday;
@@ -237,7 +237,7 @@ Month label in calendar coordinates.
 
 Set this to `false` to prevent monthLabel from showing.
 
-### align(string) = 'center'
+### align(string) = 'center,left'
 Set the month text location in the month interval.
 
 Options:
@@ -247,14 +247,14 @@ Options:
 ### margin(number) = 5
 The margin between the month label and the axis line.
 
-### position(string) = 'start'
+### position(string) = 'start,end'
 Position of week, at the beginning or end of the range.
 
 Options:
 + 'start'
 + 'end'
 
-### nameMap(string|Array) = 'en'
+### nameMap(string|Array) = 'en,cn'
 Month text content, defaults to 'en';
 It supports Chinese, English, and custom;
 Index 0 always means Jan;
@@ -339,7 +339,7 @@ Set this to `false` to stop yearLabel from showing
 ### margin(number) = 30
 The margin between the month label and the axis line.
 
-### position(string)
+### position(string) = 'top,bottom,left,right'
 Position of year.
 
 Default:

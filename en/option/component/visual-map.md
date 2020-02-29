@@ -421,7 +421,7 @@ Property `inRange` and `outOfRange` can be set within property `controller`, whi
 ) }}
 
 
-## orient(string) = 'vertical'
+## orient(string) = 'vertical,horizontal'
 
 How to layout the visualMap component, `'horizontal'` or `'vertical'`.
 

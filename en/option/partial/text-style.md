@@ -104,7 +104,7 @@ ${name} text color.
 {{/if}}
 
 
-#${prefix} fontStyle(string)='normal'
+#${prefix} fontStyle(string)='normal,italic,oblique'
 
 ${name} font style
 
@@ -114,7 +114,7 @@ Options are:
 + `'oblique'`
 
 
-#${prefix} fontWeight(string|number)=${defaultFontWeight|default('normal')}
+#${prefix} fontWeight(string|number)='normal,bold,bolder,lighter'
 
 ${name} font thick weight
 
@@ -126,7 +126,7 @@ Options are:
 + 100 | 200 | 300 | 400...
 
 
-#${prefix} fontFamily(string)='sans-serif'
+#${prefix} fontFamily(string)='sans-serif,serif,monospace'
 
 ${name} font family
 
@@ -138,7 +138,7 @@ ${name} font size
 
 
 {{ if: !${noAlign} }}
-#${prefix} align(string)=${defaultAlign}
+#${prefix} align(string)='left,right,center'
 
 Horizontal alignment of text, automatic by default.
 
@@ -155,7 +155,7 @@ Options are:
 {{ /if }}
 
 {{ if: !${noVerticalAlign} }}
-#${prefix} verticalAlign(string)=${defaultVerticalAlign}
+#${prefix} verticalAlign(string)='top,bottom,middle'
 
 Vertical alignment of text, automatic by default.
 
@@ -189,7 +189,7 @@ Line height of the text fragment.
 
 {{ if: !${noBox} }}
 
-#${prefix} backgroundColor(string|Object)='transparent'
+#${prefix} backgroundColor(Color|Object)='transparent'
 
 Background color of the text fragment.
 

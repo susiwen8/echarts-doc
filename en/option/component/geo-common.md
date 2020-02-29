@@ -1,6 +1,6 @@
 {{ target: geo-common }}
 
-#${prefix} map(string) = ''
+#${prefix} map(string) = 'china,world'
 
 Map charts.
 
@@ -91,7 +91,7 @@ Name mapping for customized areas. For example:
 }
 ```
 
-## selectedMode(boolean|string) = false
+## selectedMode(boolean|string) = 'single,multiple'
 Selected mode decides whether multiple selecting is supported. By default, `false` is used for disabling selection. Its value can also be `'single'` for selecting single area, or `'multiple'` for selecting multiple areas.
 
 

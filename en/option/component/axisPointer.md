@@ -101,7 +101,7 @@ Return of mapper:
 `{number}` The result of conversion.
 
 
-## triggerOn(string) = 'mousemove|click'
+## triggerOn(string) = 'mousemove,click,none,mousemove|click'
 
 Conditions to trigger tooltip. Options:
 

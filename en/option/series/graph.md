@@ -32,7 +32,7 @@ Graph is a diagram to represent [nodes](~series-graph.nodes) and the [links](~se
 ## hoverAnimation(boolean)
 Whether to enable the highlight animation effect of mousr hover node.
 
-## layout(string) = 'none'
+## layout(string) = 'none,circular,force'
 Graph layout.
 
 **Options: **
@@ -96,7 +96,7 @@ If node is draggable. Only available when using force-directed layout.
 ## focusNodeAdjacency(boolean) = false
 Whether to focus/highlight the hover node and it's adjacencies.
 
-## edgeSymbol(Array|string) = ['none', 'none']
+## edgeSymbol(Array|string) = 'circle,arrow'
 Symbol of two ends of edge line.
 
 For example:
@@ -357,7 +357,7 @@ Alias of [links](~series-graph.links)
 
 #${prefix} show(boolean) = ${defaultShowLabel|default(false)}
 If show label on edge.
-#${prefix} position(string) = 'middle'
+#${prefix} position(string) = 'middle,start,end'
 Label position, options：
 + `'start'`
 + `'middle'`

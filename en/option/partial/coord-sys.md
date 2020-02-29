@@ -1,6 +1,6 @@
 {{ target: partial-coord-sys }}
 
-## coordinateSystem(string) = ${coordSysDefault}
+## coordinateSystem(string) = 'null,none,cartesian2d,polar,geo,parallel'
 
 The coordinate used in the series, whose options are:
 

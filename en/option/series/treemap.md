@@ -86,7 +86,7 @@ When `leafDepth` is set, the feature "drill down" is enabled, which means when c
 
 Marker when the node is able to be drilled down.
 
-## roam(boolean|string) = true
+## roam(boolean|string) = 'scale,zoom,move,pan'
 
 Whether to enable dragging roam (move and zoom). Optional values are:
 
@@ -96,7 +96,7 @@ Whether to enable dragging roam (move and zoom). Optional values are:
 + `true`: both zoom and move (translation) are avaliable.
 
 
-## nodeClick(boolean|string) = 'zoomToNode'
+## nodeClick(boolean|string) = 'zoomToNode,link'
 
 The behaviour when clicking a node. Optional values are:
 
@@ -383,7 +383,7 @@ Enable hyperlink jump when clicking on node. It is avaliable when [series-treema
 
 See [series-treemap.data.target](~series-treemap.data.target).
 
-### target(string) = 'blank'
+### target(string) = 'blank,self'
 
 The same meaning as `target` in `html` `<a>` label, See [series-treemap.data.link](~series-treemap.data.link). Option values are: `'blank'` or `'self'`.
 
@@ -470,7 +470,7 @@ For example, `colorSaturation` can be `[0.3, 1]`.
 {{use: partial-treemap-prop-location-desc(name="colorSaturation")}}
 
 
-#${prefix} colorMappingBy(string) = 'index'
+#${prefix} colorMappingBy(string) = 'index,value,id'
 
 Specify the rule according to which each node obtain color from [color list](~series-treemap.levels.color). Optional values:
 
