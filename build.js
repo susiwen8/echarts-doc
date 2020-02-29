@@ -54,7 +54,7 @@ function initEnv() {
 
 const config = initEnv();
 
-const languages = ['zh', 'en'];
+const languages = ['en'];
 
 config.gl = config.gl || {};
 for (let key in config) {
@@ -131,17 +131,6 @@ async function run() {
         await md2jsonAsync({
             sectionsAnyOf: ['visualMap', 'dataZoom', 'series', 'graphic.elements'],
             entry: 'option',
-            language
-        });
-
-        await md2jsonAsync({
-            entry: 'tutorial',
-            maxDepth: 1,
-            language
-        });
-
-        await md2jsonAsync({
-            entry: 'api',
             language
         });
 
