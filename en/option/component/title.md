@@ -25,7 +25,7 @@ The main title text, supporting for `\n` for newlines.
 
 The hyper link of main title text.
 
-## target(string) = 'selfblank'
+## target(string) = 'self,blank'
 Open the hyper link of main title in specified tab.
 
 **options: **
