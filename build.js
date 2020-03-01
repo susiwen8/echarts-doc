@@ -148,75 +148,7 @@ async function run() {
 
     copyAsset();
 
-    if (!argv.watch) {  // Not in watch dev mode
-        try {
-            // TODO Do we need to debug changelog in the doc folder?
-            buildChangelog();
-            buildCodeStandard();
-
-            copySite();
-        }
-        catch (e) {
-            console.log('Error happens when copying to dest folders.');
-            console.log(e);
-        }
-        // copyBlog();
-    }
-
     console.log('All done.');
-}
-
-function buildChangelog() {
-    for (let lang of languages) {
-        const srcPath = path.resolve(projectDir, `${lang}/changelog.md`);
-        const destPath = path.resolve(config.ecWWWGeneratedDir, `${lang}/documents/changelog-content.html`);
-        fse.outputFileSync(
-            destPath,
-            marked(fs.readFileSync(srcPath, 'utf-8')),
-            'utf-8'
-        );
-        console.log(chalk.green('generated: ' + destPath));
-    }
-    console.log('Build changelog done.');
-}
-
-function buildCodeStandard() {
-    const codeStandardDestPath = path.resolve(config.ecWWWGeneratedDir, 'coding-standard-content.html');
-    fse.ensureDirSync(path.dirname(codeStandardDestPath));
-    fse.outputFileSync(
-        codeStandardDestPath,
-        marked(fs.readFileSync('en/coding-standard.md', 'utf-8')),
-        'utf-8'
-    );
-    console.log(chalk.green('generated: ' + codeStandardDestPath));
-
-    console.log('Build code standard done.');
-}
-
-function copySite() {
-    const jsSrcPath = path.resolve(projectDir, 'public/js/doc-bundle.js');
-    const cssSrcDir = path.resolve(projectDir, 'public/css');
-
-    // Copy js and css of doc site.
-    for (let lang of languages) {
-        const jsDestPath = path.resolve(config.releaseDestDir, `${lang}/js/doc-bundle.js`);
-        fse.copySync(jsSrcPath, jsDestPath);
-        console.log(chalk.green(`js copied to: ${jsDestPath}`));
-
-        const cssDestDir = path.resolve(config.releaseDestDir, `${lang}/css`);
-        fse.copySync(cssSrcDir, cssDestDir);
-        console.log(chalk.green(`css copied to: ${cssDestDir}`));
-    }
-
-    console.log('Copy site done.');
-}
-
-function copyBlog() {
-    const blogSrcDir = path.resolve(projectDir, 'blog');
-    const blogDestDir = path.resolve(config.releaseDestDir, 'blog');
-    fse.copySync(blogSrcDir, blogDestDir);
-    console.log(chalk.green(`blog copied to: ${blogDestDir}`));
-    console.log('Copy blog done.');
 }
 
 function writeSingleSchema(schema, language, docName, format) {
