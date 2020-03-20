@@ -64,7 +64,7 @@ function convertToTree(rootSchema, rootNode) {
         else if (schema.properties && Object.keys(schema.properties).length) {
             nodeBase.isObject = true;
         }
-        nodeBase.desc = schema.description;
+        nodeBase.desc = (schema.description && schema.description.replace(/<[^>]+>|&[^>]+;/g, '').trim()) || '';
         return nodeBase;
     }
 
