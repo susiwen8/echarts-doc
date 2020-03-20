@@ -208,7 +208,7 @@ function writeSingleSchemaPartioned(schema, language, docName, format) {
         if (i.children) {
             const result = {}
             flatObject(i.prop || i.arrayItemType || '', i.children, result);
-            let descDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${i.prop || i.arrayItemType || ''}.json`);
+            let descDestPath = path.resolve(config.releaseDestDir, `${language}/documents/option-parts/${i.prop || i.arrayItemType || ''}.json`);
             fse.ensureDirSync(path.dirname(descDestPath));
             fse.outputFile(
                 descDestPath,
