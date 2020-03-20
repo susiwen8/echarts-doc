@@ -194,22 +194,11 @@ function flatObject(
             valide = [item.default];
         }
 
-        const descKey = optionChain.split('.');
-        descKey.splice(0, 1);
-        let key = descKey.join('.');
-        if (['inside', 'slider'].includes(key)) {
-            key = `dataZoom-${key}`;
-        } else if (['line', 'bar', 'pie', 'scatter', 'effectScatter',
-        'radar', 'tree', 'treemap', 'sunburst', 'boxplot', 'candlestick',
-        'heatmap', 'map', 'parallel', 'lines', 'graph', 'sankey',
-        'funnel', 'gauge', 'pictorialBar', 'themeRiver', 'custom'].includes(key)) {
-            key = `series-${key}`;
-        }
         optionsNames[optionChain].push({
             type,
             valide,
             name: item.prop || item.arrayItemType || '',
-            desc: descriptions[key]
+            desc: item.desc
         });
     });
 }
@@ -218,18 +207,10 @@ function writeSingleSchemaPartioned(schema, language, docName, format) {
     const optionsNames = {};
     outline.children = outline.children.map((i) => {
         if (i.children) {
-            console.log(i.prop || i.arrayItemType || '')
-            flatObject(i.prop || i.arrayItemType || '', i.children, optionsNames, descriptions);
+            flatObject(i.prop || i.arrayItemType || '', i.children, optionsNames);
         }
     });
-    const outlineDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${docName}-outline.json`);
-    fse.ensureDirSync(path.dirname(outlineDestPath));
-    fse.outputFile(
-        outlineDestPath,
-        format ? JSON.stringify(optionsNames, null, 2) : JSON.stringify(optionsNames),
-        'utf-8'
-    );
-    // console.log(chalk.green('generated: ' + outlineDestPath));
+
 
     for (let partKey in descriptions) {
         let partDescriptions = descriptions[partKey];
@@ -237,12 +218,17 @@ function writeSingleSchemaPartioned(schema, language, docName, format) {
         fse.ensureDirSync(path.dirname(descDestPath));
         fse.outputFile(
             descDestPath,
-            // format ? JSON.stringify(partDescriptions, null, 2) : JSON.stringify(partDescriptions),
             JSON.stringify(partDescriptions, null, 2),
             'utf-8'
         );
-        // console.log(chalk.green('generated: ' + descDestPath));
     }
+    const outlineDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${docName}-outline.json`);
+    fse.ensureDirSync(path.dirname(outlineDestPath));
+    fse.outputFile(
+        outlineDestPath,
+        format ? JSON.stringify(optionsNames, null, 2) : JSON.stringify(optionsNames),
+        'utf-8'
+    );
 };
 
 run();
