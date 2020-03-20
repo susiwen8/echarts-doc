@@ -7,7 +7,7 @@
     "url": "git@github.com:ecomfe/echarts-doc.git"
   },
   "scripts": {
-    "build": "node build.js --env asf",
+    "build": "node build.js --env dev",
     "watch": "node build.js --env dev --watch",
     "build:site": "npx webpack --config build/webpack.config.js --mode production",
     "watch:site": "npx webpack --config build/webpack.config.js --mode development --devtool sourcemap --watch",

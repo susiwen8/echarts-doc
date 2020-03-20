@@ -30,7 +30,7 @@ where `params` is the single dataset needed by formatter, which is formed as:
 
 {{ target: partial-seriesLayoutBy }}
 
-## seriesLayoutBy(string) = 'column'
+## seriesLayoutBy(string) = 'column,row'
 
 When [dataset](~dataset) is used, `seriesLayoutBy` specifies whether the column or the row of `dataset` is mapped to the series, namely, the series is "layout" on columns or rows. Optional values:
 

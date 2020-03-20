@@ -118,7 +118,7 @@ See examples:
 Alias of [pathData](~${optionPath}.${hostName}${symbolVisit}path.shape.pathData).
 
 
-###${prefix} layout(string) = 'center'
+###${prefix} layout(string) = 'center,color'
 
 If [width](~${optionPath}.${hostName}${symbolVisit}path.shape.width), [height](~${optionPath}.${hostName}${symbolVisit}path.shape.height), [x](~${optionPath}.${hostName}${symbolVisit}path.shape.x) and [y](~${optionPath}.${hostName}${symbolVisit}path.shape.y) specified, `pathData` will be transformed to fit the defined rect.
 
@@ -291,13 +291,13 @@ font: 'italic bolder 16px cursive'
 font: 'bolder 2em "Microsoft YaHei", sans-serif'
 ```
 
-###${prefix} textAlign(string) = 'left'
+###${prefix} textAlign(string) = 'left,right,center'
 
 Text horizontal alignment. Optional values: `'left'`, `'center'`, `'right'`.
 
 `'left'` means the left side of the text block is specified by the [style.x](~${optionPath}.${hostName}${symbolVisit}text.style.x), while `'right'` means the right side of the text block is specified by [style.y](~${optionPath}.${hostName}${symbolVisit}text.style.y).
 
-###${prefix} textVerticalAlign(string)
+###${prefix} textVerticalAlign(string) = 'top,middle,bottom'
 
 Text vertical alignment. Optional values: `'top'`, `'middle'`, `'bottom'`.
 
@@ -1015,7 +1015,7 @@ id can be ignored if you do not need it.
 
 {{ if: ${usageType} === 'graphicComponent' }}
 
-##${prefix} $action(string) = 'merge'
+##${prefix} $action(string) = 'merge,replace,remove'
 
 Specify the operation should be performed to the element when calling `setOption`.
 Default value is 'merge', other values can be 'replace' or 'remove'.
@@ -1185,11 +1185,11 @@ Notice, the attribute names of the `style` of graphic elements is derived from `
 + ...
 
 
-###${prefix} fill(string) = ${fill|default("'#000'")}
+###${prefix} fill(Color) = ${fill|default("'#000'")}
 
 Color filled in this element.
 
-###${prefix} stroke(string) = ${stroke|default("null")}
+###${prefix} stroke(Color) = ${stroke|default("null")}
 
 Color of stroke.
 
@@ -1226,7 +1226,7 @@ color of shadow.
 
 A list of points, which defines the shape, like `[[22, 44], [44, 55], [11, 44], ...]`.
 
-###${prefix} smooth(number|string) = undefined
+###${prefix} smooth(number|string) = 'spline'
 
 Whether smooth the line.
 

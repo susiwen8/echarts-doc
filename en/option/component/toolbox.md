@@ -12,13 +12,13 @@ The style setting of ${name} icon. Since icon label is displayed only when hover
 #${prefix} emphasis(Object)
 ##${prefix} iconStyle(Object)
 {{ use: partial-item-style(prefix="##" + ${prefix}) }}
-###${prefix} textPosition(string) = 'bottom'
+###${prefix} textPosition(string) = 'bottom,top,left,right'
 Text position: `'left'` / `'right'` / `'top'` / `'bottom'`.
-###${prefix} textFill(string) = '#000'
+###${prefix} textFill(Color) = '#000'
 Fill color of text. If it's not set, it will use in the order of icon's fill color, stroke color, and `'#000'`.
-###${prefix} textAlign(string) = 'center'
+###${prefix} textAlign(string) = 'center,left,right'
 Text align: `'left'` / `'center'` / `'right'`.
-###${prefix} textBackgroundColor(string)
+###${prefix} textBackgroundColor(Color)
 Text background color.
 ###${prefix} textBorderRadius(number)
 Border radius of text area.
@@ -57,7 +57,7 @@ A group of utility tools, which includes [export](~toolbox.feature.saveAsImage),
 
 Whether to show toolbox component.
 
-## orient(string) = 'horizontal'
+## orient(string) = 'horizontal,vertical'
 
 The layout orientation of toolbox's icon.
 
@@ -111,7 +111,7 @@ Notes: User-defined tool name could only start with `my`, like `myTool1` and `my
 
 ### saveAsImage(Object)
 Save as image.
-#### type(string) = 'png'
+#### type(string) = 'png,jpeg'
 Format to save the image in, which supports`'png'` and `'jpeg'`.
 #### name(string)
 Name to save the image, whose default value is [title.text](~title.text).
@@ -173,18 +173,18 @@ When optionToContent is used, if you want to support refreshing chart after data
 
 #### lang(Array) = ['data view', 'turn off', 'refresh']
 There are 3 names in data view, which are `['data view', 'turn off' and 'refresh']`.
-#### backgroundColor(string) = '#fff'
+#### backgroundColor(Color) = '#fff'
 Background color of the floating layer in data view.
-#### textareaColor(string) = '#fff'
+#### textareaColor(Color) = '#fff'
 Background color of input area of the floating layer in data view.
-#### textareaBorderColor(string) = '#333'
+#### textareaBorderColor(Color) = '#333'
 Border color of input area of the floating layer in data view.
 
-#### textColor(string) = '#000'
+#### textColor(Color) = '#000'
 Text color.
-#### buttonColor(string) = '#c23531'
+#### buttonColor(Color) = '#c23531'
 Button color.
-#### buttonTextColor(string) = '#fff'
+#### buttonTextColor(Color) = '#fff'
 Color of button text.
 
 ### dataZoom(Object)

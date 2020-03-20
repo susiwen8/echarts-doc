@@ -32,7 +32,7 @@ The tree diagram is mainly used to visualize the tree data structure, which is a
     defaultHeight: 'null'
 ) }}
 
-## layout(string) = 'orthogonal'
+## layout(string) = 'orthogonal,radial'
 
 The layout of the tree, which can be `orthogonal` and `radial`. Here the `orthogonal` layout is what we usually refer to the `horizontal` and `vertical` direction, the corresponding parameter value is `orthogonal`. The `radial` layout refers to the view that the root node as the center and each layer of nodes as the ring, the corresponding parameter value is `radial`.
 
@@ -46,7 +46,7 @@ The layout of the tree, which can be `orthogonal` and `radial`. Here the `orthog
 ~[800x800](${galleryViewPath}tree-radial&edit=1&reset=1)
 
 
-## orient(string) = 'LR'
+## orient(string) = 'LR,RL,TB,BT,horizontal,vertical'
 
 The direction of the `orthogonal` layout in the tree diagram. That means this configuration takes effect only if `layout = 'orthogonal'`. The corresponding directions are `from left to right`, `from right to left`, `from top to bottom`, `from bottom to top`, with shorthand values `'LR'`, `'RL'`, `'TB'`, `'BT'`.
 **Note: The previous configuration value `'horizontal'` is equivalent to `'LR'`, `'vertical'` is equivalent to `'TB'`.**
@@ -61,7 +61,7 @@ The direction of the `orthogonal` layout in the tree diagram. That means this co
 ) }}
 
 
-# edgeShape(string) = 'curve'
+# edgeShape(string) = 'curve,polyline'
 
 The shape of the edge which is under the tree `orthogonal layout`. There are two types of shape, curve and polyline, the corresponding values are `'curve'` and `'polyline'`.
 

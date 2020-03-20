@@ -17,7 +17,7 @@ Input parameters are `seriesIndex`, `dataIndex`, `data`, `value`, and etc. of da
 
 
 {{if: ${hasOrigin} }}
-#${prefix|default('##')} origin(string) = 'auto'
+#${prefix|default('##')} origin(string) = 'auto,start,end'
 
 Origin position of area.
 

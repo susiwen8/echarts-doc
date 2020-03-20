@@ -21,7 +21,7 @@
 ) }}
 
 
-## layout(string) = 'horizontal'
+## layout(string) = 'horizontal,vertical'
 
 Layout modes, whose optional values are:
 
@@ -56,7 +56,7 @@ Distance between two axes when at expanding state, in pixels.
 
 Please refer to [parallel.axisExpandable](parallel.axisExpandable) for more information.
 
-## axisExpandTriggerOn(string) = 'click'
+## axisExpandTriggerOn(string) = 'click,mousemove'
 
 Optional values:
 + `'click'`: Trigger expanding when mouse clicking.

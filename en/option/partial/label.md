@@ -12,7 +12,7 @@ Whether to show label.
 {{use:partial-label-position}}
 {{ /if }}
 
-#${prefix} distance(number) = 5
+#${prefix} distance(number|string) = 'top,insideRight'
 Distance to the host graphic element. Works when position is string value (like `'top'`、`'insideRight'`).
 
 See: [label position](${galleryEditorPath}doc-example/label-position).

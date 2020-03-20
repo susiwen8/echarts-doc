@@ -18,7 +18,7 @@ The scatter (bubble) graph with ripple animation. The special animation effect c
 ## effectType(string) = 'ripple'
 Type of effect. Only ripple effect of `'ripple'` is supported currently.
 
-## showEffectOn(string) = 'render'
+## showEffectOn(string) = 'render,emphasis'
 When to show the effect.
 
 **Options: **
@@ -28,7 +28,7 @@ When to show the effect.
 ## rippleEffect(Object)
 Related configurations about ripple effect.
 
-### color(string)
+### color(Color)
 Color of the ripple rings. The default value is the color of scatter.
 
 ### period(number) = 4
@@ -36,7 +36,7 @@ The period duration of animation, in seconds.
 
 ### scale(number) = 2.5
 The maximum zooming scale of ripples in animation.
-### brushType(string) = 'fill'
+### brushType(string) = 'fill,stroke'
 The brush type for ripples. options: `'stroke'` and `'fill'`.
 
 {{use: partial-coord-sys(

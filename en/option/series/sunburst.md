@@ -1,6 +1,6 @@
 {{ target: partial-sunburst-label-helper }}
 
-#${prefix} rotate(string|number) = 'radial'
+#${prefix} rotate(string|number) = 'radial,tangential'
 
 If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.
 
@@ -12,7 +12,7 @@ The following example shows different `rotate` settings:
 
 ~[700x400](${galleryViewPath}sunburst-label-rotate&edit=1&reset=1)
 
-#${prefix} align(string) = 'center'
+#${prefix} align(string) = 'center,left,right'
 
 Align of text, which can be `'left'`, `'center'`, or `'right'`. Note that `'left'` stands for inner side, and `'right'` stands for outer side.
 
@@ -191,7 +191,7 @@ Link address that redirects to when this sector is clicked. Only useful when [se
 
 See [series-sunburst.data.target](~series-sunburst.data.target).
 
-### target(string) = 'blank'
+### target(string) = 'blank,self'
 
 Like `target` attribute of HTML `<a>`, which can either be `'blank'` or `'self'`. See [series-sunburst.data.link](~series-sunburst.data.link).
 
@@ -219,7 +219,7 @@ Children nodes, which is recursively defined. In the same format to [series-sunb
     prefix="##"
 )}}
 
-## highlightPolicy(string) = 'descendant'
+## highlightPolicy(string) = 'descendant,ancestor,self,none'
 
 When mouse hovers a sector, the sector is emphasized. **If `highlightPolicy` is set to be `'descendant'`, then the sector and its descendant will be *highlighted*, and others will be *downplayed*. If `highlightPolicy` is `'ancestor'`, then the sector and its ancestors will be highlighted. If it is set to be `'self'`, then the sector will be highlighted and others downplayed. If it is set to be `'none'`, then others will not be downplayed.**
 
@@ -249,7 +249,7 @@ If `highlightPolicy` is set to be `'ancestor'`, then the result looks like:
 
 
 
-## nodeClick(boolean|string) = 'rootToNode'
+## nodeClick(boolean|string) = 'rootToNode,link'
 
 The action of clicking a sector, which can be:
 
@@ -259,7 +259,7 @@ The action of clicking a sector, which can be:
 
 
 
-## sort(string|Function) = 'desc'
+## sort(string|Function) = 'desc,asc'
 
 Sorting method that sectors use based on [`value`](~series-sunburst.data.value), which is the sum of children when not set. The default value `'desc'` states for descending order, while it can also be set to be `'asc'` for ascending order, or `null` for not sorting, or callback function like:
 

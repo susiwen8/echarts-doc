@@ -135,7 +135,7 @@ Data of the ending point.
 {{ target: mark-line-label }}
 #${prefix} show(boolean) = ${defaultShowLabel|default(true)}
 Whether show label or not.
-#${prefix} position(string) = 'end'
+#${prefix} position(string) = 'end,middle,start'
 Positions of labels can be:
 + `'start'` starting point of the line.
 + `'middle'` middle point of the line.
@@ -159,7 +159,7 @@ The distance between labels and mark lines. If it's an array, then the first ele
 
 {{ target: mark-line-data-item-item }}
 {{ if: ${hasType} }}
-#${prefix} type(string)
+#${prefix} type(string) = 'min,max,average'
 Special label types, are used to label maximum value, minimum value and so on.
 
 **Options are:**
@@ -171,7 +171,7 @@ Special label types, are used to label maximum value, minimum value and so on.
 #${prefix} valueIndex(number)
 Works only when [type](~series-${seriesType}.markLine.data.type) is assigned. It is used to state the dimension used to calculate maximum value or minimum value. It may be `0` (for xAxis, or radiusAxis), or `1` (for yAxis, or angleAxis). Dimension of the first numeric axis is used by default.
 
-#${prefix} valueDim(string)
+#${prefix} valueDim(string) = 'x,y,angle,open,close'
 Works only when [type](~series-${seriesType}.markLine.data.type) is assigned. It is used to state the dimension used to calculate maximum value or minimum value. It may be the direct name of a dimension, like `x`, or `angle` for line charts, or `open`, or `close` for candlestick charts.
 
 #${prefix} coord(Array)

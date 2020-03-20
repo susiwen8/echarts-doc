@@ -115,7 +115,7 @@ Use the buttons in toolbox.
 
 {{use: partial-brush-brushLink (galleryViewPath=${galleryViewPath})}}
 
-## seriesIndex(Array|number|string) = 'all'
+## seriesIndex(Array|number|string) = 'all,Array,number'
 
 Assigns which of the series can use brush selecting, whose value can be:
 
@@ -149,7 +149,7 @@ Default type of brush.
 {{use: partial-brush-type}}
 
 
-## brushMode(string) = 'single'
+## brushMode(string) = 'single,multiple'
 
 Default brush mode, whose value can be:
 

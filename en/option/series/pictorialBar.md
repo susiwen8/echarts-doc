@@ -241,7 +241,7 @@ For example:
 
 
 
-#${prefix} symbolPosition(string) = 'start'
+#${prefix} symbolPosition(string) = 'start,end,center'
 
 Specify the location of the graphic elements. Optional values:
 
@@ -278,7 +278,7 @@ Notice, `symbolRotate` will not affect the position of the graphic element, but 
 {{ use: pictorialBar-symbol-attrs-cascade(attrName='symbolRotate') }}
 
 
-#${prefix} symbolRepeat(boolean|number|string)
+#${prefix} symbolRepeat(boolean|number|string) = 'fixed'
 
 Whether to repeat a graphic element. Optional values:
 
@@ -293,7 +293,7 @@ For example:
 {{ use: pictorialBar-symbol-attrs-cascade(attrName='symbolRepeat') }}
 
 
-#${prefix} symbolRepeatDirection(string) = 'start'
+#${prefix} symbolRepeatDirection(string) = 'start,end'
 
 When [symbolRepeat](~series-pictorialBar.symbolRepeat) is used, `symbolRepeatDirection` specifies the render order of the repeatd graphic elements. The setting is useful in these cases below:
 

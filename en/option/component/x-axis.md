@@ -16,7 +16,7 @@ Set this to `false` to prevent the axis from showing.
 
 The index of grid which the x axis belongs to. Defaults to be in the first grid.
 
-## position(string)
+## position(string) = 'top,bottom'
 
 The position of x axis.
 

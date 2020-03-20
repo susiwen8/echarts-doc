@@ -54,7 +54,7 @@ function initEnv() {
 
 const config = initEnv();
 
-const languages = ['zh', 'en'];
+const languages = ['en'];
 
 config.gl = config.gl || {};
 for (let key in config) {
@@ -135,17 +135,6 @@ async function run() {
         });
 
         await md2jsonAsync({
-            entry: 'tutorial',
-            maxDepth: 1,
-            language
-        });
-
-        await md2jsonAsync({
-            entry: 'api',
-            language
-        });
-
-        await md2jsonAsync({
             sectionsAnyOf: ['series'],
             entry: 'option-gl',
             // Overwrite
@@ -159,75 +148,7 @@ async function run() {
 
     copyAsset();
 
-    if (!argv.watch) {  // Not in watch dev mode
-        try {
-            // TODO Do we need to debug changelog in the doc folder?
-            buildChangelog();
-            buildCodeStandard();
-
-            copySite();
-        }
-        catch (e) {
-            console.log('Error happens when copying to dest folders.');
-            console.log(e);
-        }
-        // copyBlog();
-    }
-
     console.log('All done.');
-}
-
-function buildChangelog() {
-    for (let lang of languages) {
-        const srcPath = path.resolve(projectDir, `${lang}/changelog.md`);
-        const destPath = path.resolve(config.ecWWWGeneratedDir, `${lang}/documents/changelog-content.html`);
-        fse.outputFileSync(
-            destPath,
-            marked(fs.readFileSync(srcPath, 'utf-8')),
-            'utf-8'
-        );
-        console.log(chalk.green('generated: ' + destPath));
-    }
-    console.log('Build changelog done.');
-}
-
-function buildCodeStandard() {
-    const codeStandardDestPath = path.resolve(config.ecWWWGeneratedDir, 'coding-standard-content.html');
-    fse.ensureDirSync(path.dirname(codeStandardDestPath));
-    fse.outputFileSync(
-        codeStandardDestPath,
-        marked(fs.readFileSync('en/coding-standard.md', 'utf-8')),
-        'utf-8'
-    );
-    console.log(chalk.green('generated: ' + codeStandardDestPath));
-
-    console.log('Build code standard done.');
-}
-
-function copySite() {
-    const jsSrcPath = path.resolve(projectDir, 'public/js/doc-bundle.js');
-    const cssSrcDir = path.resolve(projectDir, 'public/css');
-
-    // Copy js and css of doc site.
-    for (let lang of languages) {
-        const jsDestPath = path.resolve(config.releaseDestDir, `${lang}/js/doc-bundle.js`);
-        fse.copySync(jsSrcPath, jsDestPath);
-        console.log(chalk.green(`js copied to: ${jsDestPath}`));
-
-        const cssDestDir = path.resolve(config.releaseDestDir, `${lang}/css`);
-        fse.copySync(cssSrcDir, cssDestDir);
-        console.log(chalk.green(`css copied to: ${cssDestDir}`));
-    }
-
-    console.log('Copy site done.');
-}
-
-function copyBlog() {
-    const blogSrcDir = path.resolve(projectDir, 'blog');
-    const blogDestDir = path.resolve(config.releaseDestDir, 'blog');
-    fse.copySync(blogSrcDir, blogDestDir);
-    console.log(chalk.green(`blog copied to: ${blogDestDir}`));
-    console.log('Copy blog done.');
 }
 
 function writeSingleSchema(schema, language, docName, format) {
@@ -240,15 +161,58 @@ function writeSingleSchema(schema, language, docName, format) {
     );
     // console.log(chalk.green('generated: ' + destPath));
 }
+function flatObject(
+    optionChain,
+    children,
+    optionsNames
+) {
+    children.map(item => {
+        if (item.children) {
+            flatObject(`${optionChain}.${item.prop || item.arrayItemType || ''}`, item.children, optionsNames);
+        }
 
+        if (!optionsNames[optionChain]) {
+            optionsNames[optionChain] = [];
+        }
+
+        let type = [];
+        let valide = [];
+        item.type = item.type === '*' ? 'object' : (item.type ? item.type : typeof item.default);
+        if (typeof item.type === 'string') {
+            type = [item.type];
+        } else {
+            type = item.type;
+        }
+
+        if (typeof item.default === 'string' && item.default.length) {
+            item.default = item.default.replace(/,/g, '\',\'');
+            valide = item.default.split(',');
+        } else if (item.default === '') {
+            valide = [''];
+        } else if (typeof item.default === 'number') {
+            valide = [item.default];
+        }
+
+        optionsNames[optionChain].push({
+            type,
+            valide,
+            name: item.prop || item.arrayItemType || '',
+        });
+    });
+}
 function writeSingleSchemaPartioned(schema, language, docName, format) {
     const {outline, descriptions} = extractDesc(schema, docName);
-
+    const optionsNames = {};
+    outline.children = outline.children.map((i) => {
+        if (i.children) {
+            flatObject(i.prop || i.arrayItemType || '', i.children, optionsNames);
+        }
+    });
     const outlineDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${docName}-outline.json`);
     fse.ensureDirSync(path.dirname(outlineDestPath));
     fse.outputFile(
         outlineDestPath,
-        format ? JSON.stringify(outline, null, 2) : JSON.stringify(outline),
+        format ? JSON.stringify(optionsNames, null, 2) : JSON.stringify(optionsNames),
         'utf-8'
     );
     // console.log(chalk.green('generated: ' + outlineDestPath));

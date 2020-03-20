@@ -122,7 +122,7 @@ Specify the right-bottom point.
 
 {{ target: mark-area-data-item-item }}
 {{ if: ${hasType} }}
-#${prefix} type(string)
+#${prefix} type(string) = 'min,max,average'
 
 Specify this item is on min or max or average value.
 
@@ -138,7 +138,7 @@ available when [type](~series-${seriesType}.markArea.data.type) used.
 The value can be `0` (means xAxis, radiusAxis) or `1` (means yAxis, angleAxis),
 using the dimension of the first axis by default.
 
-#${prefix} valueDim(string)
+#${prefix} valueDim(string) = 'x,y,angle,open,close'
 Specify the dimension on which min, max, average are calculated,
 available when [type](~series-${seriesType}.markArea.data.type) used.
 The value can be the name of the dimension (for example, the value can be `x`, `angle` in line chart, and `open`, `close` in candlestick).

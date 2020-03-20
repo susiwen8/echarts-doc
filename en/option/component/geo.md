@@ -52,7 +52,7 @@ regions: [{
 The region color can also be controlled by map series. See [series-map.geoIndex](~series-map.geoIndex).
 
 
-### name(string)
+### name(string) = 'china,world'
 Name of area in map, like `'Guangdong'`, or `'Zhejiang'`.
 
 ### selected(boolean) = false

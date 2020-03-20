@@ -76,7 +76,7 @@ Global font style.
 
 {{import: partial-animation }}
 
-# blendMode(string) = 'source-over'
+# blendMode(string) = 'source-over,lighter'
 
 Sets the type of compositing operation to apply when drawing a new shape. See the different type: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation.
 

@@ -32,7 +32,7 @@ Whether to enable the zoom animation effects when hovering sectors.
 ## hoverOffset(number) = 10
 The offset distance of hovered sector.
 
-## selectedMode(boolean|string) = false
+## selectedMode(boolean|string) = 'single,multiple'
 
 Selected mode of pie.  It is enabled by default, and you may set it to be `false` to disabled it.
 
@@ -53,7 +53,7 @@ The minimum angle of sector (0 ~ 360). It prevents some sector from being too sm
 ## minShowLabelAngle(number) = 0
 If a sector is less than this angle (0 ~ 360), label and labelLine will not be displayed.
 
-## roseType(boolean|string) = false
+## roseType(boolean|string) = 'radius,area'
 Whether to show as Nightingale chart, which distinguishs data through radius. There are 2 optional modes:
 
 + `'radius'` Use central angle to show the percentage of data, radius to show data size.
@@ -84,7 +84,7 @@ Whether to show sector when all data are zero.
     formatter=true
 )}}
 
-### alignTo(string) = 'none'
+### alignTo(string) = 'none,labelLine,edge'
 
 Label aligning policy. Valid only when `position` is `'outer'`.
 
@@ -235,12 +235,12 @@ The label configuration of a single sector.
     prefix="#"
 ) }}
 
-## animationType(string) = 'expansion'
+## animationType(string) = 'expansion,scale'
 Initial animation type.
 + `'expansion'` Default expansion animation.
 + `'scale'` Scale animation. You can use it with `animationEasing='elasticOut'` to have popup effect.
 
-## animationTypeUpdate(string) = 'transition'
+## animationTypeUpdate(string) = 'transition,expansion'
 Animation type when data updates.
 + `'transition'` Changing start and end angle of each sector from the old value to new value.
 + `'expansion'` The whole pie expands again.
@@ -260,7 +260,7 @@ Animation type when data updates.
 {{ target: partial-pie-label }}
 #${prefix} show(boolean) = false
 {{ if: ${position} }}
-#${prefix} position(string) = 'outside'
+#${prefix} position(string) = 'outside,inside,inner,center'
 The position of label.
 
 **Options: **

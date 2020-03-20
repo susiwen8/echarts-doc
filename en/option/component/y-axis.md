@@ -16,7 +16,7 @@ Set this to `false` to prevent the axis from showing.
 
 The index of grid which the y axis belongs to. Defaults to be in the first grid.
 
-## position(string)
+## position(string) = 'left,right'
 
 the position of y axis.
 

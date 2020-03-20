@@ -64,7 +64,7 @@ Whether to connect the line across null points.
     prefix="#"
 ) }}
 
-## step(string|boolean) = false
+## step(string|boolean) = 'start,middle,end'
 Whether to show as a step line. It can be `true`, `false`. Or `'start'`, `'middle'`, `'end'`. Which will configure the turn point of step line.
 
 See the example using different `step` options:
@@ -120,7 +120,7 @@ If is typed in `boolean`, then it means whether to enable smoothing. If is typed
 
 Please refer to [smoothMonotone](~series-line.smoothMonotone) to change smoothing algorithm.
 
-## smoothMonotone(string)
+## smoothMonotone(string) = 'x,y'
 Whether the broken line keep the monotonicity when it is smoothed. It can be set as `'x'`, `'y'` to keep the monotonicity on x axis or y axis.
 
 It is usually used on dual value axis.
@@ -135,7 +135,7 @@ Here are 2 examples of broken line chart with dual value axis, showing the diffe
 
 ![300xauto](~smooth-monotone-x.png)
 
-## sampling(string)
+## sampling(string) = 'average,max,min,sum'
 
 The dowmsampling strategy used when the data size is much larger than pixel size. It will improve the performance when turned on. Defaults to be turned off, indicating that all the data points will be drawn.
 

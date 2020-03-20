@@ -17,7 +17,7 @@ An axis with a single dimension. It can be used to display data in one dimension
     defaultBottom="'5%'"
 ) }}
 
-## orient(string) = 'horizontal'
+## orient(string) = 'horizontal,vertical'
 
 Orientation of the axis. By default, it's `'horizontal'`. You can set it to be `'vertical'` to make a vertical axis.
 

@@ -21,7 +21,7 @@ Piecewise visualMap component works in one of the three modes:
 <br>
 <br>
 
-## type(string) = piecewise
+## type(string) = 'piecewise'
 
 Used to determine it is a piecewise visualMap component.
 
@@ -116,7 +116,7 @@ This option works when `type` is `piecewise` and `min`/`max`/`splitNumber` are s
 If it is set as `true`, an extra piece labeled with "> max" will show.
 
 
-## selectedMode(string) = 'multiple'
+## selectedMode(string) = 'multiple,single'
 
 Selected Mode could be:
 
@@ -162,7 +162,7 @@ The width of each graphical element that represents a piece.
 The height of each graphical element that represents a piece.
 
 
-## align(string) = 'auto'
+## align(string) = 'auto,left,right'
 
 The layout relationship between the graphical elements for pieces and their labels. Possible values are:
 
@@ -193,7 +193,7 @@ Whether to show label of each item. By defualt, label will not be shown when [vi
 Its the distance between each two graphical elements for pieces. The unit is px.
 
 
-## itemSymbol(string) = 'roundRect'
+## itemSymbol(string) = 'roundRect,circle,rect,triangle,diamond,pin,arrow,none'
 
 Default symbol (the shape of graphical element). Possible values are:
 
