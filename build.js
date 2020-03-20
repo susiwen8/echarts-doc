@@ -161,15 +161,58 @@ function writeSingleSchema(schema, language, docName, format) {
     );
     // console.log(chalk.green('generated: ' + destPath));
 }
+function flatObject(
+    optionChain,
+    children,
+    optionsNames
+) {
+    children.map(item => {
+        if (item.children) {
+            flatObject(`${optionChain}.${item.prop || item.arrayItemType || ''}`, item.children, optionsNames);
+        }
 
+        if (!optionsNames[optionChain]) {
+            optionsNames[optionChain] = [];
+        }
+
+        let type = [];
+        let valide = [];
+        item.type = item.type === '*' ? 'object' : (item.type ? item.type : typeof item.default);
+        if (typeof item.type === 'string') {
+            type = [item.type];
+        } else {
+            type = item.type;
+        }
+
+        if (typeof item.default === 'string' && item.default.length) {
+            item.default = item.default.replace(/,/g, '\',\'');
+            valide = item.default.split(',');
+        } else if (item.default === '') {
+            valide = [''];
+        } else if (typeof item.default === 'number') {
+            valide = [item.default];
+        }
+
+        optionsNames[optionChain].push({
+            type,
+            valide,
+            name: item.prop || item.arrayItemType || '',
+        });
+    });
+}
 function writeSingleSchemaPartioned(schema, language, docName, format) {
     const {outline, descriptions} = extractDesc(schema, docName);
-
+    const optionsNames = {};
+    outline.children = outline.children.map((i) => {
+        if (i.children) {
+            flatObject(i.prop || i.arrayItemType || '', i.children, optionsNames);
+        }
+    });
     const outlineDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${docName}-outline.json`);
     fse.ensureDirSync(path.dirname(outlineDestPath));
     fse.outputFile(
         outlineDestPath,
-        format ? JSON.stringify(outline, null, 2) : JSON.stringify(outline),
+        format ? JSON.stringify(optionsNames, null, 2) : JSON.stringify(optionsNames),
         'utf-8'
     );
     // console.log(chalk.green('generated: ' + outlineDestPath));
