@@ -164,11 +164,12 @@ function writeSingleSchema(schema, language, docName, format) {
 function flatObject(
     optionChain,
     children,
-    optionsNames
+    optionsNames,
+    descriptions
 ) {
     children.map(item => {
         if (item.children) {
-            flatObject(`${optionChain}.${item.prop || item.arrayItemType || ''}`, item.children, optionsNames);
+            flatObject(`${optionChain}.${item.prop || item.arrayItemType || ''}`, item.children, optionsNames, descriptions);
         }
 
         if (!optionsNames[optionChain]) {
@@ -193,10 +194,22 @@ function flatObject(
             valide = [item.default];
         }
 
+        const descKey = optionChain.split('.');
+        descKey.splice(0, 1);
+        let key = descKey.join('.');
+        if (['inside', 'slider'].includes(key)) {
+            key = `dataZoom-${key}`;
+        } else if (['line', 'bar', 'pie', 'scatter', 'effectScatter',
+        'radar', 'tree', 'treemap', 'sunburst', 'boxplot', 'candlestick',
+        'heatmap', 'map', 'parallel', 'lines', 'graph', 'sankey',
+        'funnel', 'gauge', 'pictorialBar', 'themeRiver', 'custom'].includes(key)) {
+            key = `series-${key}`;
+        }
         optionsNames[optionChain].push({
             type,
             valide,
             name: item.prop || item.arrayItemType || '',
+            desc: descriptions[key]
         });
     });
 }
@@ -205,7 +218,8 @@ function writeSingleSchemaPartioned(schema, language, docName, format) {
     const optionsNames = {};
     outline.children = outline.children.map((i) => {
         if (i.children) {
-            flatObject(i.prop || i.arrayItemType || '', i.children, optionsNames);
+            console.log(i.prop || i.arrayItemType || '')
+            flatObject(i.prop || i.arrayItemType || '', i.children, optionsNames, descriptions);
         }
     });
     const outlineDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${docName}-outline.json`);
