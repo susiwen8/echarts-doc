@@ -203,32 +203,20 @@ function flatObject(
     });
 }
 function writeSingleSchemaPartioned(schema, language, docName, format) {
-    const {outline, descriptions} = extractDesc(schema, docName);
-    const optionsNames = {};
+    const {outline} = extractDesc(schema, docName);
     outline.children = outline.children.map((i) => {
         if (i.children) {
-            flatObject(i.prop || i.arrayItemType || '', i.children, optionsNames);
+            const result = {}
+            flatObject(i.prop || i.arrayItemType || '', i.children, result);
+            let descDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${i.prop || i.arrayItemType || ''}.json`);
+            fse.ensureDirSync(path.dirname(descDestPath));
+            fse.outputFile(
+                descDestPath,
+                JSON.stringify(result),
+                'utf-8'
+            );
         }
     });
-
-
-    for (let partKey in descriptions) {
-        let partDescriptions = descriptions[partKey];
-        let descDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${partKey}.json`);
-        fse.ensureDirSync(path.dirname(descDestPath));
-        fse.outputFile(
-            descDestPath,
-            JSON.stringify(partDescriptions, null, 2),
-            'utf-8'
-        );
-    }
-    const outlineDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${docName}-outline.json`);
-    fse.ensureDirSync(path.dirname(outlineDestPath));
-    fse.outputFile(
-        outlineDestPath,
-        format ? JSON.stringify(optionsNames, null, 2) : JSON.stringify(optionsNames),
-        'utf-8'
-    );
 };
 
 run();
