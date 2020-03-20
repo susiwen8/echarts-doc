@@ -202,10 +202,24 @@ function flatObject(
         });
     });
 }
-function writeSingleSchemaPartioned(schema, language, docName, format) {
+function writeSingleSchemaPartioned(schema, language, docName) {
     const {outline} = extractDesc(schema, docName);
     outline.children = outline.children.map((i) => {
         if (i.children) {
+            if ((i.prop || i.arrayItemType) === 'series' && docName === 'option') {
+                const result = {};
+                i.children.map(item => {
+                    flatObject(item.prop || item.arrayItemType || '', item.children, result);
+                    let descDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${i.prop || i.arrayItemType || ''}.${item.prop || item.arrayItemType || ''}.json`);
+                    fse.ensureDirSync(path.dirname(descDestPath));
+                    fse.outputFile(
+                        descDestPath,
+                        JSON.stringify(result),
+                        'utf-8'
+                    );
+                });
+                return;
+            }
             const result = {}
             flatObject(i.prop || i.arrayItemType || '', i.children, result);
             let descDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${i.prop || i.arrayItemType || ''}.json`);
