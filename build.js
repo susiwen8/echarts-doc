@@ -72,7 +72,6 @@ async function md2jsonAsync(opt) {
 
     function run(cb) {
         md2json(newOpt, schema => {
-            writeSingleSchema(schema, opt.language, opt.entry, false);
             writeSingleSchemaPartioned(schema, opt.language, opt.entry, false);
             console.log(chalk.green('generated: ' + opt.language + '/' + opt.entry));
             cb && cb();
@@ -144,23 +143,9 @@ async function run() {
         });
     }
 
-    console.log('Build doc done.');
-
-    copyAsset();
-
     console.log('All done.');
 }
 
-function writeSingleSchema(schema, language, docName, format) {
-    const destPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}.json`);
-    fse.ensureDirSync(path.dirname(destPath));
-    fse.outputFileSync(
-        destPath,
-        format ? JSON.stringify(schema, null, 2) : JSON.stringify(schema),
-        'utf-8'
-    );
-    // console.log(chalk.green('generated: ' + destPath));
-}
 function flatObject(
     optionChain,
     children,
@@ -204,33 +189,19 @@ function flatObject(
 }
 function writeSingleSchemaPartioned(schema, language, docName) {
     const {outline} = extractDesc(schema, docName);
+    const result = {}
     outline.children = outline.children.map((i) => {
         if (i.children) {
-            if ((i.prop || i.arrayItemType) === 'series' && docName === 'option') {
-                const result = {};
-                i.children.map(item => {
-                    flatObject(item.prop || item.arrayItemType || '', item.children, result);
-                    let descDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${i.prop || i.arrayItemType || ''}.${item.prop || item.arrayItemType || ''}.json`);
-                    fse.ensureDirSync(path.dirname(descDestPath));
-                    fse.outputFile(
-                        descDestPath,
-                        JSON.stringify(result),
-                        'utf-8'
-                    );
-                });
-                return;
-            }
-            const result = {}
             flatObject(i.prop || i.arrayItemType || '', i.children, result);
-            let descDestPath = path.resolve(config.releaseDestDir, `${language}/documents/${docName}-parts/${i.prop || i.arrayItemType || ''}.json`);
-            fse.ensureDirSync(path.dirname(descDestPath));
-            fse.outputFile(
-                descDestPath,
-                JSON.stringify(result),
-                'utf-8'
-            );
         }
     });
+    let descDestPath = path.resolve(config.releaseDestDir, `${language}/option/${docName}.json`);
+    fse.ensureDirSync(path.dirname(descDestPath));
+    fse.outputFile(
+        descDestPath,
+        JSON.stringify(result),
+        'utf-8'
+    );
 };
 
 run();
