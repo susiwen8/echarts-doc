@@ -159,13 +159,14 @@ The distance between labels and mark lines. If it's an array, then the first ele
 
 {{ target: mark-line-data-item-item }}
 {{ if: ${hasType} }}
-#${prefix} type(string) = 'min,max,average'
+#${prefix} type(string) = 'min,max,average,median'
 Special label types, are used to label maximum value, minimum value and so on.
 
 **Options are:**
 + `'min'` minimum value.
 + `'max'` maximum value.
 + `'average'` average value.
++ `'median'` median value.
 {{ /if }}
 {{ if: ${hasCoord} }}
 #${prefix} valueIndex(number)
