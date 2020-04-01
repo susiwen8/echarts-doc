@@ -188,7 +188,7 @@ The distance between the ends of the graphical elements for pieces and the label
 
 Whether to show label of each item. By defualt, label will not be shown when [visualMap-piecewise.text](~visualMap-piecewise.text) used, otherwise label will be shown.
 
-## itemGap = 10
+## itemGap(number) = 10
 
 Its the distance between each two graphical elements for pieces. The unit is px.
 
