@@ -351,6 +351,37 @@ Possiable visual channels includes:
 
 {{target: partial-visual-map-common}}
 
+## symbol(string) = 'circle,rect,roundRect,triangle,diamond,pin,arrow,none'
+
+Type of symbol
+
+## symbolSize(Array)
+
+Symbol size
+
+## color(Array)
+
+Symbol color
+
+## colorAlpha(Array)
+
+Symbol alpha channel
+
+## opacity(Array)
+
+Opacity of symbol and others (like labels)
+
+## colorLightness(Array)
+
+Lightness in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV)
+
+## colorSaturation(Array)
+
+Saturation in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV)
+
+## colorHue(Array)
+
+Hue in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV)
 
 ## show(boolean) = true
 
