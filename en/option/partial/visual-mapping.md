@@ -17,7 +17,7 @@ Symbol alpha channel
 
 #${prefix} opacity(Array)
 
-Opacity of symbol and others (like labels)111111
+Opacity of symbol and others (like labels)
 
 #${prefix} colorLightness(Array)
 
