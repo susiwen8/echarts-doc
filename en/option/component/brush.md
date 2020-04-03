@@ -192,7 +192,9 @@ Defines visual effects of items in selection.
 
 Available visual effects include:
 
-{{use: partial-visual-map-visual-type}}
+{{use: partial-visual-map-visual-type(
+    prefix="##"
+)}}
 
 In most cases, inBrush can be left unassigned, in which case default visual configuration is remained.
 
@@ -204,7 +206,9 @@ Defines visual effects of items out of selection.
 
 Available visual effects include:
 
-{{use: partial-visual-map-visual-type}}
+{{use: partial-visual-map-visual-type(
+    prefix="##"
+)}}
 
 **Note:** If `outOfBrush` is not assigned, `color` will be set to be `'#ddd'` by default. If the color is not desired, you can use:
 

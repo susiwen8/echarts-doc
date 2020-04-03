@@ -60,7 +60,9 @@ pieces: [
 
 These visual channel can be customized in each piece:
 
-{{use: partial-visual-map-visual-type}}
+{{use: partial-visual-map-visual-type(
+    prefix="##"
+)}}
 
 
 [Sample](${galleryEditorPath}doc-example/map-visualMap-pieces&edit=1&reset=1)

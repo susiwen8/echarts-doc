@@ -5,7 +5,9 @@
 
 `visualMap` is a type of component for visual encoding, which maps the data to visual channels, including:
 
-{{use: partial-visual-map-visual-type}}
+{{use: partial-visual-map-visual-type(
+    prefix="#"
+)}}
 
 Myltiple `visualMap` component could be defined in a chart instance, which enable that different dimensions of a series data are mapped to different visual channels.
 
@@ -304,7 +306,9 @@ Define visual channels that will mapped from dataValues that are **in selected r
 
 Possiable visual channels includes:
 
-{{use: partial-visual-map-visual-type}}
+{{use: partial-visual-map-visual-type(
+    prefix="##"
+)}}
 
 ---
 
@@ -329,7 +333,9 @@ Define visual channels that will mapped from dataValues that are **out of select
 
 Possiable visual channels includes:
 
-{{use: partial-visual-map-visual-type}}
+{{use: partial-visual-map-visual-type(
+    prefix="##"
+)}}
 
 {{use: partial-visual-map-range(
     rangeType='outOfRange',
@@ -350,38 +356,6 @@ Possiable visual channels includes:
 
 
 {{target: partial-visual-map-common}}
-
-## symbol(string) = 'circle,rect,roundRect,triangle,diamond,pin,arrow,none'
-
-Type of symbol
-
-## symbolSize(Array)
-
-Symbol size
-
-## color(Array)
-
-Symbol color
-
-## colorAlpha(Array)
-
-Symbol alpha channel
-
-## opacity(Array)
-
-Opacity of symbol and others (like labels)
-
-## colorLightness(Array)
-
-Lightness in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV)
-
-## colorSaturation(Array)
-
-Saturation in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV)
-
-## colorHue(Array)
-
-Hue in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV)
 
 ## show(boolean) = true
 
