@@ -276,9 +276,7 @@ function mdToJsonSchema(mdStr, maxDepth, imagePath) {
         });
         var property = {
             'type': types,
-            'description': marked(section, {
-                renderer: renderer
-            })
+            'description': section
         };
 
         if (defaultValue != null) {
