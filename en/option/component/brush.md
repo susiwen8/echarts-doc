@@ -142,7 +142,7 @@ Assigns which of the yAxisIndex can use brush selecting.
 {{use: partial-brush-coord}}
 
 
-## brushType(string) = 'rect'
+## brushType(string) = 'rect,polygon,lineX,lineY'
 
 Default type of brush.
 
@@ -172,7 +172,7 @@ Defailt brush style, whose value is:
 },
 ```
 
-## throttleType(string) = 'fixRate'
+## throttleType(string) = 'fixRate,debounce'
 
 {{use: partial-brush-throttle (galleryViewPath=${galleryViewPath})}}
 

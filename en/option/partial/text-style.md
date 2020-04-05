@@ -260,6 +260,7 @@ Shadow Y offset of the text block.
 
 
 #${prefix} width(number|string)
+{require: rich}
 
 Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).
 
@@ -271,6 +272,7 @@ Notice, `width` and `height` specifies the width and height of the content, with
 Notice, `width` and `height` only work when `rich` specified.
 
 #${prefix} height(number|string)
+{require: rich}
 
 Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).
 

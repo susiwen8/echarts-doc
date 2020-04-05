@@ -83,6 +83,7 @@ Set this to `true` so the axis labels face the `inside` direction.
 
 {{ if: ${componentType} !== 'angleAxis' }}
 ##${prefix} rotate(number) = 0
+{range: [-90, 90]}
 Rotation degree of axis label, which is especially useful when there is no enough space for category axis.
 
 Rotation degree is from -90 to 90.

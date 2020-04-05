@@ -279,6 +279,15 @@ function mdToJsonSchema(mdStr, maxDepth, imagePath) {
             'description': section
         };
 
+        if (section.indexOf('{require') > -1) {
+            var require = section.match(/{require:(.*?)}/);
+            property.require = require[1];
+        }
+        if (section.indexOf('{range') > -1) {
+            var range = section.match(/{range: (.*?)}/);
+            property.range = range[1];
+        }
+
         if (defaultValue != null) {
             property['default'] = convertType(defaultValue);
         }

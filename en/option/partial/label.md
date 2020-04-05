@@ -8,7 +8,7 @@ Text label of ${name}, to explain some data information about graphic item like 
 Whether to show label.
 
 {{  if: !${noPosition} }}
-#${prefix} position(string|Array) = ${defaultPosition}
+#${prefix} position(string|Array) = 'top,left,right,bottom,inside,insideLeft,insideRight,insideBottom,insideTop,insideTopLeft,insideBottomLeft,insideTopRight,insideBottomRight'
 {{use:partial-label-position}}
 {{ /if }}
 
@@ -19,6 +19,7 @@ See: [label position](${galleryEditorPath}doc-example/label-position).
 
 {{ if: !${noRotate} }}
 #${prefix} rotate(number) = ${defaultRotate}
+{range: [-90, 90]}
 Rotate label, from -90 degree to 90, positive value represents rotate anti-clockwise.
 
 See: [label rotation](${galleryEditorPath}bar-label-rotation).

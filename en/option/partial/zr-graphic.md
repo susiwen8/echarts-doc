@@ -995,7 +995,7 @@ Value range: [0, 1].
 
 {{ target: partial-graphic-cpt-common-props }}
 
-##${prefix} type(string) = ${type}
+##${prefix} type(string) = 'image,text,circle,sector,ring,polygon,polyline,rect,line,bezierCurve,arc,group'
 
 Must be specified when define a graphic element at the first time.
 
@@ -1008,7 +1008,7 @@ Optional values:
     symbolDeclare=${symbolDeclare}
 ) }}
 
-##${prefix} id(string) = undefined
+##${prefix} id(string) = ''
 
 id is used to specifying element when willing to update it.
 id can be ignored if you do not need it.
@@ -1041,7 +1041,7 @@ Optional values:
 
 {{ if: ${usageType} === 'graphicComponent' }}
 
-##${prefix} left(number|string) = undefined
+##${prefix} left(number|string)
 
 {{ use: partial-graphic-cpt-location-prop-desc-common (
     hv = 'h',
@@ -1053,7 +1053,7 @@ Optional values:
     symbolDeclare=${symbolDeclare}
 ) }}
 
-##${prefix} right(number|string) = undefined
+##${prefix} right(number|string)
 
 {{ use: partial-graphic-cpt-location-prop-desc-common (
     hv = 'h',
@@ -1065,7 +1065,7 @@ Optional values:
     symbolDeclare=${symbolDeclare}
 ) }}
 
-##${prefix} top(number|string) = undefined
+##${prefix} top(number|string)
 
 {{ use: partial-graphic-cpt-location-prop-desc-common (
     hv = 'v',
@@ -1077,7 +1077,7 @@ Optional values:
     symbolDeclare=${symbolDeclare}
 ) }}
 
-##${prefix} bottom(number|string) = undefined
+##${prefix} bottom(number|string)
 
 {{ use: partial-graphic-cpt-location-prop-desc-common (
     hv = 'v',
@@ -1089,7 +1089,7 @@ Optional values:
     symbolDeclare=${symbolDeclare}
 ) }}
 
-##${prefix} bounding(strin) = 'all'
+##${prefix} bounding(string) = 'all,raw'
 
 Used to specify whether the entire transformed element (containing children if is group) is confined in its container.
 
@@ -1120,11 +1120,11 @@ Notice: Multiple canvas layer may affect performance.
 
 {{ if: ${usageType} === 'customSeries' }}
 
-##${prefix} z2(number) = undefined
+##${prefix} z2(number)
 
 Define the overlap relationship between graphic elements.
 
-##${prefix} name(string) = undefined
+##${prefix} name(string)
 
 See [diffChildrenByName](~${optionPath}.${hostName}${symbolVisit}polygon.diffChildrenByName).
 
@@ -1197,19 +1197,19 @@ Color of stroke.
 
 Width of stroke.
 
-###${prefix} shadowBlur(number) = undefined
+###${prefix} shadowBlur(number)
 
 Width of shadow.
 
-###${prefix} shadowOffsetX(number) = undefined
+###${prefix} shadowOffsetX(number)
 
 X offset of shadow.
 
-###${prefix} shadowOffsetY(number) = undefined
+###${prefix} shadowOffsetY(number)
 
 Y offset of shadow.
 
-###${prefix} shadowColor(number) = undefined
+###${prefix} shadowColor(number)
 
 color of shadow.
 

@@ -23,6 +23,7 @@ Shadow color. Support same format as `color`.
 
 {{if: ${needShow} }}
 **Attention**: This property works only if `show: true` configured.
+{require: show}
 {{/if}}
 
 
@@ -32,6 +33,7 @@ Offset distance on the horizontal direction of shadow.
 
 {{if: ${needShow} }}
 **Attention**: This property works only if `show: true` configured.
+{require: show}
 {{/if}}
 
 
@@ -41,6 +43,7 @@ Offset distance on the vertical direction of shadow.
 
 {{if: ${needShow} }}
 **Attention**: This property works only if `show: true` configured.
+{require: 'show'}
 {{/if}}
 
 
@@ -48,6 +51,7 @@ Offset distance on the vertical direction of shadow.
 
 #${prefix} opacity(number) = ${defaultOpacity}
 
+{range: [0, 1]}
 Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.
 
 

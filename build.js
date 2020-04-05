@@ -96,34 +96,6 @@ async function md2jsonAsync(opt) {
     });
 }
 
-function copyAsset() {
-
-    const assetSrcDir = path.resolve(projectDir, 'asset');
-
-    function doCopy() {
-        for (let lang of languages) {
-            const assetDestDir = path.resolve(config.releaseDestDir, `${lang}/documents/asset`);
-            copydir.sync(assetSrcDir, assetDestDir);
-        }
-    }
-    var doCopyDebounced = debounce(doCopy, 500, {
-        leading: false,
-        trailing: true
-    });
-
-    doCopy();
-
-    if (argv.watch) {
-        chokidar.watch(assetSrcDir, {
-            ignoreInitial: true
-        }).on('all', (event, path) => {
-            console.log(path, event);
-            doCopyDebounced();
-        });
-    }
-    console.log('Copy asset done.');
-}
-
 async function run() {
 
     for (let language of languages) {
@@ -179,12 +151,21 @@ function flatObject(
             valide = [item.default];
         }
 
-        optionsNames[optionChain].push({
+        const data = {
             type,
             valide,
             name: item.prop || item.arrayItemType || '',
             desc: item.desc
-        });
+        };
+        if (item.require) {
+            data.require = item.require;
+        }
+        
+        if (item.range) {
+            data.range = JSON.parse(item.range);
+        }
+
+        optionsNames[optionChain].push(data);
     });
 }
 function writeSingleSchemaPartioned(schema, language, docName) {

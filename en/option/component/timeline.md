@@ -478,7 +478,7 @@ Whether to show the label.
 Interval of `label`. When it is assigned with a numerical value, such as  `2`, a label would show every 2 items.
 
 
-#${prefix} rotate(prefix) = 0
+#${prefix} rotate(number) = 0
 
 Rotation angle of `label`, in which positive values refer to counter clockwise rotation.
 

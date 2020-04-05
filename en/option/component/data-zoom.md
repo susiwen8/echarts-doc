@@ -212,7 +212,7 @@ Specify which [angleAxis](~angleAxis) is/are controlled by the `${dataZoomName}`
 
 
 ## start(number) = 0
-
+{range: [0, 100]}
 The start percentage of the window out of the data extent, in the range of 0 ~ 100.
 
 [${dataZoomName}.start](~${dataZoomName}.start) and [${dataZoomName}.end](~${dataZoomName}.end) define the window of the data in **percent** form.
@@ -221,7 +221,7 @@ More info about the relationship between `${dataZoomName}.start` and axis extent
 
 
 ## end(number) = 100
-
+{range: [0, 100]}
 The end percentage of the window out of the data extent, in the range of 0 ~ 100.
 
 [${dataZoomName}.start](~${dataZoomName}.start) and [${dataZoomName}.end](~${dataZoomName}.end) define the window of the data in **percent** form.
@@ -252,13 +252,13 @@ More info about the relationship between `${dataZoomName}.endValue` and axis ext
 
 
 ## minSpan(number) = null
-
+{range: [0, 100]}
 Used to restrict minimal window size, in percent, which value is in the range of [0, 100].
 
 If [${dataZoomName}.minValueSpan](~${dataZoomName}.minValueSpan) is set, `minSpan` does not work any more.
 
 ## maxSpan(number) = null
-
+{range: [0, 100]}
 Used to restrict maximal window size, in percent, which value is in the range of [0, 100].
 
 If [${dataZoomName}.maxValueSpan](~${dataZoomName}.maxValueSpan) is set, `maxSpan` does not work any more.

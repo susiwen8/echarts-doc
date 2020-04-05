@@ -65,6 +65,14 @@ function convertToTree(rootSchema, rootNode) {
             nodeBase.isObject = true;
         }
         nodeBase.desc = schema.description || '';
+
+        if (schema.range) {
+            nodeBase.range = schema.range;
+        }
+
+        if (schema.require) {
+            nodeBase.require = schema.require;
+        }
         return nodeBase;
     }
 
