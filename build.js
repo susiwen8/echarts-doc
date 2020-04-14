@@ -171,11 +171,28 @@ function flatObject(
 function writeSingleSchemaPartioned(schema, language, docName) {
     const {outline} = extractDesc(schema, docName);
     const result = {}
+    const options = {};
+    options[docName] = [];
     outline.children = outline.children.map((i) => {
+        let type;
+        if (i.type == null) {
+            type = [typeof i.default]
+        }
+        else if (typeof i.type === 'string') {
+            type = [i.type === '*' ? 'Object' : i.type];
+        } else {
+            type = i.type;
+        }
+        options[docName].push({
+            name: i.prop,
+            type: type,
+            desc: i.desc
+        });
         if (i.children) {
             flatObject(i.prop || i.arrayItemType || '', i.children, result);
         }
     });
+    Object.assign(result, options);
     let descDestPath = path.resolve(config.releaseDestDir, `${language}/option/${docName}.json`);
     fse.ensureDirSync(path.dirname(descDestPath));
     fse.outputFile(
