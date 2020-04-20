@@ -163,7 +163,7 @@ The height of detail.
 The background color of detail.
 ### borderWidth(number) = 0
 The border width of detail.
-### formatter(Function)
+### formatter(Function|string)
 Formatter is used to format detail, which supports string template and callback function.
 
 ```js
