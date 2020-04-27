@@ -7,6 +7,7 @@
     "url": "https://github.com/apache/incubator-echarts-doc"
   },
   "scripts": {
+    "cp": "cp -r public/en/option/*  ../echarts-vscode-extension/src/json/option/.",
     "build": "node build.js --env dev",
     "watch": "node build.js --env dev --watch",
     "build:site": "npx webpack --config build/webpack.config.js --mode production",
