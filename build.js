@@ -186,7 +186,8 @@ function writeSingleSchemaPartioned(schema, language, docName) {
         options[docName].push({
             name: i.prop,
             type: type,
-            desc: i.desc
+            desc: i.desc,
+            valide: []
         });
         if (i.children) {
             flatObject(i.prop || i.arrayItemType || '', i.children, result);
