@@ -93,10 +93,7 @@ option = {
 
 <br>
 
-Piecewise visual map component has three types:
-
-
-分段型视觉映射组件（visualMapPiecewise），有三种模式：
+Piecewise visual map component（visualMapPiecewise）has three types:
 
 + Equal division of continuous data: divide equally based on [visualMap-piecewise.splitNumber](option.html#visualMap-piecewise.splitNumber);
 + User-defined division of continuous data: divide with range in [visualMap-piecewise.pieces](option.html#visualMap-piecewise.pieces);
@@ -115,7 +112,7 @@ Example A:
 option = {
     visualMap: [
         {
-            type: 'piecewise'
+            type: 'piecewise',
             min: 0,
             max: 5000,
             dimension: 3,       // the fourth dimension of series.data, or value[3], is mapped
