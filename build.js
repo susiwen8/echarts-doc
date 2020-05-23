@@ -158,7 +158,7 @@ function flatObject(
             desc: item.desc
         };
         if (item.require) {
-            data.require = item.require;
+            data.require = item.require.trim();
         }
         
         if (item.range) {
