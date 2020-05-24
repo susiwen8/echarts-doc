@@ -181,7 +181,8 @@ Text style of legend.
 
 
 ## scrollDataIndex(number) = 0
-{require: type='scroll'}
+{require: type}
+{requireCondition: 'scroll'}
 
 It works when [legend.type](~legend.type) is `'scroll'`.
 
@@ -192,7 +193,8 @@ Although the scrolling of legend items can be controlled by calling `setOption` 
 See [vertically scrollable legend](${galleryEditorPath}pie-legend&edit=1&reset=1) or [horizontally scrollable legend](${galleryEditorPath}radar2&edit=1&reset=1).
 
 ## pageButtonItemGap(number) = 5
-{require: type='scroll'}
+{require: type}
+{requireCondition: 'scroll'}
 
 It works when [legend.type](~legend.type) is `'scroll'`.
 
@@ -202,7 +204,8 @@ See [vertically scrollable legend](${galleryEditorPath}pie-legend&edit=1&reset=1
 
 
 ## pageButtonGap(number) = null
-{require: type='scroll'}
+{require: type}
+{requireCondition: 'scroll'}
 
 It works when [legend.type](~legend.type) is `'scroll'`.
 
@@ -213,7 +216,8 @@ See [vertically scrollable legend](${galleryEditorPath}pie-legend&edit=1&reset=1
 
 ## pageButtonPosition(string) = 'end,start'
 
-{require: type='scroll'}
+{require: type}
+{requireCondition: 'scroll'}
 It works when [legend.type](~legend.type) is `'scroll'`.
 
 The position of page buttons and page info. Optional values:
@@ -226,7 +230,8 @@ See [vertically scrollable legend](${galleryEditorPath}pie-legend&edit=1&reset=1
 
 ## pageFormatter(string|Function) = '{current}/{total}'
 
-{require: type='scroll'}
+{require: type}
+{requireCondition: 'scroll'}
 It works when [legend.type](~legend.type) is `'scroll'`.
 
 Page info formatter. It is `'{current}/{total}'` by default, where `{current}` is current page number (start from 1), and `{total}` is the total page number.
@@ -245,7 +250,8 @@ See [vertically scrollable legend](${galleryEditorPath}pie-legend&edit=1&reset=1
 
 ## pageIcons(Object)
 
-{require: type='scroll'}
+{require: type}
+{requireCondition: 'scroll'}
 It works when [legend.type](~legend.type) is `'scroll'`.
 
 The icons of page buttons.

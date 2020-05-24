@@ -58,7 +58,7 @@ Subtitle text, supporting for `\n` for newlines.
 The hyper link of subtitle text.
 
 
-## subtarget(string) = 'blank'
+## subtarget(string) = 'blank,self'
 
  Open the hyper link of subtitle in specified tab, options:
 

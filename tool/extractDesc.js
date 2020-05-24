@@ -73,6 +73,10 @@ function convertToTree(rootSchema, rootNode) {
         if (schema.require) {
             nodeBase.require = schema.require;
         }
+
+        if (schema.requireCondition) {
+            nodeBase.requireCondition = schema.requireCondition;
+        }
         return nodeBase;
     }
 

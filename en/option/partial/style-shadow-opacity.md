@@ -1,6 +1,8 @@
 {{target:partial-style-shadow}}
 
 #${prefix} shadowBlur(number) = ${defaultShadowBlur}
+{require: show,backgroundColor}
+{requireCondition: true,!== transparent}
 
 Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.
 
@@ -18,32 +20,35 @@ For example:
 
 
 #${prefix} shadowColor(Color) = ${defaultShadowColor}
+{require: show}
+{requireCondition: true}
 
 Shadow color. Support same format as `color`.
 
 {{if: ${needShow} }}
 **Attention**: This property works only if `show: true` configured.
-{require: show}
 {{/if}}
 
 
 #${prefix} shadowOffsetX(number) = ${defaultShadowOffsetX|default(0)}
+{require: show}
+{requireCondition: true}
 
 Offset distance on the horizontal direction of shadow.
 
 {{if: ${needShow} }}
 **Attention**: This property works only if `show: true` configured.
-{require: show}
 {{/if}}
 
 
 #${prefix} shadowOffsetY(number) = ${defaultShadowOffsetY|default(0)}
+{require: show}
+{requireCondition: true}
 
 Offset distance on the vertical direction of shadow.
 
 {{if: ${needShow} }}
 **Attention**: This property works only if `show: true` configured.
-{require: 'show'}
 {{/if}}
 
 

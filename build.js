@@ -160,6 +160,9 @@ function flatObject(
         if (item.require) {
             data.require = item.require.trim();
         }
+        if (item.requireCondition) {
+            data.requireCondition = item.requireCondition.trim();
+        }
         
         if (item.range) {
             data.range = JSON.parse(item.range);

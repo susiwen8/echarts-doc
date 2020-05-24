@@ -283,6 +283,10 @@ function mdToJsonSchema(mdStr, maxDepth, imagePath) {
             var require = section.match(/{require:(.*?)}/);
             property.require = require[1];
         }
+        if (section.indexOf('{requireCondition') > -1) {
+            var requireCondition = section.match(/{requireCondition:(.*?)}/);
+            property.requireCondition = requireCondition[1];
+        }
         if (section.indexOf('{range') > -1) {
             var range = section.match(/{range: (.*?)}/);
             property.range = range[1];
