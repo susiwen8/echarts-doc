@@ -228,7 +228,8 @@ The label configuration of a single sector.
 {{use: partial-marker(
     prefix="#",
     galleryEditorPath=${galleryEditorPath},
-    seriesType="pie"
+    seriesType="pie",
+    name="mark point"
 )}}
 
 {{ use:partial-silent(
@@ -241,6 +242,7 @@ Initial animation type.
 + `'scale'` Scale animation. You can use it with `animationEasing='elasticOut'` to have popup effect.
 
 ## animationTypeUpdate(string) = 'transition,expansion'
+{{ use: partial-version(version = "4.4.0") }}
 Animation type when data updates.
 + `'transition'` Changing start and end angle of each sector from the old value to new value.
 + `'expansion'` The whole pie expands again.

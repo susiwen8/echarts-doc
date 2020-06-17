@@ -164,6 +164,7 @@ textStyle: {
 {{target: partial-axis-common-minor-tick}}
 
 #${prefix} minorTick(Object)
+{{ use: partial-version(version = "4.6.0") }}
 坐标轴次刻度线相关设置。
 
 注意：次刻度线无法在类目轴（[type](~${componentType}.type): `'category'`）中使用。
@@ -242,6 +243,7 @@ splitLine: {
 {{target: partial-axis-common-minor-split-line}}
 
 #${prefix} minorSplitLine(Object)
+{{ use: partial-version(version = "4.6.0") }}
 坐标轴在 [grid](~grid) 区域中的次分隔线。次分割线会对齐次刻度线 [minorTick](~${componentType}.minorTick)
 
 ##${prefix} show(boolean) = ${defaultShow|default(false)}
@@ -281,10 +283,7 @@ splitLine: {
 
 
 
-{{target: axis-common}}
-
-#${prefix} type(string) = ${axisTypeDefault|default('value')}
-
+{{target: partial-axis-type-content}}
 坐标轴类型。
 
 可选：
@@ -292,13 +291,21 @@ splitLine: {
     数值轴，适用于连续数据。
 
 + `'category'`
-    类目轴，适用于离散的类目数据，为该类型时必须通过 [data](~${componentType}.data) 设置类目数据。
+    类目轴，适用于离散的类目数据。为该类型时类目数据可自动从 [series.data](~series.data) 或 [dataset.source](~dataset.source) 中取{{if: ${componentType} }}，或者可通过 [${componentType}.data](~${componentType}.data) 设置类目数据{{/if}}。
 
 + `'time'`
     时间轴，适用于连续的时序数据，与数值轴相比时间轴带有时间的格式化，在刻度计算上也有所不同，例如会根据跨度的范围来决定使用月，星期，日还是小时范围的刻度。
 
 + `'log'`
     对数轴。适用于对数数据。
+
+
+{{target: axis-common}}
+
+#${prefix} type(string) = ${axisTypeDefault|default('value')}
+{{use: partial-axis-type-content(
+    componentType=${componentType}
+) }}
 
 {{ if: ${componentType} !== 'angleAxis' }}
 #${prefix} name(string)
@@ -368,7 +375,7 @@ min: function (value) {
 }
 ```
 
-其中 `value` 是一个包含 `min` 和 `max` 的对象，分别表示数据的最大最小值，这个函数应该返回坐标轴的最小值。
+其中 `value` 是一个包含 `min` 和 `max` 的对象，分别表示数据的最大最小值，这个函数可返回坐标轴的最小值，也可返回 `null`/`undefined` 来表示“自动计算最小值”（返回 `null`/`undefined` 从 `v4.8.0` 开始支持）。
 
 #${prefix} max(number|string|Function) = null
 
@@ -388,7 +395,7 @@ max: function (value) {
 }
 ```
 
-其中 `value` 是一个包含 `min` 和 `max` 的对象，分别表示数据的最大最小值，这个函数应该返回坐标轴的最大值。
+其中 `value` 是一个包含 `min` 和 `max` 的对象，分别表示数据的最大最小值，这个函数可返回坐标轴的最大值，也可返回 `null`/`undefined` 来表示“自动计算最大值”（返回 `null`/`undefined` 从 `v4.8.0` 开始支持）。
 
 #${prefix} scale(boolean) = false
 

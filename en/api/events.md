@@ -68,7 +68,7 @@ Event parameters of mouse events are attributes of event object. The following s
 
 Mouse events contain `'click'`, `'dblclick'`, `'mousedown'`, `'mousemove'`, `'mouseup'`, `'mouseover'`, `'mouseout'`, `'globalout'`, `'contextmenu'`.
 
-See [Events and actions in ECharts](http://echarts.baidu.com/tutorial.html#Events%20and%20actions%20in%20ECharts%0D)
+See [Events and actions in ECharts](tutorial.html#Events%20and%20actions%20in%20ECharts%0D)
 
 ### click(Event)
 ### dblclick(Event)
@@ -123,6 +123,32 @@ Event emitted after unselecting legend.
     selected: Object
 }
 ```
+
+## legendselectall(Event)
+**ACTION:** [legendAllSelect](~action.legend.legendAllSelect)
+Event emitted after all legends are selected.
+
+```js
+{
+    type: 'legendselectall',
+    // table of all legend selecting states
+    selected: Object
+}
+```
+
+
+## legendinverseselect(Event)
+**ACTION:** [legendInverseSelect](~action.legend.legendInverseSelect)
+Event emitted after inversing all legends.
+
+```js
+{
+    type: 'legendinverseselect',
+    // table of all legend selecting states
+    selected: Object
+}
+```
+
 
 ## legendscroll(Event)
 **ACTION:** [legendscroll](~action.legend.legendScroll)
@@ -264,7 +290,11 @@ See [unfocusNodeAdjacency](~action.graph.unfocusNodeAdjacency).
 
 ## brush(Event)
 
-Event triggered after action [brush](~action.brush) dispatched.
+Event triggered after action [brush](~action.brush.brush) dispatched.
+
+## brushEnd(Event)
+{{ use: partial-version(version = "4.5.0") }}
+Event triggered after action [brushEnd](~action.brush.brushEnd) dispatched.
 
 
 ## brushselected(Event)

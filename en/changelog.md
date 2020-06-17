@@ -1,11 +1,11 @@
 ## v4.8.0
-<div class="time">2020-05-04</div>
+<div class="time">2020-05-25</div>
 
 + [Feature] [toolbox] Support download SVG file in toolbox when using SVG render mode. [#12144](https://github.com/apache/incubator-echarts/pull/12144) ([Zhang Wenli](https://github.com/Ovilia))
 
 + [Feature] Add more parameters in the loading effect. [#12414](https://github.com/apache/incubator-echarts/pull/12414) ([Yu Feng](https://github.com/yufeng04))
 
-+ [Feature] Support callback for symbolRotate. [#12348](https://github.com/apache/incubator-echarts/pull/12348) [#12354](https://github.com/apache/incubator-echarts/pull/12354) ([plainheart](https://github.com/plainheart))
++ [Feature] Support callback for `symbolRotate`. [#12348](https://github.com/apache/incubator-echarts/pull/12348) [#12354](https://github.com/apache/incubator-echarts/pull/12354) ([plainheart](https://github.com/plainheart))
 
 + [Feature] [axis] Callbacks of `min`, `max` can return `null` to use the default value now. [#11829](https://github.com/apache/incubator-echarts/pull/12215) ([Su Siwen](https://github.com/susiwen8)), [#12371](https://github.com/apache/incubator-echarts/pull/12371) ([Su Shuang](https://github.com/100pah))
 
@@ -36,6 +36,8 @@
 + [Fix] [visualMap] `minOpen` and `maxOpen` is not counted into pieces number now. [#12147](https://github.com/apache/incubator-echarts/pull/12147) ([Su Siwen](https://github.com/susiwen8))
 
 + [Fix] [bmap] [extension] Fix layer may not been cleared when using progressive rendering. ([Shen Yi](https://github.com/pissang))
+
++ [Fix] [bmap] [extension] Fix unexpected refresh bug.[#12411](https://github.com/apache/incubator-echarts/pull/12411) ([Shen Yi](https://github.com/pissang))
 
 
 ## v4.7.0
@@ -129,7 +131,7 @@
 
 + [Feature] Add `friction` option in force layout of `graph`. [#11276](https://github.com/apache/incubator-echarts/pull/11276) ([Shen Yi](https://github.com/pissang))
 
-+ [Feature] Add `ignoreFoceLayout` option in the `graph` links. [#11445](https://github.com/apache/incubator-echarts/pull/11445) ([TYzzt](https://github.com/TYzzt))
++ [Feature] Add `ignoreForceLayout` option in the `graph` links. [#11445](https://github.com/apache/incubator-echarts/pull/11445) ([TYzzt](https://github.com/TYzzt))
 
 + [Feature] Add `axisType` in the indicator of `radar` series. [#11324](https://github.com/apache/incubator-echarts/pull/11324)([zifix](https://github.com/zifix))
 
