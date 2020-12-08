@@ -1,112 +1,357 @@
+## v5.0.0
+<div class="time">2020-12-03</div>
+
++ Migrate codebase to TypeScript:
+    + The entire code base have been migrated to TypeScript.
+    + Provide `types/dist/echarts.d.ts` for the upper TS based applications, where the TS version supported is down to 3.4.
+    + See more details in [#13563](https://github.com/apache/incubator-echarts/pull/13563)
++ [Feature] States enhancement:
+    + Support state transition animation, which brings better interaction effect when highlighting or downplaying some part of the chart.
+    + Besides the state "emphasis" we already have, v5.0 provides two more configurable state: "select" and "blur" in all series. The option of them are the same as the existing "emphasis". "blur" is used the elements need to fade out when focusing some other elements. "select" is used when the element is selected by mouse/touch click or API triggering.
+    + Support to blur other graphic elements when highlighting specified data through mouseover or hover linking. See examples [bar-label-rotation](https://echarts.apache.org/next/examples/en/editor.html?c=bar-label-rotation), [bar-polar-stack](https://echarts.apache.org/next/examples/en/editor.html?c=bar-polar-stack), [bar-stack](https://echarts.apache.org/next/examples/en/editor.html?c=bar-stack), [area-stack](https://echarts.apache.org/next/examples/en/editor.html?c=area-stack), [dataset-link](https://echarts.apache.org/next/examples/en/editor.html?c=dataset-link), [scatter-weight](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-weight), [tree-basic](https://echarts.apache.org/next/examples/en/editor.html?c=tree-basic).
+    + Unify the previous different state configurations in series, like `highlightPolicy`, `focusNodeAdjacency`, `hoverOffset`, by the option `focus`, `blurScope` and `scale`. See examples [sankey-energy](https://echarts.apache.org/next/examples/en/editor.html?c=sankey-energy), [graph](https://echarts.apache.org/next/examples/en/editor.html?c=graph), [sunburst-drink](https://echarts.apache.org/next/examples/en/editor.html?c=sunburst-drink).
+    + See more details in [#12925](https://github.com/apache/incubator-echarts/pull/12925) and [#12911](https://github.com/apache/incubator-echarts/pull/12911).
++ [Feature] Provide a more powerful label support:
+    + Use some strategies to bring better displayed labels, including:
+        + Smarter text color strategy to make labels more easy to be distinguished from different background.
+        + Smarter label layout in pie chart, especially when there are too many labels or insufficient space. And related issue: [#6050](https://github.com/apache/incubator-echarts/issues/6050).
+        + Provide more overflow configurations.
+    + Provide option set `labelLayout` to enable more abilities for developers to tweak the layout of the labels after it's originally positioned by the chart itself. With the options in `labelLayout`, developers can:
+        + Avoid labels overlap (see [scatter-label-align-right](https://echarts.apache.org/next/examples/en/editor.html?c=graph-label-overlap)),
+        + Make special label alignment, and adjust label position, etc.. See the examples [pie-alignTo](https://echarts.apache.org/next/examples/en/editor.html?c=pie-alignTo), [pie-labelLine-adjust](https://echarts.apache.org/next/examples/en/editor.html?c=pie-labelLine-adjust), [pie-label-distanceToLabelLine](https://echarts.apache.org/next/examples/en/editor.html?c=doc-example/pie-label-distanceToLabelLine), [pie-label-bleedMargin](https://echarts.apache.org/next/examples/en/editor.html?c=doc-example/pie-label-bleedMargin).
+        + Make label draggable.
+    + Support `labelLine` for all series, which is very useful for guiding element to related labels when labels have to be far away from the elements. See examples [scatter-label-align-right](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-label-align-right), [scatter-label-align-top](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-label-align-top). Related issues: [#11534](https://github.com/apache/incubator-echarts/issues/11534), [#12971](https://github.com/apache/incubator-echarts/issues/12971).
+    + Support `series.endLabel` in line series. Label can be displayed at the end of a line.
+    + Support label text animation, that is, the transition animation on text when the number text changed. Can be enabled by `series.label.valueAnimation`, `series.endLabel.valueAnimation`. See more details in [#13246](https://github.com/apache/incubator-echarts/pull/13246) and [#13045](https://github.com/apache/incubator-echarts/pull/13045).
+    + See other details in [#12911](https://github.com/apache/incubator-echarts/pull/12911).
++ [Feature] Support bar realtime sorting by `series.realtimeSort`. See examples [bar-race](https://echarts.apache.org/next/examples/en/editor.html?c=bar-race), and see more details in the original pull request [#12484](https://github.com/apache/incubator-echarts/pull/12484).
++ [Feature] Support data transform plug-in:
+    + Data transform is a new set of configurations and APIs to enable data transformation based on `dataset` in declarative way. Built-in or third-party data transformer can be made as plug-ins to provide various transform algorithms. ECharts users can use those transformers in ECharts option.
+    + See examples [data-transform-filter](https://echarts.apache.org/next/examples/en/editor.html?c=data-transform-filter), [data-transform-sort-bar](https://echarts.apache.org/next/examples/en/editor.html?c=data-transform-sort-bar), [data-transform-multiple-pie](https://echarts.apache.org/next/examples/en/editor.html?c=data-transform-multiple-pie), [doc-example/data-transform-multiple-sort-bar](https://echarts.apache.org/next/examples/en/editor.html?c=doc-example/data-transform-multiple-sort-bar), [boxplot-light-velocity](https://echarts.apache.org/next/examples/en/editor.html?c=boxplot-light-velocity), [bar-histogram](https://echarts.apache.org/next/examples/en/editor.html?c=bar-histogram), [scatter-clustering](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-clustering), [scatter-exponential-regression](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-exponential-regression), [scatter-linear-regression](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-linear-regression), [scatter-logarithmic-regression](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-logarithmic-regression), [scatter-polynomial-regression](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-polynomial-regression). See more details in [#13065](https://github.com/apache/incubator-echarts/pull/13065), #13127](https://github.com/apache/incubator-echarts/pull/13127).
++ [Feature] Provide more smarter time axis label and tick arrangement:
+    + See more details in [#12859](https://github.com/apache/incubator-echarts/pull/12859).
++ [Feature] Support `decal`:
+    + Decal provides a new visual type that does not only augment aria scenarios but also enrich visual effects.
+    + See more details in [#13304](https://github.com/apache/incubator-echarts/pull/13304).
++ [Feature] Support transition animation in custom series.
+    + Transition animation can be auto performed by setting property `transition` for transform related properties, style properties and shape properties. See [custom-gauge](https://echarts.apache.org/next/examples/en/editor.html?c=custom-gauge).
+    + Support morphing/combining/separating by setting property `morph` on elements definitions. See examples [custom-combine-separate-morph](https://echarts.apache.org/next/examples/en/editor.html?c=custom-combine-separate-morph), [custom-one-to-one-morph](https://echarts.apache.org/next/examples/en/editor.html?c=custom-one-to-one-morph), [custom-story-transition](https://echarts.apache.org/next/examples/en/editor.html?c=custom-story-transition), [custom-spiral-race](https://echarts.apache.org/next/examples/en/editor.html?c=custom-spiral-race).
+    + Support customized transition animation by callback `during`. See the example [custom-spiral-race](https://echarts.apache.org/next/examples/en/editor.html?c=custom-spiral-race), and see more details in [#12775](https://github.com/apache/incubator-echarts/pull/12775).
+    + See more details in [#12775](https://github.com/apache/incubator-echarts/pull/12775), [#13468](https://github.com/apache/incubator-echarts/pull/13468), [#13271](https://github.com/apache/incubator-echarts/pull/13271).
++ [Feature] Provide a more powerful gauge:
+    + See examples [gauge-barometer](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-barometer), [gauge-clock](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-clock), [gauge-multi-title](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-multi-title), [gauge-progress](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-progress), [gauge-ring](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-ring), [gauge-grade](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-grade), [gauge-simple](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-simple), [gauge-temperature](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-temperature).
+    + See more details in [#13416](https://github.com/apache/incubator-echarts/pull/13416).
++ [Feature] The default theme and interaction have been greatly enhanced. Some new options are provided for the style and interaction configuration:
+    + Tooltip style enhancement: [#12947](https://github.com/apache/incubator-echarts/pull/12947), [#13398](https://github.com/apache/incubator-echarts/pull/13398), [#13242](https://github.com/apache/incubator-echarts/pull/13242).
+    + Provide configurable dash style: [#12961](https://github.com/apache/incubator-echarts/pull/12961).
+    + Axis style enhancement: [#13046](https://github.com/apache/incubator-echarts/pull/13046).
+    + DataZoom support both brush and drag: [#13025](https://github.com/apache/incubator-echarts/pull/13025).
+    + Support `darkMode`. [12911](https://github.com/apache/incubator-echarts/pull/12911).
+    + Enhance resize & dataZoom animation: [#12965](https://github.com/apache/incubator-echarts/pull/12965)
+    + Change the closing direction of a single bar, [#12543](https://github.com/apache/incubator-echarts/issues/12543).
+    + Enhance pie chart animation [#12553](https://github.com/apache/incubator-echarts/issues/12553).
+    + Other component style enhancement: [#13008](https://github.com/apache/incubator-echarts/pull/13008), [#13013](https://github.com/apache/incubator-echarts/pull/13013).
++ [Feature] Make i18n registerable and change the product.
+    + Build: [#13038](https://github.com/apache/incubator-echarts/pull/13038).
+    + Japanese: [#13470](https://github.com/apache/incubator-echarts/pull/13470).
+    + German: [#13315](https://github.com/apache/incubator-echarts/pull/13315).
+    + French: [#13056](https://github.com/apache/incubator-echarts/pull/13056).
+    + FI/ES/TH: [#13055](https://github.com/apache/incubator-echarts/pull/13055).
++ [Feature] Support rounded corner in pie and sunburst:
+    + See [#13390](https://github.com/apache/incubator-echarts/pull/13390) and [#13378](https://github.com/apache/incubator-echarts/pull/13378).
++ [Feature] Make tooltip more configurable:
+    + Support to add CSS class to tooltip. [#13383](https://github.com/apache/incubator-echarts/pull/13383).
+    + Support to return DOM in tooltip formatter. [#13469](https://github.com/apache/incubator-echarts/pull/13469).
++ [Feature] Support to partially remove components or replace components (`replaceMerge`):
+    + See details in [#12987](https://github.com/apache/incubator-echarts/pull/12987).
++ [Enhancement] Enhance performance in some scenarios:
+    + Improve large line performance, and support data sampling in largest-triangle-three-buckets algorithm.
+        + See more details in [#13314](https://github.com/apache/incubator-echarts/pull/13314), [#13317](https://github.com/apache/incubator-echarts/pull/13317), [#13337](https://github.com/apache/incubator-echarts/pull/13337).
+        + Fix issues [#12249](https://github.com/apache/incubator-echarts/issues/12249), [#10200](https://github.com/apache/incubator-echarts/issues/10200), [#4556](https://github.com/apache/incubator-echarts/issues/4556).
+    + Support dirty rect: [#13170](https://github.com/apache/incubator-echarts/pull/13170)
+    + Others: [#13339](https://github.com/apache/incubator-echarts/pull/13339).
++ Other small features, enhancements and bug-fixes:
+    + [Feature] Enhance `parseDate` [#13044](https://github.com/apache/incubator-echarts/pull/13044).
+    + [Feature] Make line bolder when line is in emphasis state [#13013](https://github.com/apache/incubator-echarts/pull/13013).
+    + [Feature] Sankey supports `lineStyle: {color: 'gradient'}`.
+    + [Feature] `markPoint.data.type` and `markArea.data.type` support the value `'median'`.
+    + [Feature] Support axis filter in specific cases. [#12832](https://github.com/apache/incubator-echarts/pull/12832).
+    + [Enhancement] Pause `requestAnimationFrame` when rendering finished.
+    + [Fix] Fix bmap first layout may be incorrect if container's layout is flex or grid. [#13432](https://github.com/apache/incubator-echarts/pull/13432).
+    + [Fix] Hide tooltip when mouse leaves the chart [#13382](https://github.com/apache/incubator-echarts/pull/13382).
+    + [Fix] Fix bmap personalization style does not work. [#13214](https://github.com/apache/incubator-echarts/pull/13214).
+    + [Fix] Fix the bug of overriding title when click the stack button. [#13372](https://github.com/apache/incubator-echarts/pull/13372).
+    + [Fix] Fix ECharts keeps rendering white blanks with large datasets on single canvas mode [#13283](https://github.com/apache/incubator-echarts/pull/13283).
+    + [Fix] Make `contentToOption` totally optional. [#13139](https://github.com/apache/incubator-echarts/pull/13139).
+    + [Fix] Keep axis tooltip open on refresh. [#13100](https://github.com/apache/incubator-echarts/pull/13100).
+    + [Fix] Skip rendering for data out of axis content in heatmap. [#12991](https://github.com/apache/incubator-echarts/pull/12991).
++ [Break] Breaking changes against v4.9:
+    + The default theme colors has been changed. If intending to use the theme of v4.9-, please set `option.color = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];`.
+    + Remove built-in map geoJSON. [#13565](https://github.com/apache/incubator-echarts/pull/13565).
+    + Drop the support of the legacy IE8. The previous VML renderer (necessary in IE8) will not be updated to work in v5.0 until someone strongly proposed.
+    + The exported modules from `'echarts/lib/export.js'` is not mounted to `'echarts/lib/echarts.js'` by default. If the upper application previously used `import echarts from 'echarts/lib/echarts'` and used any of the exported modules in `'echarts/lib/export.js'`, please change the import code to `import echarts from 'echarts/index.blank'`, where the modules from `'echarts/lib/export.js'` are mounted by default.
+    + If the upper application previously imported `src/echarts.js`, `src/chart/*.js` and `src/component/*.js`, it can not work any more because all of the files in `/src` folder are migrated to `*.ts`. Instead, the upper application can import `esm/echarts.js`, `esm/chart/*.js` and `esm/component/*.js`.
+    + The priority of the visuals between `visualMap` and `itemStyle`|`lineStyle`|`areaStyle` are reversed. That is, previously, the visuals (i.e., color, symbol, symbolSize, ...) that generated by the component `visualMap` has highest priority, which will overwrite the same visuals specified in `itemStyle`|`lineStyle`|`areaStyle`. That brought trouble to specify specific style to some certain data items. Since v5.0, the visuals specified in `itemStyle`|`lineStyle`|`areaStyle` has highest priority.
+    + The behavior of `rich.?.padding` are changed. Previously `rich.?.padding: [11, 22, 33, 44]` indicates that padding-top is `33` and padding-bottom is `11`, which is a buggy implementation because it is different from what CSS did. Since v5.0, we fix it: `rich.?.padding: [11, 22, 33, 44]` indicates padding-top is `11` and padding-bottom is `33`.
+    + `aria` is not included in `dist/echarts.simple(.min).js` since v5.0. But it is still included in `dist/echarts.common(.min).js` and `dist/echarts(.min).js`.
++ [Deprecated] Deprecated usages since v5.0:
+    + Transform related props of a graphic element are changed:
+        + Changes:
+            + `position: [number, number]` are changed to `x: number`/`y: number`.
+            + `scale: [number, number]` are changed to `scaleX: number`/`scaleY: number`.
+            + `origin: [number, number]` are changed to `originX: number`/`originY: number`.
+        + The `position`, `scale` and `origin` are still supported but deprecated.
+        + It effects these places:
+            + In the `graphic` components: the declarations of each element.
+            + In `custom series`: the declarations of each element in the return of `renderItem`.
+            + Directly use zrender graphic elements.
+    + Text related props on graphic elements are changed:
+        + Changes:
+            + The declaration of attached text (or say, rect text) are changed.
+                + Prop `style.text` are deprecated in elements except `Text`. Instead, Prop set `textContent` and `textConfig` are provided to support more powerful capabilities.
+                + These related props at the left part below are deprecated. Use the right part below instead.
+                    + textPosition => textConfig.position
+                    + textOffset => textConfig.offset
+                    + textRotation => textConfig.rotation
+                    + textDistance => textConfig.distance
+            + The props at the left part below are deprecated in `style` and `style.rich.?`. Use the props at the right part below instead.
+                + textFill => fill
+                + textStroke => stroke
+                + textFont => font
+                + textStrokeWidth => lineWidth
+                + textAlign => align
+                + textVerticalAlign => verticalAlign);
+                + textLineHeight =>
+                + textWidth => width
+                + textHeight => hight
+                + textBackgroundColor => backgroundColor
+                + textPadding => padding
+                + textBorderColor => borderColor
+                + textBorderWidth => borderWidth
+                + textBorderRadius => borderRadius
+                + textBoxShadowColor => shadowColor
+                + textBoxShadowBlur => shadowBlur
+                + textBoxShadowOffsetX => shadowOffsetX
+                + textBoxShadowOffsetY => shadowOffsetY
+            + Note: these props are not changed:
+                + textShadowColor
+                + textShadowBlur
+                + textShadowOffsetX
+                + textShadowOffsetY
+        + It effects these places:
+            + In the `graphic` components: the declarations of each element. [compat, but not accurately the same in some complicated cases.]
+            + In `custom series`: the declarations of each element in the return of `renderItem`. [compat, but not accurately the same in some complicated cases].
+            + Directly use zrender API to create graphic elements. [No compat, breaking change].
+    + API on chart instance:
+        + `chart.one(...)` is deprecated.
+    + `label`:
+        + In props `color`, `textBorderColor`, `backgroundColor` and `borderColor`, the value `'auto'` is deprecated. Use the value `'inherit'` instead.
+    + `hoverAnimation`:
+        + option `series.hoverAnimation` is deprecated. Use `series.emphasis.scale` instead.
+    + `line series`:
+        + option `series.clipOverflow` is deprecated. Use `series.clip` instead.
+    + `custom series`:
+        + In `renderItem`, the `api.style(...)` and `api.styleEmphasis(...)` are deprecated. Because it is not really necessary and hard to ensure backward compatibility. Users can fetch system designated visual by `api.visual(...)`.
+    + `sunburst series`:
+        + Action type `highlight` is deprecated. Use `sunburstHighlight` instead.
+        + Action type `downplay` is deprecated. Use `sunburstUnhighlight` instead.
+        + option `series.downplay` is deprecated. Use `series.blur` instead.
+        + option `series.highlightPolicy` is deprecated. Use `series.emphasis.focus` instead.
+    + `pie series`:
+        + The action type at the left part below are deprecated. Use the right part instead:
+            + `pieToggleSelect` => `toggleSelect`
+            + `pieSelect` => `select`
+            + `pieUnSelect` => `unselect`
+        + The event type at the left part below are deprecated. Use the right part instead:
+            + `pieselectchanged` => `selectchanged`
+            + `pieselected` => `selected`
+            + `pieunselected` => `unselected`
+        + option `series.label.margin` is deprecated. Use `series.label.edgeDistance` instead.
+        + option `series.clockWise` is deprecated. Use `series.clockwise` instead.
+        + option `series.hoverOffset` is deprecated. Use `series.emphasis.scaleSize` instead.
+    + `map series`:
+        + The action type at the left part below are deprecated. Use the right part instead:
+            + `mapToggleSelect` => `toggleSelect`
+            + `mapSelect` => `select`
+            + `mapUnSelect` => `unselect`
+        + The event type at the left part below are deprecated. Use the right part instead:
+            + `mapselectchanged` => `selectchanged`
+            + `mapselected` => `selected`
+            + `mapunselected` => `unselected`
+        + option `series.mapType` is deprecated. Use `series.map` instead.
+        + option `series.mapLocation` is deprecated.
+    + `graph series`:
+        + option `series.focusNodeAdjacency` is deprecated. Use `series.emphasis: { focus: 'adjacency'}` instead.
+    + `gauge series`:
+        + option `series.clockWise` is deprecated. Use `series.clockwise` instead.
+        + option `series.hoverOffset` is deprecated. Use `series.emphasis.scaleSize` instead.
+    + `dataZoom component`:
+        + option `dataZoom.handleIcon` need prefix `path://` if using SVGPath.
+    + `radar`:
+        + option `radar.name` is deprecated. Use `radar.axisName` instead.
+        + option `radar.nameGap` is deprecated. Use `radar.axisNameGap` instead.
+    + Parse and format:
+        + `echarts.format.formatTime` is deprecated. Use `echarts.time.format` instead.
+        + `echarts.number.parseDate` is deprecated. Use `echarts.time.parse` instead.
+        + `echarts.format.getTextRect` is deprecated.
+
+
+## v4.9.0
+<div class="time">2020-08-06</div>
+
++ [Feature] [graph] Support multiple edges to link nodes in graph. [#12590](https://github.com/apache/incubator-echarts/pull/12590) ([wf123537200](https://github.com/wf123537200))
+
++ [Feature] [funnel] Add `orient` option in funnel. Support horizontal layout. [#12754](https://github.com/apache/incubator-echarts/pull/12754) ([regrex](https://github.com/regrex))
+
++ [Enhancement] [tooltip] Add text shadow options. [#12664](https://github.com/apache/incubator-echarts/pull/12664) ([Ovilia](https://github.com/Ovilia))
+
++ [Enhancement] [toolbox] Add `brushStyle` option to configuration style of brush rect in the dataZoom feature. [#12550](https://github.com/apache/incubator-echarts/pull/12550) ([zhiyuc123](https://github.com/zhiyuc123))
+
++ [Fix] [themeRiver] Optimize data process in themeRiver. [#12022](https://github.com/apache/incubator-echarts/pull/12022) ([Zaynex](https://github.com/Zaynex))
+
++ [Fix] [toolbox] Fix pie series render incorrectly after editing its data in the dataView feature. [#12561](https://github.com/apache/incubator-echarts/pull/12561) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [toolbox] Fix dataView shows NaN when using dataset. [#11849](https://github.com/apache/incubator-echarts/pull/11849) ([susiwen8](https://github.com/susiwen8))
+
++ [Fix] [toolbox] Fix saveAsImage may have error in some special environments. [#12643](https://github.com/apache/incubator-echarts/pull/12643) ([lzr900515](https://github.com/lzr900515))
+
++ [Fix] [lines] Fix lines disappear if setOption again without data. [#12850](https://github.com/apache/incubator-echarts/pull/12850) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [sunburst] [treemap] Fix label formatter in `levels` not work bug. [#12742](https://github.com/apache/incubator-echarts/pull/12742) ([Ovilia](https://github.com/Ovilia))
+
++ [Fix] [bmap] Fix bmap event `moveend` is always triggered when dragging or zoomend. [#12558](https://github.com/apache/incubator-echarts/pull/12558) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [grid] Fix wrong gap calculation when `containLabel`is set in grid. [#12259](https://github.com/apache/incubator-echarts/issues/12259) ([Ling310](https://github.com/Ling310))
+
++ [Fix] [tooltip] Fix newline in tooltip of radar and map series when using `ricText` render mode. [#12664](https://github.com/apache/incubator-echarts/pull/12664) ([Ovilia](https://github.com/Ovilia))
+
++ [Fix] [tooltip] Update tooltip position proportionally when chart resized. [#12834](https://github.com/apache/incubator-echarts/pull/12834) ([liulinboyi](https://github.com/liulinboyi))
+
++ [Fix] [tooltip] Fix tooltip dispose in `richText` render mode. [#12608](https://github.com/apache/incubator-echarts/pull/12608) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [tree] Fix image symbol not display on first render. [#12367](https://github.com/apache/incubator-echarts/pull/12367) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [geo] Fix label formatter not work bug. [#12762](https://github.com/apache/incubator-echarts/pull/12762) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [bar] Fix error when switching `showBackground` from `false` to `true`. [#13085](https://github.com/apache/incubator-echarts/pull/13085) ([easonyq](https://github.com/easonyq))
+
++ [Fix] [markArea] Fix label is not hidden when markArea is outside the grid. [#12669](https://github.com/apache/incubator-echarts/pull/12669) ([Ovilia](https://github.com/Ovilia))
+
++ [Fix] [markLine] [markPoint] Fix `symbolRotate` not work bug. [#12737](https://github.com/apache/incubator-echarts/pull/12737) [#12392](https://github.com/apache/incubator-echarts/pull/12392) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [polar] Fix bar layout on polar with nagive axis. [#12418](https://github.com/apache/incubator-echarts/pull/12418) ([gracelia](https://github.com/gracelia))
+
+
+
 ## v4.8.0
 <div class="time">2020-05-25</div>
 
-+ [Feature] [toolbox] Support download SVG file in toolbox when using SVG render mode. [#12144](https://github.com/apache/incubator-echarts/pull/12144) ([Zhang Wenli](https://github.com/Ovilia))
++ [Feature] [toolbox] Support download SVG file in toolbox when using SVG render mode. [#12144](https://github.com/apache/incubator-echarts/pull/12144) ([Ovilia](https://github.com/Ovilia))
 
-+ [Feature] Add more parameters in the loading effect. [#12414](https://github.com/apache/incubator-echarts/pull/12414) ([Yu Feng](https://github.com/yufeng04))
++ [Feature] Add more parameters in the loading effect. [#12414](https://github.com/apache/incubator-echarts/pull/12414) ([yufeng04](https://github.com/yufeng04))
 
 + [Feature] Support callback for `symbolRotate`. [#12348](https://github.com/apache/incubator-echarts/pull/12348) [#12354](https://github.com/apache/incubator-echarts/pull/12354) ([plainheart](https://github.com/plainheart))
 
-+ [Feature] [axis] Callbacks of `min`, `max` can return `null` to use the default value now. [#11829](https://github.com/apache/incubator-echarts/pull/12215) ([Su Siwen](https://github.com/susiwen8)), [#12371](https://github.com/apache/incubator-echarts/pull/12371) ([Su Shuang](https://github.com/100pah))
++ [Feature] [axis] Callbacks of `min`, `max` can return `null` to use the default value now. [#11829](https://github.com/apache/incubator-echarts/pull/12215) ([susiwen8](https://github.com/susiwen8)), [#12371](https://github.com/apache/incubator-echarts/pull/12371) ([100pah](https://github.com/100pah))
 
 + [Feature] [geo] Add `nameProperty` to specify the name field of GeoJSON source. [#12156](https://github.com/apache/incubator-echarts/pull/12156)  ([alex2wong](https://github.com/alex2wong))
 
-+ [Fix] [sankey] Fix tooltip not displayed on edges. [#12011](https://github.com/apache/incubator-echarts/pull/12011) ([Su Siwen](https://github.com/susiwen8))
++ [Fix] [sankey] Fix tooltip not displayed on edges. [#12011](https://github.com/apache/incubator-echarts/pull/12011) ([susiwen8](https://github.com/susiwen8))
 
-+ [Fix] [sankey] Fix node may disappear when link value is 0. [#12191](https://github.com/apache/incubator-echarts/pull/12191) ([Su Siwen](https://github.com/susiwen8)), [#12472](https://github.com/apache/incubator-echarts/pull/12472) ([Su Shuang](https://github.com/100pah))
++ [Fix] [sankey] Fix node may disappear when link value is 0. [#12191](https://github.com/apache/incubator-echarts/pull/12191) ([susiwen8](https://github.com/susiwen8)), [#12472](https://github.com/apache/incubator-echarts/pull/12472) ([100pah](https://github.com/100pah))
 
-+ [Fix] [treemap] Add missing params in the foramtter callback. [#11854](https://github.com/apache/incubator-echarts/pull/11854) ([Su Siwen](https://github.com/susiwen8), [Su Shuang](https://github.com/100pah))
++ [Fix] [treemap] Add missing params in the foramtter callback. [#11854](https://github.com/apache/incubator-echarts/pull/11854) ([susiwen8](https://github.com/susiwen8), [100pah](https://github.com/100pah))
 
-+ [Fix] [calendar] Fix calendar chart layout when user is in a timezone with DST. [#12172](https://github.com/apache/incubator-echarts/pull/12172) ([mikeyshing88](https://github.com/mikeyshing88)), [#12466](https://github.com/apache/incubator-echarts/pull/12466) ([Su Shuang](https://github.com/100pah))
++ [Fix] [calendar] Fix calendar chart layout when user is in a timezone with DST. [#12172](https://github.com/apache/incubator-echarts/pull/12172) ([mikeyshing88](https://github.com/mikeyshing88)), [#12466](https://github.com/apache/incubator-echarts/pull/12466) ([100pah](https://github.com/100pah))
 
-+ [Fix] [line] Fix safari may crash because of memory explosion when using gradient, shadow with large wide-range animation. [#12410](https://github.com/apache/incubator-echarts/pull/12410) ([Shen Yi](https://github.com/pissang))
++ [Fix] [line] Fix safari may crash because of memory explosion when using gradient, shadow with large wide-range animation. [#12410](https://github.com/apache/incubator-echarts/pull/12410) ([pissang](https://github.com/pissang))
 
-+ [Fix] [line] Fix clip bug in chromium when chart size over 18000px. [#12393](https://github.com/apache/incubator-echarts/pull/12393) ([Zhan Fang](https://github.com/zhanfang))
++ [Fix] [line] Fix clip bug in chromium when chart size over 18000px. [#12393](https://github.com/apache/incubator-echarts/pull/12393) ([zhanfang](https://github.com/zhanfang))
 
-+ [Fix] [pie] Fix label may disappear when animation is disabled. [#12243](https://github.com/apache/incubator-echarts/issues/12243) ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] [pie] Fix label may disappear when animation is disabled. [#12243](https://github.com/apache/incubator-echarts/issues/12243) ([Ovilia](https://github.com/Ovilia))
 
-+ [Fix] [title] Fix potential security risk when `'_blank'`  target for link. [#12380](https://github.com/apache/incubator-echarts/issues/12380) ([Su Siwen](https://github.com/susiwen8))
++ [Fix] [title] Fix potential security risk when `'_blank'`  target for link. [#12380](https://github.com/apache/incubator-echarts/issues/12380) ([susiwen8](https://github.com/susiwen8))
 
-+ [Fix] [geo] Fix animation not work when change `center` or `zoom` with `setOption`. [#12340](https://github.com/apache/incubator-echarts/pull/12340) ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] [geo] Fix animation not work when change `center` or `zoom` with `setOption`. [#12340](https://github.com/apache/incubator-echarts/pull/12340) ([Ovilia](https://github.com/Ovilia))
 
 + [Fix] [heatmap] Remove the 1px gap. [#12342](https://github.com/apache/incubator-echarts/pull/12342) ([SnailSword](https://github.com/SnailSword))
 
-+ [Fix] [sunburst] Fix default downplay style not work bug. [#12264](https://github.com/apache/incubator-echarts/pull/12264) ([Shen Yi](https://github.com/pissang))
++ [Fix] [sunburst] Fix default downplay style not work bug. [#12264](https://github.com/apache/incubator-echarts/pull/12264) ([pissang](https://github.com/pissang))
 
-+ [Fix] [visualMap] `minOpen` and `maxOpen` is not counted into pieces number now. [#12147](https://github.com/apache/incubator-echarts/pull/12147) ([Su Siwen](https://github.com/susiwen8))
++ [Fix] [visualMap] `minOpen` and `maxOpen` is not counted into pieces number now. [#12147](https://github.com/apache/incubator-echarts/pull/12147) ([susiwen8](https://github.com/susiwen8))
 
-+ [Fix] [bmap] [extension] Fix layer may not been cleared when using progressive rendering. ([Shen Yi](https://github.com/pissang))
++ [Fix] [bmap] [extension] Fix layer may not been cleared when using progressive rendering. ([pissang](https://github.com/pissang))
 
-+ [Fix] [bmap] [extension] Fix unexpected refresh bug.[#12411](https://github.com/apache/incubator-echarts/pull/12411) ([Shen Yi](https://github.com/pissang))
++ [Fix] [bmap] [extension] Fix unexpected refresh bug.[#12411](https://github.com/apache/incubator-echarts/pull/12411) ([pissang](https://github.com/pissang))
 
 
 ## v4.7.0
 <div class="time">2020-03-18</div>
 
-+ [Feature] Provide new layouts for markLine labels. [#11843](https://github.com/apache/incubator-echarts/pull/11843) ([Zhang Wenli](https://github.com/Ovilia))
++ [Feature] Provide new layouts for markLine labels. [#11843](https://github.com/apache/incubator-echarts/pull/11843) ([Ovilia](https://github.com/Ovilia))
 
-+ [Feature] Support background option for bar series. [#11951](https://github.com/apache/incubator-echarts/pull/11951) ([Zhang Wenli](https://github.com/Ovilia))
++ [Feature] Support background option for bar series. [#11951](https://github.com/apache/incubator-echarts/pull/11951) ([Ovilia](https://github.com/Ovilia))
 
-+ [Feature] Support appending tooltip DOM to HTML body. [#8049](https://github.com/apache/incubator-echarts/pull/8049) [#12024](https://github.com/apache/incubator-echarts/pull/12024) ([xinpureZhu](https://github.com/xinpureZhu), [Su Shuang](https://github.com/100pah))
++ [Feature] Support appending tooltip DOM to HTML body. [#8049](https://github.com/apache/incubator-echarts/pull/8049) [#12024](https://github.com/apache/incubator-echarts/pull/12024) ([xinpureZhu](https://github.com/xinpureZhu), [100pah](https://github.com/100pah))
 
-+ [Feature] Add draggable support to group elements on graphic component. [#11959](https://github.com/apache/incubator-echarts/pull/11959) ([Shen Yi](https://github.com/pissang))
++ [Feature] Add draggable support to group elements on graphic component. [#11959](https://github.com/apache/incubator-echarts/pull/11959) ([pissang](https://github.com/pissang))
 
-+ [Feature] Add polyline edge layout for the tree chart. [#11808](https://github.com/apache/incubator-echarts/pull/11808) ([Li Deqing](https://github.com/deqingli))
++ [Feature] Add polyline edge layout for the tree chart. [#11808](https://github.com/apache/incubator-echarts/pull/11808) ([deqingli](https://github.com/deqingli))
 
 + [Enhance] Enhance continuity line trail for effect line. [#11893](https://github.com/apache/incubator-echarts/pull/11893) ([alex2wong](https://github.com/alex2wong))
 
 + [Fix] Fix markPoint position in stacked line/bar series. [#11965](https://github.com/apache/incubator-echarts/pull/11965) ([yikuangli](https://github.com/yikuangli))
 
-+ [Fix] Radar chart data may appear outside of the radar component. [#11841](https://github.com/apache/incubator-echarts/pull/11841) ([Su Siwen](https://github.com/susiwen8))
++ [Fix] Radar chart data may appear outside of the radar component. [#11841](https://github.com/apache/incubator-echarts/pull/11841) ([susiwen8](https://github.com/susiwen8))
 
-+ [Fix] Fix treemap highlight action not triggered. [#12050](https://github.com/apache/incubator-echarts/pull/12050) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix treemap highlight action not triggered. [#12050](https://github.com/apache/incubator-echarts/pull/12050) ([100pah](https://github.com/100pah))
 
-+ [Fix] Fix geo cannot be restored. [#12035](https://github.com/apache/incubator-echarts/pull/12035) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix geo cannot be restored. [#12035](https://github.com/apache/incubator-echarts/pull/12035) ([100pah](https://github.com/100pah))
 
-+ [Fix] Fix Array.prototype.slice is not defined on typed array [#11956](https://github.com/apache/incubator-echarts/pull/11956) ([Shen Yi](https://github.com/pissang))
++ [Fix] Fix Array.prototype.slice is not defined on typed array [#11956](https://github.com/apache/incubator-echarts/pull/11956) ([pissang](https://github.com/pissang))
 
-+ [Fix] Fix candlestick throw error when some series are filtered by legend. [#12027](https://github.com/apache/incubator-echarts/pull/12027) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix candlestick throw error when some series are filtered by legend. [#12027](https://github.com/apache/incubator-echarts/pull/12027) ([100pah](https://github.com/100pah))
 
-+ [Fix] Fix brush component not follow the pan and zoom of coordinate system. [#11998](https://github.com/apache/incubator-echarts/pull/11998) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix brush component not follow the pan and zoom of coordinate system. [#11998](https://github.com/apache/incubator-echarts/pull/11998) ([100pah](https://github.com/100pah))
 
-+ [Fix] Fix action `'showTip'` dispatched in radar chart. [#11985](https://github.com/apache/incubator-echarts/pull/11985) ([Yu Feng](https://github.com/yufeng04))
++ [Fix] Fix action `'showTip'` dispatched in radar chart. [#11985](https://github.com/apache/incubator-echarts/pull/11985) ([yufeng04](https://github.com/yufeng04))
 
 + [Fix] Fix splitArea not work in singleAxis. [#11890](https://github.com/apache/incubator-echarts/pull/11890) ([newraina](https://github.com/newraina))
 
-+ [Fix] Fix legend pagination may disappear. [#11952](https://github.com/apache/incubator-echarts/pull/11952) ([Yu Feng](https://github.com/yufeng04))
++ [Fix] Fix legend pagination may disappear. [#11952](https://github.com/apache/incubator-echarts/pull/11952) ([yufeng04](https://github.com/yufeng04))
 
-+ [Fix] Fix emphasis lineStyle options do not work in sankey chart. [#11729](https://github.com/apache/incubator-echarts/pull/11729) ([Li Deqing](https://github.com/deqingli))
++ [Fix] Fix emphasis lineStyle options do not work in sankey chart. [#11729](https://github.com/apache/incubator-echarts/pull/11729) ([deqingli](https://github.com/deqingli))
 
-+ [Fix] Fix tooltip formatter has no value in sankey chart. [#11752](https://github.com/apache/incubator-echarts/pull/11752) ([Li Deqing](https://github.com/deqingli))
++ [Fix] Fix tooltip formatter has no value in sankey chart. [#11752](https://github.com/apache/incubator-echarts/pull/11752) ([deqingli](https://github.com/deqingli))
 
 ## v4.6.0
 <div class="time">2019-12-29</div>
 
-+ [Feature] Optimize label layout on pie. Add new `alignTo` option for aligning the labels. Check more detail in PR [#11715](https://github.com/apache/incubator-echarts/pull/11715) ([Zhang Wenli](https://github.com/Ovilia))
++ [Feature] Optimize label layout on pie. Add new `alignTo` option for aligning the labels. Check more detail in PR [#11715](https://github.com/apache/incubator-echarts/pull/11715) ([Ovilia](https://github.com/Ovilia))
 
-+ [Feature] Add `minorTick`, `minorSplitLine` on axis. Check more detail in the PR [#11705](https://github.com/apache/incubator-echarts/pull/11705) ([Shen Yi](https://github.com/pissang))
++ [Feature] Add `minorTick`, `minorSplitLine` on axis. Check more detail in the PR [#11705](https://github.com/apache/incubator-echarts/pull/11705) ([pissang](https://github.com/pissang))
 
 + [Feature] Added more themes. [#11566](https://github.com/apache/incubator-echarts/pull/11566) ([WebCodePro719](https://github.com/WebCodePro719))
 
-+ [Enhance] Chart will keep the dragging status when mouse is out of the area. Which will provide a much better dragging experience. [#11710](https://github.com/apache/incubator-echarts/pull/11710) ([Su Shuang](https://github.com/100pah))
++ [Enhance] Chart will keep the dragging status when mouse is out of the area. Which will provide a much better dragging experience. [#11710](https://github.com/apache/incubator-echarts/pull/11710) ([100pah](https://github.com/100pah))
 
-+ [Enhance] Legend will display colors from `visualMap` component in `pie`/`funnel`/`radar` series. [#11737](https://github.com/apache/incubator-echarts/pull/11737) ([Shen Yi](https://github.com/pissang))
++ [Enhance] Legend will display colors from `visualMap` component in `pie`/`funnel`/`radar` series. [#11737](https://github.com/apache/incubator-echarts/pull/11737) ([pissang](https://github.com/pissang))
 
-+ [Enhance] Enhance dataset default encode guess strategy. [#11746](https://github.com/apache/incubator-echarts/pull/11746) ([Su Shuang](https://github.com/100pah))
++ [Enhance] Enhance dataset default encode guess strategy. [#11746](https://github.com/apache/incubator-echarts/pull/11746) ([100pah](https://github.com/100pah))
 
 + [Enhance] Stack icon on toolbox now is a toggle button. Removed tiled icon. [#11367](https://github.com/apache/incubator-echarts/pull/11367) ([alex2wong](https://github.com/alex2wong))
 
-+ [Enhance] Add a delay to avoid flashing when hovering on nodes and edges of `graph` and `sankey` series. [11572](https://github.com/apache/incubator-echarts/pull/11572) ([Li Deqing](https://github.com/apache/incubator-echarts/pull/11457))
++ [Enhance] Add a delay to avoid flashing when hovering on nodes and edges of `graph` and `sankey` series. [11572](https://github.com/apache/incubator-echarts/pull/11572) ([deqingli](https://github.com/apache/incubator-echarts/pull/11457))
 
-+ [Fix] Fix bar width calculation with `barMaxWidth` constraint and negative `barGap`. [#11713](https://github.com/apache/incubator-echarts/pull/11713) ([Shen Yi](https://github.com/pissang))
++ [Fix] Fix bar width calculation with `barMaxWidth` constraint and negative `barGap`. [#11713](https://github.com/apache/incubator-echarts/pull/11713) ([pissang](https://github.com/pissang))
 
-+ [Fix] Fix seams in `heatmap` series. Which may cause unexpected gray lines. [#11689](https://github.com/apache/incubator-echarts/pull/11689) ([Shen Yi](https://github.com/pissang))
++ [Fix] Fix seams in `heatmap` series. Which may cause unexpected gray lines. [#11689](https://github.com/apache/incubator-echarts/pull/11689) ([pissang](https://github.com/pissang))
 
 + [Fix] Fix unexpected highlight state after inverse selection in `legend`. [#11547](https://github.com/apache/incubator-echarts/pull/11547) ([SnailSword](https://github.com/SnailSword))
 
 + [Fix] Fix tooltip may highlight the point out of chart in `line` series. [#11548](https://github.com/apache/incubator-echarts/pull/11548) ([SnailSword](https://github.com/SnailSword))
 
-+ [Fix] Fix label may not disappear on SVG renderer. [ecomfe/zrender#535](https://github.com/ecomfe/zrender/pull/535) ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] Fix label may not disappear on SVG renderer. [ecomfe/zrender#535](https://github.com/ecomfe/zrender/pull/535) ([Ovilia](https://github.com/Ovilia))
 
 + [Fix] Not display bar on polar when value is `0`. [#11452](https://github.com/apache/incubator-echarts/issues/11452) ([foolzhang](https://github.com/foolzhang))
 
@@ -116,57 +361,57 @@
 
 + [Fix] Fix `markPoint` out of the chart may still display in the wrong position. [#11484](https://github.com/apache/incubator-echarts/pull/11484) ([susiwen8](https://github.com/susiwen8))
 
-+ [Fix] Fix tooltip shows multiple values around both sides of the pointer. [#11648](https://github.com/apache/incubator-echarts/pull/11648) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix tooltip shows multiple values around both sides of the pointer. [#11648](https://github.com/apache/incubator-echarts/pull/11648) ([100pah](https://github.com/100pah))
 
-+ [Fix] Fix `label.formatter` of leaves in `tree` series not work. [#11556](https://github.com/apache/incubator-echarts/pull/11556) ([Li Deqing](https://github.com/apache/incubator-echarts/pull/11457))
++ [Fix] Fix `label.formatter` of leaves in `tree` series not work. [#11556](https://github.com/apache/incubator-echarts/pull/11556) ([deqingli](https://github.com/apache/incubator-echarts/pull/11457))
 
 + [Fix] Fix overflow symbol not display when `clip` is set `false` in `line` series. [#11552](https://github.com/apache/incubator-echarts/pull/11552) ([SnailSword](https://github.com/SnailSword))
 
 ## v4.5.0
 <div class="time">2019-11-18</div>
 
-+ [Feature] Add `roundCap` option for round corners on `bar` series width `polar` coordinate system. [#11393](https://github.com/apache/incubator-echarts/pull/11393) ([Zhang Wenli](https://github.com/Ovilia))
++ [Feature] Add `roundCap` option for round corners on `bar` series width `polar` coordinate system. [#11393](https://github.com/apache/incubator-echarts/pull/11393) ([Ovilia](https://github.com/Ovilia))
 
-+ [Feature] Add event `brushEnd` for `brush` component [#11285](https://github.com/apache/incubator-echarts/pull/11285)([Jian Cui](https://github.com/cuijian-dexter))
++ [Feature] Add event `brushEnd` for `brush` component [#11285](https://github.com/apache/incubator-echarts/pull/11285)([cuijian-dexter](https://github.com/cuijian-dexter))
 
-+ [Feature] Add `friction` option in force layout of `graph`. [#11276](https://github.com/apache/incubator-echarts/pull/11276) ([Shen Yi](https://github.com/pissang))
++ [Feature] Add `friction` option in force layout of `graph`. [#11276](https://github.com/apache/incubator-echarts/pull/11276) ([pissang](https://github.com/pissang))
 
 + [Feature] Add `ignoreForceLayout` option in the `graph` links. [#11445](https://github.com/apache/incubator-echarts/pull/11445) ([TYzzt](https://github.com/TYzzt))
 
 + [Feature] Add `axisType` in the indicator of `radar` series. [#11324](https://github.com/apache/incubator-echarts/pull/11324)([zifix](https://github.com/zifix))
 
 
-+ [Feature] Add `clip` option in `candllestick` series. [#11529](https://github.com/apache/incubator-echarts/pull/11529) ([Shen Yi](https://github.com/pissang))
++ [Feature] Add `clip` option in `candllestick` series. [#11529](https://github.com/apache/incubator-echarts/pull/11529) ([pissang](https://github.com/pissang))
 
-+ [Fix] Fix lots of label positioning issues in SVG renderer. [ecomfe/zrender#519](https://github.com/ecomfe/zrender/pull/519) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix lots of label positioning issues in SVG renderer. [ecomfe/zrender#519](https://github.com/ecomfe/zrender/pull/519) ([100pah](https://github.com/100pah))
 
 + [Fix] Fix interval issues related to category axis tick. Like `areaStyle.color` is incorrect in [#10948](https://github.com/apache/incubator-echarts/issues/10948), `xAxis.axisTick.interval` is calculated incorrectly in [#11176](https://github.com/apache/incubator-echarts/pull/11176) . [#11186](https://github.com/apache/incubator-echarts/pull/11186) ([foolzhang](https://github.com/foolzhang))
 
 + [Fix] Fix `bar` series can't display on the `log` axis. [#11472](https://github.com/apache/incubator-echarts/pull/11472)([SnailSword](https://github.com/SnailSword))
 
-+ [Fix] Fix tooltip may be covered by the canvas when `-webkit-overflow-scrolling: touch` on iOS 13. [ecomfe/zrender#522](https://github.com/ecomfe/zrender/pull/522) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix tooltip may be covered by the canvas when `-webkit-overflow-scrolling: touch` on iOS 13. [ecomfe/zrender#522](https://github.com/ecomfe/zrender/pull/522) ([100pah](https://github.com/100pah))
 
-+ [Fix] Fix some of labels on category axis may disappear forever after chart resized. [#11536](https://github.com/apache/incubator-echarts/pull/11536) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix some of labels on category axis may disappear forever after chart resized. [#11536](https://github.com/apache/incubator-echarts/pull/11536) ([100pah](https://github.com/100pah))
 
-+ [Fix] Fix brush drag gets stuck when the mouse leaves the chart area. [#11516](https://github.com/apache/incubator-echarts/pull/11516) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix brush drag gets stuck when the mouse leaves the chart area. [#11516](https://github.com/apache/incubator-echarts/pull/11516) ([100pah](https://github.com/100pah))
 
-+ [Fix] Fix image symbol may disappear forever after legend toggled. [#11515](https://github.com/apache/incubator-echarts/pull/11515) ([Yu Feng](https://github.com/yufeng04))
++ [Fix] Fix image symbol may disappear forever after legend toggled. [#11515](https://github.com/apache/incubator-echarts/pull/11515) ([yufeng04](https://github.com/yufeng04))
 
-+ [Fix] Fix changing from `'scroll'` type to `'plain'` type not work bug in legend. [#11504](https://github.com/apache/incubator-echarts/pull/11504) ([Yu Feng](https://github.com/yufeng04))
++ [Fix] Fix changing from `'scroll'` type to `'plain'` type not work bug in legend. [#11504](https://github.com/apache/incubator-echarts/pull/11504) ([yufeng04](https://github.com/yufeng04))
 
-+ [Fix] Optimize layout and bar width of `bar` series on `time` axis and `value` axis. Make the `barMaxWidth` has higher priority than `barWidth`. Add `barMinWidth` for `bar` series on `time` axis and `value` axis. [#11479](https://github.com/apache/incubator-echarts/pull/11479) ([Zhang Wenli](https://github.com/Ovilia), [Su Shuang](https://github.com/100pah))
++ [Fix] Optimize layout and bar width of `bar` series on `time` axis and `value` axis. Make the `barMaxWidth` has higher priority than `barWidth`. Add `barMinWidth` for `bar` series on `time` axis and `value` axis. [#11479](https://github.com/apache/incubator-echarts/pull/11479) ([Ovilia](https://github.com/Ovilia), [100pah](https://github.com/100pah))
 
-+ [Fix] Fix title of toolbox icon may be cut by the container. [#11456](https://github.com/apache/incubator-echarts/pull/11456) ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] Fix title of toolbox icon may be cut by the container. [#11456](https://github.com/apache/incubator-echarts/pull/11456) ([Ovilia](https://github.com/Ovilia))
 
-+ [Fix] Fix precision issue in the ticks calculating. [#11488](https://github.com/apache/incubator-echarts/pull/11488) ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] Fix precision issue in the ticks calculating. [#11488](https://github.com/apache/incubator-echarts/pull/11488) ([Ovilia](https://github.com/Ovilia))
 
-+ [Fix] Fix `rotate` property of label not work in `tree` series. [#11457](https://github.com/apache/incubator-echarts/pull/11457) ([Li Deqing](https://github.com/apache/incubator-echarts/pull/11457))
++ [Fix] Fix `rotate` property of label not work in `tree` series. [#11457](https://github.com/apache/incubator-echarts/pull/11457) ([deqingli](https://github.com/apache/incubator-echarts/pull/11457))
 
-+ [Fix] Fix edge won't disappear after collapsed if the `id` is duplicated in `tree` series. [#11447](https://github.com/apache/incubator-echarts/pull/11447) ([Li Deqing](https://github.com/apache/incubator-echarts/pull/11457))
++ [Fix] Fix edge won't disappear after collapsed if the `id` is duplicated in `tree` series. [#11447](https://github.com/apache/incubator-echarts/pull/11447) ([deqingli](https://github.com/apache/incubator-echarts/pull/11457))
 
-+ [Fix] Fix data disappear when updating with `dataset` in `gauge` series. [#11373](https://github.com/apache/incubator-echarts/pull/11373) ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] Fix data disappear when updating with `dataset` in `gauge` series. [#11373](https://github.com/apache/incubator-echarts/pull/11373) ([Ovilia](https://github.com/Ovilia))
 
-+ [Fix] Fix gradient on bar leaked to label in SVG Renderer. ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] Fix gradient on bar leaked to label in SVG Renderer. ([Ovilia](https://github.com/Ovilia))
 
 
 ## v4.4.0

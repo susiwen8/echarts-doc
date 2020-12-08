@@ -1,111 +1,357 @@
+## v5.0.0
+<div class="time">2020-12-03</div>
+
++ 代码库迁移为 TypeScript：
+    + 全体代码迁移为 TypeScript。
+    + 对于使用 TS 的上层应用，提供了 `types/dist/echarts.d.ts` 作为类型声明。最低支持到 TS 3.4。
+    + 更多的信息参见 [#13563](https://github.com/apache/incubator-echarts/pull/13563)。
++ [Feature] 状态增强：
+    + 支持了状态切换时的过渡动画。这能提供更好的视觉效果，尤其比如当常见的部分图形元素因为被“高亮/淡出”时。
+    + 对于所有系列，新增了状态 `select` 和 `blur`。它们的配置，同我们已有的 `emphasis` 状态一样。`blur` 状态一般可以用于这样的场景：当部分图形元素被关注时，其他图形元素的淡出样式设置。`select` 状态一般可用于鼠标、触摸或 API 选中图形元素而导致样式改变的场景。
+    + 广泛支持了淡出效果，即，当某一部分图形元素被关注时（通过鼠标、触摸或 API），其他图形元素淡出，以突出被关注的图形元素。可看这些例子： [bar-label-rotation](https://echarts.apache.org/next/examples/en/editor.html?c=bar-label-rotation)、[bar-polar-stack](https://echarts.apache.org/next/examples/en/editor.html?c=bar-polar-stack)、[bar-stack](https://echarts.apache.org/next/examples/en/editor.html?c=bar-stack)、[area-stack](https://echarts.apache.org/next/examples/en/editor.html?c=area-stack)、[dataset-link](https://echarts.apache.org/next/examples/en/editor.html?c=dataset-link)、[scatter-weight](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-weight)、[tree-basic](https://echarts.apache.org/next/examples/en/editor.html?c=tree-basic)。
+    + 原先在不同系列中，形式不一样但是功能类似的配置项：`highlightPolicy`、`focusNodeAdjacency`、`hoverOffset`，被统一为：`focus`、`blurScope` 和 `scale`。参见示例 [sankey-energy](https://echarts.apache.org/next/examples/en/editor.html?c=sankey-energy)、[graph](https://echarts.apache.org/next/examples/en/editor.html?c=graph)、[sunburst-drink](https://echarts.apache.org/next/examples/en/editor.html?c=sunburst-drink)。
+    + 更多细节可见 [#12925](https://github.com/apache/incubator-echarts/pull/12925) 和 [#12911](https://github.com/apache/incubator-echarts/pull/12911)。
++ [Feature] 标签增强：
+    + 采用一些策略优化了标签显示效果：
+        + 根据背景颜色，智能计算标签文本的颜色，从而使他们更有区分度。
+        + 在饼图（pie chart）上，优化了标签的排布算法，尤其针对标签非常多的时候，避免咋算。详情见 [#6050](https://github.com/apache/incubator-echarts/issues/6050)。
+        + 针对文本超出（overflow）区域的场景，提供了多种配置策略。
+    + 提供一组配置项 `labelLayout`，能够在标签由图表初始定位后，调整其布局。通过 `labelLayout` 中的选项，开发者可以：
+        + 避免标签重叠（参见[scatter-label-align-right](https://echarts.apache.org/next/examples/en/editor.html?c=graph-label-overlap)）。
+        + 实现特殊的标签对齐方式，以及调整标签位置等。参见示例 [pie-alignTo](https://echarts.apache.org/next/examples/en/editor.html?c=pie-alignTo)、[pie-label-line-adjust](https://echarts.apache.org/next/examples/en/editor.html?c=pie-labelLine-adjust)、[pie-label-distanceToLabelLine](https://echarts.apache.org/next/examples/en/editor.html?c=doc-example/pie-label-distanceToLabelLine)、[pie-label-bleedMargin](https://echarts.apache.org/next/examples/en/editor.html?c=doc-example/pie-label-bleedMargin)。
+        + 支持标签拖动。
+    + 在所有系列中都支持 `labelLine` 配置。当标签不得不离图形元素比较远时，`labelLine` 能够视觉关联图形元素和其标签。参见示例 [scatter-label-align-right](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-label-align-right)、[scatter-label-align-top](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-label-align-top)。更多详情请见 [#11534](https://github.com/apache/incubator-echarts/issues/11534)、[#12971](https://github.com/apache/incubator-echarts/issues/12971)。
+    + 在折线图中支持 `series.endLabel`。这样标签可以显示在折线的一端。比较清晰得指示这条折线的含义。
+    + 支持标签文本动画，也就是，标签文本数字变化时的过渡动画。通过 `series.label.valueAnimation`, `series.endLabel.valueAnimation` 可以开关它。其他细节参见 [#13246](https://github.com/apache/incubator-echarts/pull/13246) 和 [#13045](https://github.com/apache/incubator-echarts/pull/13045)。
+    + 更多详情请参见 [#12911](https://github.com/apache/incubator-echarts/pull/12911)。
++ [Feature] 支持柱状图的动态排序。其开关是 `series.realtimeSort`。参见示例 [bar-race](https://echarts.apache.org/next/examples/en/editor.html?c=bar-race)，以及原始的 PR [#12484](https://github.com/apache/incubator-echarts/pull/12484)。
++ [Feature] 支持数据转换插件。
+    + 数据转换是一套新的配置和API，以声明的方式，实现基于 `dataset` 的数据转换。内置或第三方的数据变换器可以作为插件来提供各种转换算法。开发者可以在 `option` 中配置这些转换器。
+    + 参见示例 [data-transform-filter](https://echarts.apache.org/next/examples/en/editor.html?c=data-transform-filter)、[data-transform-sort-bar](https://echarts.apache.org/next/examples/en/editor.html?c=data-transform-sort-bar)、[data-transform-multiple-pie](https://echarts.apache.org/next/examples/en/editor.html?c=data-transform-multiple-pie)、[doc-example/data-transform-multiple-sort-bar](https://echarts.apache.org/next/examples/en/editor.html?c=doc-example/data-transform-multiple-sort-bar)、[boxplot-light-velocity](https://echarts.apache.org/next/examples/en/editor.html?c=boxplot-light-velocity)、[bar-histogram](https://echarts.apache.org/next/examples/en/editor.html?c=bar-histogram)、[scatter-clustering](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-clustering)、[scatter-exponential-regression](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-exponential-regression)、[scatter-linear-regression](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-linear-regression)、[scatter-logarithmic-regression](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-logarithmic-regression)、[scatter-polynomial-regression](https://echarts.apache.org/next/examples/en/editor.html?c=scatter-polynomial-regression)。其他细节见 [#13065](https://github.com/apache/incubator-echarts/pull/13065)、[#13127](https://github.com/apache/incubator-echarts/pull/13127)。
++ [Feature] 时间轴标签和刻度排列优化。
+    + 查看更多细节在 [#12859](https://github.com/apache/incubator-echarts/pull/12859)。
++ [Feature] 支持贴画纹理（decal）。
+    + 贴画纹理提供了一种新的视觉类型，它不仅增强了无障碍访问（aria)场景，还提供了颜色以外的视觉编码方式，来区分数据。
+    + 更多细节见 [#13304](https://github.com/apache/incubator-echarts/pull/13304)。
++ [Feature] 支持自定义系列的过渡动画。
+    + 通过设置变换相关属性、样式属性和形状属性的 `transition` 属性，可以自动执行过渡动画。参见 [custom-gauge](https://echarts.apache.org/next/examples/en/editor.html?c=custom-gauge)。
+    + 通过对元素定义设置属性`morph`，支持变形/合并/分离。参见示例 [custom-combine-separate-morph](https://echarts.apache.org/next/examples/en/editor.html?c=custom-combine-separate-morph)、[custom-one-to-one-morph](https://echarts.apache.org/next/examples/en/editor.html?c=custom-one-to-one-morph)、[custom-story-transition](https://echarts.apache.org/next/examples/en/editor.html?c=custom-story-transition)、[custom-spiral-race](https://echarts.apache.org/next/examples/en/editor.html?c=custom-spiral-race)。
+    + 通过回调 `during` 支持自定义过渡动画。参见示例 [custom-spiral-race](https://echarts.apache.org/next/examples/en/editor.html?c=custom-spiral-race)，并参见 [#12775](https://github.com/apache/incubator-echarts/pull/12775) 中的更多细节。
+    + 详见 [#12775](https://github.com/apache/incubator-echarts/pull/12775)、[#13468](https://github.com/apache/incubator-echarts/pull/13468)、[#13271](https://github.com/apache/incubator-echarts/pull/13271)。
++ [Feature] 提供了更强大的仪表。
+    + 请参见示例 [gauge-barometer](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-barometer)、[gauge-clock](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-clock)、[gauge-multi-title](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-multi-title)、[gauge-progress](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-progress)、[gauge-ring](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-ring)、[gauge-grade](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-grade)、[gauge-simple](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-simple)、[gauge-temperature](https://echarts.apache.org/next/examples/en/editor.html?c=gauge-temperature)。
+    + 更多细节见 [#13416](https://github.com/apache/incubator-echarts/pull/13416)。
++ [Feature] 改进了默认的主题和交互方式。其中，为样式和交互，提供了一些新的设定选项。
+    + tooltip 样式增强。参见 [#12947](https://github.com/apache/incubator-echarts/pull/12947)、[#13398](https://github.com/apache/incubator-echarts/pull/13398)、[#13242](https://github.com/apache/incubator-echarts/pull/13242)。
+    + 提供可配置的仪表盘样式。参见 [#12961](https://github.com/apache/incubator-echarts/pull/12961)。
+    + 指针的样式增强。参见 [#13046](https://github.com/apache/incubator-echarts/pull/13046)。
+    + DataZoom 同时支持刷选和拖拽。参见 [#13025](https://github.com/apache/incubator-echarts/pull/13025)。
+    + 支持了 `darkMode`。参见 [12911](https://github.com/apache/incubator-echarts/pull/12911)。
+    + resize 和 DataZoom 动画进行了改善。参见 [#12965](https://github.com/apache/incubator-echarts/pull/12965)。
+    + 柱状图消失时的动画改善。参见 [#12543](https://github.com/apache/incubator-echarts/issues/12543)。
+    + 改进了饼图动画。参见 [#12553](https://github.com/apache/incubator-echarts/issues/12553)。
+    + 其他组件样式增强。[#13008](https://github.com/apache/incubator-echarts/pull/13008)、[#13013](https://github.com/apache/incubator-echarts/pull/13013)。
++ [Feature] 增强 i18n，使其可运行时注册，并改进其构建方式。
+    + 构建方式改进。参见 [#13038](https://github.com/apache/incubator-echarts/pull/13038)。
+    + Japanese：[#13470](https://github.com/apache/incubator-echarts/pull/13470)。
+    + German：[#13315](https://github.com/apache/incubator-echarts/pull/13315)。
+    + French：[#13056](): [#13056](https://github.com/apache/incubator-echarts/pull/13056)。
+    + FI/ES/TH：[#13055](https://github.com/apache/incubator-echarts/pull/13055)。
++ [Feature] 在饼图和旭日图上，支持圆角。
+    + 参见 [#13390](https://github.com/apache/incubator-echarts/pull/13390) 和 [#13378](https://github.com/apache/incubator-echarts/pull/13378)。
++ [Feature] 增强 tooltip 的配置能力。
+    + 支持为 tooltip 添加 CSS 类。参见 [#13383](https://github.com/apache/incubator-echarts/pull/13383).支持在tooltip中添加CSS类。
+    + 支持在 tooltip formatter 中返回 DOM。参见 [#13469](https://github.com/apache/incubator-echarts/pull/13469)。
++ [Feature] 支持部分删除组件或替换组件（ replaceMerge ）。
+    + 详情见 [#12987](https://github.com/apache/incubator-echarts/pull/12987)。
++ [Enhancement] 提升一些常见场景下的性能。
+    + 大数据折线图的性能大幅提升。支持了 largest-triangle-three-buckets 采样算法。
+        + 更多细节参见 [#13314](https://github.com/apache/incubator-echarts/pull/13314)、[#13317](https://github.com/apache/incubator-echarts/pull/13317)、[#13337](https://github.com/apache/incubator-echarts/pull/13337)。
+        + 修正问题 [#12249](https://github.com/apache/incubator-echarts/issues/12249)、[#10200](https://github.com/apache/incubator-echarts/issues/10200)、[#4556](https://github.com/apache/incubator-echarts/issues/4556)。
+    + 支持了脏矩形渲染。参见 [#13170](https://github.com/apache/incubator-echarts/pull/13170)。
+    + 其他：[#13339](https://github.com/apache/incubator-echarts/pull/13339)。
++ 其他功能、改进和问题修复。
+    + [Feature] 改进了 `parseDate`。参见 [#13044](https://github.com/apache/incubator-echarts/pull/13044)。
+    + [Feature] 当线处于 emphasis 状态时，加租。参见 [#13013](https://github.com/apache/incubator-echarts/pull/13013)。
+    + [Feature] 桑吉图 （`sankey`）支持了 `lineStyle: {color: 'gradient'}`。
+    + [Feature] `markPoint.data.type` 和 `markArea.data.type` 支持了值 `'median'`。
+    + [Feature] 在一些特定情况下，坐标轴支持了过滤数据。参见 [#12832](https://github.com/apache/incubator-echarts/pull/12832)。
+    + [Enhancement] 当不再进行绘制时，暂停 `requestAnimationFrame` 的循环。
+    + [Fix] 修正 bmap 布局问题：如果容器的布局是 flex 或 grid layout，bmap 首次布局有可能不正确。参见 [#13432](https://github.com/apache/incubator-echarts/pull/13432)。
+    + [Fix] 当鼠标离开图表时，隐藏 tooltip。参见 [#13382](https://github.com/apache/incubator-echarts/pull/13382)。
+    + [Fix] 修正 bmap 自定义 style 不起作用的问题。参见 [#13214](https://github.com/apache/incubator-echarts/pull/13214)。
+    + [Fix] 修正 toolbox 中点击 stack 按钮时标题覆盖问题。参见 [#13372](https://github.com/apache/incubator-echarts/pull/13372)。
+    + [Fix] 修正 ECharts 在 worker 中大数据量时持续空白绘制的问题。参见 [#13283](https://github.com/apache/incubator-echarts/pull/13283)。
+    + [Fix] 使 `contentToOption` 完全可选。参见 [#13139](https://github.com/apache/incubator-echarts/pull/13139)。
+    + [Fix] 当刷新时，保持 tooltip 。参见 [#13100](https://github.com/apache/incubator-echarts/pull/13100)。
+    + [Fix] 当 heatmap 超出坐标系区域时，不渲染。参见 [#12991](https://github.com/apache/incubator-echarts/pull/12991)。
++ [Break] 相比于 v4.9 的 Breaking changes：
+    + 默认的主题颜色被修改了。如果仍打算使用 v4.9 之前版本的主题，请设置 `option.color = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];`。
+    + 移除了内置地图 geoJSON。参见 [#13565](https://github.com/apache/incubator-echarts/pull/13565)。
+    + 放弃了对 IE8 的支持。以前的 `VML` 渲染器（IE8 所须）没有针对 v5.0 进行更新。除非后续有人提出了强需求。
+    + `'echarts/lib/export.js'` 中声明的模块，不再默认挂载到 `'echarts/lib/echarts.js'` 中。如果上层应用之前使用了 `import echarts from 'echarts/lib/echarts'` 并使用了 `'echarts/lib/export.js'` 中的任何一个模块，请将代码改为 `import echarts from 'echarts/index.blank'`，在这里，`'echarts/lib/export.js'` 中的模块，才被默认挂载。
+    + 如果上层应用之前引用了 `src/echarts.js`、`src/chart/*.js`、`src/component/*.js`，则不再能这么引用了。因为 `/src` 文件夹中的所有文件都被迁移为 `*.ts`。上层应用程序可以改为引用 `esm/echarts.js`、`esm/chart/*.js`、`esm/component/*.js`。
+    + 颠倒了 `visualMap` 和 `itemStyle`|`lineStyle`|`areaStyle` 的优先级。也就是说，以前，由`visualMap` 组件生成的视觉效果（即颜色、符号、符号大小等）具有最高优先级，将覆盖 `itemStyle`|`lineStyle`|`areaStyle` 中指定的相同视觉效果。这种设定带来了一些麻烦，比如给一些特定的数据项指定特定的样式时。从 v5.0 开始，`itemStyle`|`lineStyle`|`areaStyle` 中指定的视觉效果具有了最高优先级。
+    + 改变了 `rich.?.padding` 的行为。以前的 `rich.?.padding: [11, 22, 33, 44]` 表示 padding-top 是 `33`，padding-bottom 是 `11`，这是一个有问题的实现，因为它与 CSS 的做法不同。从 v5.0 开始，我们对它进行了修复。`rich.?.padding: [11, 22, 33, 44]` 表示 padding-top `11`，padding-bottom 是`33`。
+    + `aria` 从 v5.0 开始不再包含在 `dist/echarts.simple(.min).js` 中。但它仍然包含在 `dist/echarts.common(.min).js` 和 `dist/echarts(.min).js` 中。
++ [Deprecated] 从 v5.0 开始已不推荐使用做法：
+    + 图形元素 transform 相关的属性被改变了：
+        + 变更点：
+            + `position: [number, number]` 改为 `x: number`/`y: number`。
+            + `scale: [number, number]` 改为 `scaleX: number`/`scaleY: number`。
+            + `origin: [number, number]` 改为 `originX: number`/`originY: number`。
+        + `position`、`scale` 和 `origin` 仍然支持，但已不推荐使用。
+        + 它影响到这些地方：
+            + 在`graphic`组件中：每个元素的声明。
+            + 在 `custom series` 中：`renderItem` 返回的每个元素的声明。
+            + 直接使用 zrender 图形元素时。
+    + Text 相关的属性被改变：
+        + 变更点：
+            + 图形元素附带的文本的声明方式被改变：
+                + 除了 `Text` 元素之外，其他元素中的属性 `style.text` 都不推荐使用了。取而代之的是新属性 `textContent` 和 `textConfig`，他们能带来更丰富的功能。
+                + 其中，下面左边部分的这些属性已不推荐使用或废弃。请使用下面的右边部分的属性：
+                    + textPosition => textConfig.position
+                    + textOffset => textConfig.offset
+                    + textRotation => textConfig.rotation
+                    + textDistance => textConfig.distance
+            + 下面左边部分的属性在 `style` 和 `style.rich.?` 中已不推荐使用或废弃。请使用下面右边的属性：
+                + textFill => fill
+                + textStroke => stroke
+                + textFont => font
+                + textStrokeWidth => lineWidth
+                + textAlign => align
+                + textVerticalAlign => verticalAlign
+                + textLineHeight =>
+                + textWidth => width
+                + textHeight => hight
+                + textBackgroundColor => backgroundColor
+                + textPadding => padding
+                + textBorderColor => borderColor
+                + textBorderWidth => borderWidth
+                + textBorderRadius => borderRadius
+                + textBoxShadowColor => shadowColor
+                + textBoxShadowBlur => shadowBlur
+                + textBoxShadowOffsetX => shadowOffsetX
+                + textBoxShadowOffsetY => shadowOffsetY
+            + 注：这些属性并没有变化：
+                + textShadowColor
+                + textShadowBlur
+                + textShadowOffsetX
+                + textShadowOffsetY
+        + 它影响到这些地方：
+            + 在 `graphic` 组件中：每个元素的声明。（原来的写法仍兼容，但在一些很复杂的情况下，可能效果不完全一致。）
+            + 在自定义系列（`custom series`）中：`renderItem` 返回中的每个元素的声明。（原来的写法仍兼容，但在一些很复杂的情况下，可能效果不完全一致。）
+            + 直接使用 zrender API 创建图形元素。（不再兼容，原写法被废弃。）
+    + 图表实例上的 API：
+        + `chart.one(...)` 已不推荐使用。
+    + `label`。
+        + 属性 `color`、`textBorderColor`、`backgroundColor`、`borderColor` 中，值 `auto` 已不推荐使用，而推荐使用 `'inherit'` 代替。
+    + `hoverAnimation`:
+        + 选项 `series.hoverAnimation` 已不推荐使用，使用 `series.phasis.scale` 代替之。
+    + 折线图（`line series`）：
+        + 选项 `series.clipOverflow` 已不推荐使用，使用 `series.clip` 代替之。
+    + 自定义系列（`custom series`）。
+        + 在 `renderItem` 中，`api.style(...)` 和 `api.styleEmphasis(...)` 已不推荐使用。因为这两个接口其实并不真正必要，也很难保证向后兼容。用户可以通过 `api.visual(...)` 获取系统自动分配的视觉信息。
+    + 旭日图（`sunburst`）：
+        +动作类型`highlight`已被废弃，使用`sunburstHigh`。使用`sunburstHighlight`代替。
+        + 动作类型 "downplay "已被弃用，请使用 "sunburstUniversity "代替。使用`sunburstUnhighlight`代替。
+        +选项`series.downplay`已被弃用，请使用`series.blush`代替。使用`series.blur`代替。
+        +选项`series.highlightPolicy`已不适用。使用`series.emphasis.focus`代替。
+    + 饼图（`pie`）：
+        + 下面左边部分的 action 名已经不推荐使用。请使用右边的 action 名。
+            + `pieToggleSelect` => `toggleSelect`。
+            + `pieSelect` => `select`。
+            + `pieUnSelect` => `unselect`。
+        + 下面左边部分的事件名已经不推荐使用。请使用右边的事件名。
+            + `pieselectchanged` => `selectchanged`。
+            + `pieselected` => `selected`。
+            + `pieunselected` => `unselected`。
+        + 选项 `series.label.margin` 已经不推荐使用。使用 `series.label.edgeDistance` 代替。
+        + 选项 `series.clockWise` 已经不推荐使用。使用 `series.clockwise` 代替。
+        + 选项 `series.hoverOffset` 已经不推荐使用。使用 `series.phasis.scaleSize` 代替。
+    + 地图（`map series`）：
+        + 下文左边部分的 action 名已经不推荐使用。请使用右边的 action 名。
+            + `mapToggleSelect` => `toggleSelect`。
+            + `mapSelect` => `select`。
+            + `mapUnSelect` => `unselect`。
+        + 下面左边部分的事件名已经不推荐使用。请使用右边的事件名。
+            + `mapselectchanged` => `selectchanged`。
+            + `mapselected` => `selected`。
+            + `mapunselected` => `unselected`。
+        + 选项 `series.mapType` 已经不推荐使用。使用 `series.map` 代替。
+        + 选项 `series.mapLocation` 已经不推荐使用。
+    + 关系图（`graph series`）：
+        + 选项 `series.focusNodeAdjacency` 已经不推荐使用。使用 `series.emphasis: { focus: 'adjacency'}` 代替。
+    + 仪表盘（`gauge series`）：
+        + 选项 `series.clockWise` 已经不推荐使用。使用 `series.clockwise` 代替。
+        + 选项 `series.hoverOffset` 已经不推荐使用。使用 `series.phasis.scaleSize` 代替。
+    + `dataZoom` 组件：
+        + 选项 `dataZoom.handleIcon` 如果使用 `SVGPath`，需要前缀 `path://`。
+    + 雷达图（`radar`）：
+        + 选项 `radar.name` 已经不推荐使用。使用 `radar.axisName` 代替。
+        + 选项 `radar.nameGap` 已经不推荐使用。使用 `radar.axisNameGap` 代替。
+    + Parse and format：
+        + `echarts.format.formatTime` 已经不推荐使用。使用 `echarts.time.format` 代替。
+        + `echarts.number.parseDate` 已经不推荐使用。使用 `echarts.time.parse` 代替。
+        + `echarts.format.getTextRect` 已经不推荐使用。
+
+
+
+
+## v4.9.0
+<div class="time">2020-08-06</div>
+
++ [Feature] [graph] 关系图支持节点间多条关系边. [#12590](https://github.com/apache/incubator-echarts/pull/12590) ([wf123537200](https://github.com/wf123537200))
+
++ [Feature] [funnel] 漏斗图添加`orient`配置，支持水平布局. [#12754](https://github.com/apache/incubator-echarts/pull/12754) ([regrex](https://github.com/regrex))
+
++ [Enhancement] [tooltip] 添加文字阴影相关的配置. [#12664](https://github.com/apache/incubator-echarts/pull/12664) ([Ovilia](https://github.com/Ovilia))
+
++ [Enhancement] [toolbox] toolbox 中的 dataZoom 添加`brushStyle`配置刷选框样式. [#12550](https://github.com/apache/incubator-echarts/pull/12550) ([zhiyuc123](https://github.com/zhiyuc123))
+
++ [Fix] [themeRiver] 优化事件河流图中的数据预处理. [#12022](https://github.com/apache/incubator-echarts/pull/12022) ([Zaynex](https://github.com/Zaynex))
+
++ [Fix] [toolbox] 修复饼图可能在数据视图(dataView)修改完后渲染不正确的问题. [#12561](https://github.com/apache/incubator-echarts/pull/12561) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [toolbox] 修复在使用`dataset`的时候数据视图(dataView)显示`NaN`的问题. [#11849](https://github.com/apache/incubator-echarts/pull/11849) ([susiwen8](https://github.com/susiwen8))
+
++ [Fix] [toolbox] 修复`saveAsImage`在部分平台上无法使用的问题. [#12643](https://github.com/apache/incubator-echarts/pull/12643) ([lzr900515](https://github.com/lzr900515))
+
++ [Fix] [lines] 修复再次 setOption 的时候不设置数据会导致数据和图形丢失的问题. [#12850](https://github.com/apache/incubator-echarts/pull/12850) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [sunburst] [treemap] 修复`levels`下的`label.formatter`无法起作用的问题. [#12742](https://github.com/apache/incubator-echarts/pull/12742) ([Ovilia](https://github.com/Ovilia))
+
++ [Fix] [bmap] 修复百度地图插件中拖动的时候`moveend`事件一直被触发的问题. [#12558](https://github.com/apache/incubator-echarts/pull/12558) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [grid] 修复在配置`containLabel`时候网格边距可能计算不正确的问题. [#12259](https://github.com/apache/incubator-echarts/issues/12259) ([Ling310](https://github.com/Ling310))
+
++ [Fix] [tooltip] 修复富文本模式下雷达图和地图的换行不正确的问题. [#12664](https://github.com/apache/incubator-echarts/pull/12664) ([Ovilia](https://github.com/Ovilia))
+
++ [Fix] [tooltip] 在图表高宽发生改变的时候能够更新提示框的位置. [#12834](https://github.com/apache/incubator-echarts/pull/12834) ([liulinboyi](https://github.com/liulinboyi))
+
++ [Fix] [tooltip] 修复富文本模式下提示框释放的问题. [#12608](https://github.com/apache/incubator-echarts/pull/12608) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [tree] 修复树图下节点使用图片的时候在第一次渲染无法显示的问题. [#12367](https://github.com/apache/incubator-echarts/pull/12367) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [geo] 修复标签的`formatter`无法起作用的问题. [#12762](https://github.com/apache/incubator-echarts/pull/12762) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [bar] 修复通过`showBackground`动态开启背景可能会报错的问题. [#13085](https://github.com/apache/incubator-echarts/pull/13085) ([easonyq](https://github.com/easonyq))
+
++ [Fix] [markArea] 不显示在坐标轴外的标域(markArea)的标签. [#12669](https://github.com/apache/incubator-echarts/pull/12669) ([Ovilia](https://github.com/Ovilia))
+
++ [Fix] [markLine] [markPoint] 修复`symbolRotate`配置无法起作用的问题. [#12737](https://github.com/apache/incubator-echarts/pull/12737) [#12392](https://github.com/apache/incubator-echarts/pull/12392) ([plainheart](https://github.com/plainheart))
+
++ [Fix] [polar] 修复柱状图在有负值的刻度线的极坐标系上显示的问题. [#12418](https://github.com/apache/incubator-echarts/pull/12418) ([gracelia](https://github.com/gracelia))
+
+
 ## v4.8.0
 <div class="time">2020-05-25</div>
 
-+ [Feature] [toolbox] 支持 SVG 渲染模式下 toolbox 下载成 SVG 文件。 [#12144](https://github.com/apache/incubator-echarts/pull/12144) ([Zhang Wenli](https://github.com/Ovilia))
++ [Feature] [toolbox] 支持 SVG 渲染模式下 toolbox 下载成 SVG 文件。 [#12144](https://github.com/apache/incubator-echarts/pull/12144) ([Ovilia](https://github.com/Ovilia))
 
-+ [Feature] 加载动画支持更多配置参数。 [#12414](https://github.com/apache/incubator-echarts/pull/12414) ([Yu Feng](https://github.com/yufeng04))
++ [Feature] 加载动画支持更多配置参数。 [#12414](https://github.com/apache/incubator-echarts/pull/12414) ([yufeng04](https://github.com/yufeng04))
 
 + [Feature] `symbolRotate` 支持回调函数。 [#12348](https://github.com/apache/incubator-echarts/pull/12348) [#12354](https://github.com/apache/incubator-echarts/pull/12354) ([plainheart](https://github.com/plainheart))
 
-+ [Feature] [axis] 坐标轴中的 `min`, `max` 在回调函数的时候，可以返回 null 空继续使用默认值。 [#11829](https://github.com/apache/incubator-echarts/pull/12215) ([Su Siwen](https://github.com/susiwen8)), [#12371](https://github.com/apache/incubator-echarts/pull/12371) ([Su Shuang](https://github.com/100pah))
++ [Feature] [axis] 坐标轴中的 `min`, `max` 在回调函数的时候，可以返回 null 空继续使用默认值。 [#11829](https://github.com/apache/incubator-echarts/pull/12215) ([susiwen8](https://github.com/susiwen8)), [#12371](https://github.com/apache/incubator-echarts/pull/12371) ([100pah](https://github.com/100pah))
 
 + [Feature] [geo] 添加 `nameProperty` 配置支持指定 GeoJSON 数据中的名字字段。 [#12156](https://github.com/apache/incubator-echarts/pull/12156)  ([alex2wong](https://github.com/alex2wong))
 
-+ [Fix] [sankey] 修复桑基图边无法触发 tooltip 的问题。 [#12011](https://github.com/apache/incubator-echarts/pull/12011) ([Su Siwen](https://github.com/susiwen8))
++ [Fix] [sankey] 修复桑基图边无法触发 tooltip 的问题。 [#12011](https://github.com/apache/incubator-echarts/pull/12011) ([susiwen8](https://github.com/susiwen8))
 
-+ [Fix] [sankey] 修复桑基图在边数据为 0 的时候节点无法显示的问题。 [#12191](https://github.com/apache/incubator-echarts/pull/12191) ([Su Siwen](https://github.com/susiwen8)), [#12472](https://github.com/apache/incubator-echarts/pull/12472) ([Su Shuang](https://github.com/100pah))
++ [Fix] [sankey] 修复桑基图在边数据为 0 的时候节点无法显示的问题。 [#12191](https://github.com/apache/incubator-echarts/pull/12191) ([susiwen8](https://github.com/susiwen8)), [#12472](https://github.com/apache/incubator-echarts/pull/12472) ([100pah](https://github.com/100pah))
 
-+ [Fix] [treemap] 修复矩形树图中回调函数参数不全的问题. [#11854](https://github.com/apache/incubator-echarts/pull/11854) ([Su Siwen](https://github.com/susiwen8), [Su Shuang](https://github.com/100pah))
++ [Fix] [treemap] 修复矩形树图中回调函数参数不全的问题. [#11854](https://github.com/apache/incubator-echarts/pull/11854) ([susiwen8](https://github.com/susiwen8), [100pah](https://github.com/100pah))
 
-+ [Fix] [calendar] 修复夏令制时区用户使用日历图的问题. [#12172](https://github.com/apache/incubator-echarts/pull/12172) ([mikeyshing88](https://github.com/mikeyshing88)), [#12466](https://github.com/apache/incubator-echarts/pull/12466) ([Su Shuang](https://github.com/100pah))
++ [Fix] [calendar] 修复夏令制时区用户使用日历图的问题. [#12172](https://github.com/apache/incubator-echarts/pull/12172) ([mikeyshing88](https://github.com/mikeyshing88)), [#12466](https://github.com/apache/incubator-echarts/pull/12466) ([100pah](https://github.com/100pah))
 
-+ [Fix] [line] 修复带有阴影和渐变的折线图在数据大范围变动时动画可能导致 safari 崩溃的问题。 [#12410](https://github.com/apache/incubator-echarts/pull/12410) ([Shen Yi](https://github.com/pissang))
++ [Fix] [line] 修复带有阴影和渐变的折线图在数据大范围变动时动画可能导致 safari 崩溃的问题。 [#12410](https://github.com/apache/incubator-echarts/pull/12410) ([pissang](https://github.com/pissang))
 
-+ [Fix] [line] 修复 chromium 中尺寸大于 18000px 的图表 clip 的问题. [#12393](https://github.com/apache/incubator-echarts/pull/12393) ([Zhan Fang](https://github.com/zhanfang))
++ [Fix] [line] 修复 chromium 中尺寸大于 18000px 的图表 clip 的问题. [#12393](https://github.com/apache/incubator-echarts/pull/12393) ([zhanfang](https://github.com/zhanfang))
 
-+ [Fix] [pie] 修复饼图中关闭动画后标签可能不显示的问题. [#12243](https://github.com/apache/incubator-echarts/issues/12243) ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] [pie] 修复饼图中关闭动画后标签可能不显示的问题. [#12243](https://github.com/apache/incubator-echarts/issues/12243) ([Ovilia](https://github.com/Ovilia))
 
-+ [Fix] [title] 修复链接使用`'_blank'`潜在的安全问题. [#12380](https://github.com/apache/incubator-echarts/issues/12380) ([Su Siwen](https://github.com/susiwen8))
++ [Fix] [title] 修复链接使用`'_blank'`潜在的安全问题. [#12380](https://github.com/apache/incubator-echarts/issues/12380) ([susiwen8](https://github.com/susiwen8))
 
-+ [Fix] [geo] 修复通过地图中通过`setOption`修改`center`， `zoom`属性没有动画过渡的问题. [#12340](https://github.com/apache/incubator-echarts/pull/12340) ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] [geo] 修复通过地图中通过`setOption`修改`center`， `zoom`属性没有动画过渡的问题. [#12340](https://github.com/apache/incubator-echarts/pull/12340) ([Ovilia](https://github.com/Ovilia))
 
 + [Fix] [heatmap] 优化热力图的显示，移除可能出现的 1 像素白线. [#12342](https://github.com/apache/incubator-echarts/pull/12342) ([SnailSword](https://github.com/SnailSword))
 
-+ [Fix] [sunburst] 修复旭日图中默认的淡出样式无效的问题. [#12264](https://github.com/apache/incubator-echarts/pull/12264) ([Shen Yi](https://github.com/pissang))
++ [Fix] [sunburst] 修复旭日图中默认的淡出样式无效的问题. [#12264](https://github.com/apache/incubator-echarts/pull/12264) ([pissang](https://github.com/pissang))
 
-+ [Fix] [visualMap] 开启的 `minOpen` 和 `maxOpen` 现在改为不被计入分段列表. [#12147](https://github.com/apache/incubator-echarts/pull/12147) ([Su Siwen](https://github.com/susiwen8))
++ [Fix] [visualMap] 开启的 `minOpen` 和 `maxOpen` 现在改为不被计入分段列表. [#12147](https://github.com/apache/incubator-echarts/pull/12147) ([susiwen8](https://github.com/susiwen8))
 
-+ [Fix] [bmap] [extension] 修复在百度地图扩展中使用渐进渲染中，可能无法清除图表的问题. ([Shen Yi](https://github.com/pissang))
++ [Fix] [bmap] [extension] 修复在百度地图扩展中使用渐进渲染中，可能无法清除图表的问题. ([pissang](https://github.com/pissang))
 
-+ [Fix] [bmap] [extension] 修复多余的刷新问题.[#12411](https://github.com/apache/incubator-echarts/pull/12411) ([Shen Yi](https://github.com/pissang))
++ [Fix] [bmap] [extension] 修复多余的刷新问题.[#12411](https://github.com/apache/incubator-echarts/pull/12411) ([pissang](https://github.com/pissang))
 
 ## v4.7.0
 <div class="time">2020-03-18</div>
 
-+ [Feature] markLine 新增更多标签位置配置. [#11843](https://github.com/apache/incubator-echarts/pull/11843) ([Zhang Wenli](https://github.com/Ovilia))
++ [Feature] markLine 新增更多标签位置配置. [#11843](https://github.com/apache/incubator-echarts/pull/11843) ([Ovilia](https://github.com/Ovilia))
 
-+ [Feature] 柱状图系列新增 `background` 配置绘制背景. [#11951](https://github.com/apache/incubator-echarts/pull/11951) ([Zhang Wenli](https://github.com/Ovilia))
++ [Feature] 柱状图系列新增 `background` 配置绘制背景. [#11951](https://github.com/apache/incubator-echarts/pull/11951) ([Ovilia](https://github.com/Ovilia))
 
-+ [Feature] tooltip 新增 `appendToBody` 配置项. [#8049](https://github.com/apache/incubator-echarts/pull/8049) [#12024](https://github.com/apache/incubator-echarts/pull/12024) ([xinpureZhu](https://github.com/xinpureZhu), [Su Shuang](https://github.com/100pah))
++ [Feature] tooltip 新增 `appendToBody` 配置项. [#8049](https://github.com/apache/incubator-echarts/pull/8049) [#12024](https://github.com/apache/incubator-echarts/pull/12024) ([xinpureZhu](https://github.com/xinpureZhu), [100pah](https://github.com/100pah))
 
-+ [Feature] graphic 组件支持在 group 元素上设置 draggable. [#11959](https://github.com/apache/incubator-echarts/pull/11959) ([Shen Yi](https://github.com/pissang))
++ [Feature] graphic 组件支持在 group 元素上设置 draggable. [#11959](https://github.com/apache/incubator-echarts/pull/11959) ([pissang](https://github.com/pissang))
 
-+ [Feature] tree 系列新增 `polyline` 配置项绘制拐角折线. [#11808](https://github.com/apache/incubator-echarts/pull/11808) ([Li Deqing](https://github.com/deqingli))
++ [Feature] tree 系列新增 `polyline` 配置项绘制拐角折线. [#11808](https://github.com/apache/incubator-echarts/pull/11808) ([deqingli](https://github.com/deqingli))
 
 + [Enhance] effectLine 尾迹效果优化. [#11893](https://github.com/apache/incubator-echarts/pull/11893) ([alex2wong](https://github.com/alex2wong))
 
 + [Fix] 优化堆叠柱状图，折线图上的 markPoint 定位. [#11965](https://github.com/apache/incubator-echarts/pull/11965) ([yikuangli](https://github.com/yikuangli))
 
-+ [Fix] 修复雷达图数据点可能会超出轴的问题. [#11841](https://github.com/apache/incubator-echarts/pull/11841) ([Su Siwen](https://github.com/susiwen8))
++ [Fix] 修复雷达图数据点可能会超出轴的问题. [#11841](https://github.com/apache/incubator-echarts/pull/11841) ([susiwen8](https://github.com/susiwen8))
 
-+ [Fix] 修复 treemap highlight 高亮无法触发的问题. [#12050](https://github.com/apache/incubator-echarts/pull/12050) ([Su Shuang](https://github.com/100pah))
++ [Fix] 修复 treemap highlight 高亮无法触发的问题. [#12050](https://github.com/apache/incubator-echarts/pull/12050) ([100pah](https://github.com/100pah))
 
-+ [Fix] 修复 geo 组件的缩放平移无法被 restore 的问题. [#12035](https://github.com/apache/incubator-echarts/pull/12035) ([Su Shuang](https://github.com/100pah))
++ [Fix] 修复 geo 组件的缩放平移无法被 restore 的问题. [#12035](https://github.com/apache/incubator-echarts/pull/12035) ([100pah](https://github.com/100pah))
 
-+ [Fix] 修复地图在 ie10, 11 中报错的问题  [#11956](https://github.com/apache/incubator-echarts/pull/11956) ([Shen Yi](https://github.com/pissang))
++ [Fix] 修复地图在 ie10, 11 中报错的问题  [#11956](https://github.com/apache/incubator-echarts/pull/11956) ([pissang](https://github.com/pissang))
 
-+ [Fix] 修复 k 线图可能报错的 bug. [#12027](https://github.com/apache/incubator-echarts/pull/12027) ([Su Shuang](https://github.com/100pah))
++ [Fix] 修复 k 线图可能报错的 bug. [#12027](https://github.com/apache/incubator-echarts/pull/12027) ([100pah](https://github.com/100pah))
 
-+ [Fix] 优化 brush 组件，能够跟随 dataZoom 等组件的交互. [#11998](https://github.com/apache/incubator-echarts/pull/11998) ([Su Shuang](https://github.com/100pah))
++ [Fix] 优化 brush 组件，能够跟随 dataZoom 等组件的交互. [#11998](https://github.com/apache/incubator-echarts/pull/11998) ([100pah](https://github.com/100pah))
 
-+ [Fix] 修复雷达图上 `'showTip'` dispatched in radar chart. [#11985](https://github.com/apache/incubator-echarts/pull/11985) ([Yu Feng](https://github.com/yufeng04))
++ [Fix] 修复雷达图上 `'showTip'` dispatched in radar chart. [#11985](https://github.com/apache/incubator-echarts/pull/11985) ([yufeng04](https://github.com/yufeng04))
 
 + [Fix] 修复 singleAxis 中 splitArea 不能绘制的问题. [#11890](https://github.com/apache/incubator-echarts/pull/11890) ([newraina](https://github.com/newraina))
 
-+ [Fix] 修复 legend 图例翻页按钮可能会消失的 bug. [#11952](https://github.com/apache/incubator-echarts/pull/11952) ([Yu Feng](https://github.com/yufeng04))
++ [Fix] 修复 legend 图例翻页按钮可能会消失的 bug. [#11952](https://github.com/apache/incubator-echarts/pull/11952) ([yufeng04](https://github.com/yufeng04))
 
-+ [Fix] 修复 sankey 桑基图中 `emphasis.lineStyle` 无法生效的 bug. [#11729](https://github.com/apache/incubator-echarts/pull/11729) ([Li Deqing](https://github.com/deqingli))
++ [Fix] 修复 sankey 桑基图中 `emphasis.lineStyle` 无法生效的 bug. [#11729](https://github.com/apache/incubator-echarts/pull/11729) ([deqingli](https://github.com/deqingli))
 
-+ [Fix] 修复 sankey 桑基图的 tooltip formatter 中没有 value 属性的 bug. [#11752](https://github.com/apache/incubator-echarts/pull/11752) ([Li Deqing](https://github.com/deqingli))
++ [Fix] 修复 sankey 桑基图的 tooltip formatter 中没有 value 属性的 bug. [#11752](https://github.com/apache/incubator-echarts/pull/11752) ([deqingli](https://github.com/deqingli))
 
 ## v4.6.0
 <div class="time">2019-12-29</div>
 
-+ [Feature] Optimize label layout on pie. Add new `alignTo` option for aligning the labels. Check more detail in PR [#11715](https://github.com/apache/incubator-echarts/pull/11715) ([Zhang Wenli](https://github.com/Ovilia))
++ [Feature] Optimize label layout on pie. Add new `alignTo` option for aligning the labels. Check more detail in PR [#11715](https://github.com/apache/incubator-echarts/pull/11715) ([Ovilia](https://github.com/Ovilia))
 
-+ [Feature] Add `minorTick`, `minorSplitLine` on axis. Check more detail in the PR [#11705](https://github.com/apache/incubator-echarts/pull/11705) ([Shen Yi](https://github.com/pissang))
++ [Feature] Add `minorTick`, `minorSplitLine` on axis. Check more detail in the PR [#11705](https://github.com/apache/incubator-echarts/pull/11705) ([pissang](https://github.com/pissang))
 
 + [Feature] Added more themes. [#11566](https://github.com/apache/incubator-echarts/pull/11566) ([WebCodePro719](https://github.com/WebCodePro719))
 
-+ [Enhance] Chart will keep the dragging status when mouse is out of the area. Which will provide a much better dragging experience. [#11710](https://github.com/apache/incubator-echarts/pull/11710) ([Su Shuang](https://github.com/100pah))
++ [Enhance] Chart will keep the dragging status when mouse is out of the area. Which will provide a much better dragging experience. [#11710](https://github.com/apache/incubator-echarts/pull/11710) ([100pah](https://github.com/100pah))
 
-+ [Enhance] Legend will display colors from `visualMap` component in `pie`/`funnel`/`radar` series. [#11737](https://github.com/apache/incubator-echarts/pull/11737) ([Shen Yi](https://github.com/pissang))
++ [Enhance] Legend will display colors from `visualMap` component in `pie`/`funnel`/`radar` series. [#11737](https://github.com/apache/incubator-echarts/pull/11737) ([pissang](https://github.com/pissang))
 
-+ [Enhance] Enhance dataset default encode guess strategy. [#11746](https://github.com/apache/incubator-echarts/pull/11746) ([Su Shuang](https://github.com/100pah))
++ [Enhance] Enhance dataset default encode guess strategy. [#11746](https://github.com/apache/incubator-echarts/pull/11746) ([100pah](https://github.com/100pah))
 
 + [Enhance] Stack icon on toolbox now is a toggle button. Removed tiled icon. [#11367](https://github.com/apache/incubator-echarts/pull/11367) ([alex2wong](https://github.com/alex2wong))
 
-+ [Enhance] Add a delay to avoid flashing when hovering on nodes and edges of `graph` and `sankey` series. [11572](https://github.com/apache/incubator-echarts/pull/11572) ([Li Deqing](https://github.com/apache/incubator-echarts/pull/11457))
++ [Enhance] Add a delay to avoid flashing when hovering on nodes and edges of `graph` and `sankey` series. [11572](https://github.com/apache/incubator-echarts/pull/11572) ([deqingli](https://github.com/apache/incubator-echarts/pull/11457))
 
-+ [Fix] Fix bar width calculation with `barMaxWidth` constraint and negative `barGap`. [#11713](https://github.com/apache/incubator-echarts/pull/11713) ([Shen Yi](https://github.com/pissang))
++ [Fix] Fix bar width calculation with `barMaxWidth` constraint and negative `barGap`. [#11713](https://github.com/apache/incubator-echarts/pull/11713) ([pissang](https://github.com/pissang))
 
-+ [Fix] Fix seams in `heatmap` series. Which may cause unexpected gray lines. [#11689](https://github.com/apache/incubator-echarts/pull/11689) ([Shen Yi](https://github.com/pissang))
++ [Fix] Fix seams in `heatmap` series. Which may cause unexpected gray lines. [#11689](https://github.com/apache/incubator-echarts/pull/11689) ([pissang](https://github.com/pissang))
 
 + [Fix] Fix unexpected highlight state after inverse selection in `legend`. [#11547](https://github.com/apache/incubator-echarts/pull/11547) ([SnailSword](https://github.com/SnailSword))
 
 + [Fix] Fix tooltip may highlight the point out of chart in `line` series. [#11548](https://github.com/apache/incubator-echarts/pull/11548) ([SnailSword](https://github.com/SnailSword))
 
-+ [Fix] Fix label may not disappear on SVG renderer. [ecomfe/zrender#535](https://github.com/ecomfe/zrender/pull/535) ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] Fix label may not disappear on SVG renderer. [ecomfe/zrender#535](https://github.com/ecomfe/zrender/pull/535) ([Ovilia](https://github.com/Ovilia))
 
 + [Fix] Not display bar on polar when value is `0`. [#11452](https://github.com/apache/incubator-echarts/issues/11452) ([foolzhang](https://github.com/foolzhang))
 
@@ -115,9 +361,9 @@
 
 + [Fix] Fix `markPoint` out of the chart may still display in the wrong position. [#11484](https://github.com/apache/incubator-echarts/pull/11484) ([susiwen8](https://github.com/susiwen8))
 
-+ [Fix] Fix tooltip shows multiple values around both sides of the pointer. [#11648](https://github.com/apache/incubator-echarts/pull/11648) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix tooltip shows multiple values around both sides of the pointer. [#11648](https://github.com/apache/incubator-echarts/pull/11648) ([100pah](https://github.com/100pah))
 
-+ [Fix] Fix `label.formatter` of leaves in `tree` series not work. [#11556](https://github.com/apache/incubator-echarts/pull/11556) ([Li Deqing](https://github.com/apache/incubator-echarts/pull/11457))
++ [Fix] Fix `label.formatter` of leaves in `tree` series not work. [#11556](https://github.com/apache/incubator-echarts/pull/11556) ([deqingli](https://github.com/apache/incubator-echarts/pull/11457))
 
 + [Fix] Fix overflow symbol not display when `clip` is set `false` in `line` series. [#11552](https://github.com/apache/incubator-echarts/pull/11552) ([SnailSword](https://github.com/SnailSword))
 
@@ -125,48 +371,48 @@
 ## v4.5.0
 <div class="time">2019-11-18</div>
 
-+ [Feature] Add `roundCap` option for round corners on `bar` series width `polar` coordinate system. [#11393](https://github.com/apache/incubator-echarts/pull/11393) ([Zhang Wenli](https://github.com/Ovilia))
++ [Feature] Add `roundCap` option for round corners on `bar` series width `polar` coordinate system. [#11393](https://github.com/apache/incubator-echarts/pull/11393) ([Ovilia](https://github.com/Ovilia))
 
-+ [Feature] Add event `brushEnd` for `brush` component [#11285](https://github.com/apache/incubator-echarts/pull/11285)([Cui Jian](https://github.com/cuijian-dexter))
++ [Feature] Add event `brushEnd` for `brush` component [#11285](https://github.com/apache/incubator-echarts/pull/11285)([cuijian-dexter](https://github.com/cuijian-dexter))
 
-+ [Feature] Add `friction` option in force layout of `graph`. [#11276](https://github.com/apache/incubator-echarts/pull/11276) ([Shen Yi](https://github.com/pissang))
++ [Feature] Add `friction` option in force layout of `graph`. [#11276](https://github.com/apache/incubator-echarts/pull/11276) ([pissang](https://github.com/pissang))
 
 + [Feature] Add `ignoreForceLayout` option in the `graph` links. [#11445](https://github.com/apache/incubator-echarts/pull/11445) ([TYzzt](https://github.com/TYzzt))
 
 + [Feature] Add `axisType` in the indicator of `radar` series. [#11324](https://github.com/apache/incubator-echarts/pull/11324)([zifix](https://github.com/zifix))
 
 
-+ [Feature] Add `clip` option in `candllestick` series. [#11529](https://github.com/apache/incubator-echarts/pull/11529) ([Shen Yi](https://github.com/pissang))
++ [Feature] Add `clip` option in `candllestick` series. [#11529](https://github.com/apache/incubator-echarts/pull/11529) ([pissang](https://github.com/pissang))
 
-+ [Fix] Fix lots of label positioning issues in SVG renderer. [ecomfe/zrender#519](https://github.com/ecomfe/zrender/pull/519) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix lots of label positioning issues in SVG renderer. [ecomfe/zrender#519](https://github.com/ecomfe/zrender/pull/519) ([100pah](https://github.com/100pah))
 
 + [Fix] Fix interval issues related to category axis tick. Like `areaStyle.color` is incorrect in [#10948](https://github.com/apache/incubator-echarts/issues/10948), `xAxis.axisTick.interval` is calculated incorrectly in [#11176](https://github.com/apache/incubator-echarts/pull/11176) . [#11186](https://github.com/apache/incubator-echarts/pull/11186) ([foolzhang](https://github.com/foolzhang))
 
 + [Fix] Fix `bar` series can't display on the `log` axis. [#11472](https://github.com/apache/incubator-echarts/pull/11472)([SnailSword](https://github.com/SnailSword))
 
-+ [Fix] Fix tooltip may be covered by the canvas when `-webkit-overflow-scrolling: touch` on iOS 13. [ecomfe/zrender#522](https://github.com/ecomfe/zrender/pull/522) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix tooltip may be covered by the canvas when `-webkit-overflow-scrolling: touch` on iOS 13. [ecomfe/zrender#522](https://github.com/ecomfe/zrender/pull/522) ([100pah](https://github.com/100pah))
 
-+ [Fix] Fix some of labels on category axis may disappear forever after chart resized. [#11536](https://github.com/apache/incubator-echarts/pull/11536) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix some of labels on category axis may disappear forever after chart resized. [#11536](https://github.com/apache/incubator-echarts/pull/11536) ([100pah](https://github.com/100pah))
 
-+ [Fix] Fix brush drag gets stuck when the mouse leaves the chart area. [#11516](https://github.com/apache/incubator-echarts/pull/11516) ([Su Shuang](https://github.com/100pah))
++ [Fix] Fix brush drag gets stuck when the mouse leaves the chart area. [#11516](https://github.com/apache/incubator-echarts/pull/11516) ([100pah](https://github.com/100pah))
 
-+ [Fix] Fix image symbol may disappear forever after legend toggled. [#11515](https://github.com/apache/incubator-echarts/pull/11515) ([Yu Feng](https://github.com/yufeng04))
++ [Fix] Fix image symbol may disappear forever after legend toggled. [#11515](https://github.com/apache/incubator-echarts/pull/11515) ([yufeng04](https://github.com/yufeng04))
 
-+ [Fix] Fix changing from `'scroll'` type to `'plain'` type not work bug in legend. [#11504](https://github.com/apache/incubator-echarts/pull/11504) ([Yu Feng](https://github.com/yufeng04))
++ [Fix] Fix changing from `'scroll'` type to `'plain'` type not work bug in legend. [#11504](https://github.com/apache/incubator-echarts/pull/11504) ([yufeng04](https://github.com/yufeng04))
 
-+ [Fix] Optimize layout and bar width of `bar` series on `time` axis and `value` axis. Make the `barMaxWidth` has higher priority than `barWidth`. Add `barMinWidth` for `bar` series on `time` axis and `value` axis. [#11479](https://github.com/apache/incubator-echarts/pull/11479) ([Zhang Wenli](https://github.com/Ovilia), [Su Shuang](https://github.com/100pah))
++ [Fix] Optimize layout and bar width of `bar` series on `time` axis and `value` axis. Make the `barMaxWidth` has higher priority than `barWidth`. Add `barMinWidth` for `bar` series on `time` axis and `value` axis. [#11479](https://github.com/apache/incubator-echarts/pull/11479) ([Ovilia](https://github.com/Ovilia), [100pah](https://github.com/100pah))
 
-+ [Fix] Fix title of toolbox icon may be cut by the container. [#11456](https://github.com/apache/incubator-echarts/pull/11456) ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] Fix title of toolbox icon may be cut by the container. [#11456](https://github.com/apache/incubator-echarts/pull/11456) ([Ovilia](https://github.com/Ovilia))
 
-+ [Fix] Fix precision issue in the ticks calculating. [#11488](https://github.com/apache/incubator-echarts/pull/11488) ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] Fix precision issue in the ticks calculating. [#11488](https://github.com/apache/incubator-echarts/pull/11488) ([Ovilia](https://github.com/Ovilia))
 
-+ [Fix] Fix `rotate` property of label not work in `tree` series. [#11457](https://github.com/apache/incubator-echarts/pull/11457) ([Li Deqing](https://github.com/apache/incubator-echarts/pull/11457))
++ [Fix] Fix `rotate` property of label not work in `tree` series. [#11457](https://github.com/apache/incubator-echarts/pull/11457) ([deqingli](https://github.com/apache/incubator-echarts/pull/11457))
 
-+ [Fix] Fix edge won't disappear after collapsed if the `id` is duplicated in `tree` series. [#11447](https://github.com/apache/incubator-echarts/pull/11447) ([Li Deqing](https://github.com/apache/incubator-echarts/pull/11457))
++ [Fix] Fix edge won't disappear after collapsed if the `id` is duplicated in `tree` series. [#11447](https://github.com/apache/incubator-echarts/pull/11447) ([deqingli](https://github.com/apache/incubator-echarts/pull/11457))
 
-+ [Fix] Fix data disappear when updating with `dataset` in `gauge` series. [#11373](https://github.com/apache/incubator-echarts/pull/11373) ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] Fix data disappear when updating with `dataset` in `gauge` series. [#11373](https://github.com/apache/incubator-echarts/pull/11373) ([Ovilia](https://github.com/Ovilia))
 
-+ [Fix] Fix gradient on bar leaked to label in SVG Renderer. ([Zhang Wenli](https://github.com/Ovilia))
++ [Fix] Fix gradient on bar leaked to label in SVG Renderer. ([Ovilia](https://github.com/Ovilia))
 
 
 ## v4.4.0
